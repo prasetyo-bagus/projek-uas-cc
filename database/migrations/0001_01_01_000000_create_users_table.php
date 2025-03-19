@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('role')->default(2); // 1-superadmin | 2-admin
+            // $table->integer('role')->default(2); // 1-superadmin | 2-admin
+            $table->enum('role', ['SUPER_ADMIN', 'ADMIN'])->default('ADMIN');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('status', ['AKTIF','TIDAK_AKTIF'])->default('AKTIF');
             $table->rememberToken();
             $table->timestamps();
         });

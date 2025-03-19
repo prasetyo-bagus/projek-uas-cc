@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'SUPER ADMIN',
                 'email' => 'superadmin@example.com',
-                'role' => 1,
+                'role' => 'SUPER_ADMIN',
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('password123'),
                 'remember_token' => Str::random(10),
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'ADMIN',
                 'email' => 'admin@example.com',
-                'role' => 2,
+                'role' => 'ADMIN',
                 'email_verified_at' => Carbon::now(),
                 'password' => Hash::make('password123'),
                 'remember_token' => Str::random(10),
