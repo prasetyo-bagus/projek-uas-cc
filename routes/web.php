@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TrixController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\CKEditorController;
 
 /**
  * Route untuk halaman utama (Landing Page).
@@ -22,6 +26,8 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified', 'admin'])
     ->name('dashboard');
 
+    
+
 /**
  * Route untuk halaman dashboard SUPERADMIN.
  * 
@@ -32,7 +38,7 @@ Route::view('dashboard', 'dashboard')
  *    Route ini memiliki nama `superadmin` yang dapat digunakan dalam fungsi `route('superadmin')`.
  */
 Route::view('superadmin', 'superadmin')
-    ->middleware(['auth', 'verified', 'superadmin'])
+    ->middleware(['auth', 'superadmin'])
     ->name('superadmin');
 
 /**
@@ -51,3 +57,16 @@ Route::view('profile', 'profile')
  * Digunakan untuk menangani proses login, register, logout, dan fitur autentikasi lainnya.
  */
 require __DIR__.'/auth.php';
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('/blogs', BlogController::class)->except(['index']);
+});
+
+Route::resource('/blogs', BlogController::class)->only(['index']);
+Route::get('/blogs/{url}', [BlogController::class, 'show'])->name('blog.show');
+
+Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store')->middleware('auth');
+
+
+
+Route::post('/trix/upload', [TrixController::class, 'upload'])->name('trix.upload');

@@ -23,12 +23,12 @@ class SuperAdmin
 
         $userRole=Auth::user()->role;
 
-        if($userRole==1){
+        if($userRole=='SUPER_ADMIN'){
             return $next($request);
         }
 
-        // if($userRole==2){
-        //     return redirect()->route('login');
+        // if($userRole=='ADMIN'){
+        //     return redirect()->route('dashboard');
         // }
 
         return abort(403, 'Unauthorized');

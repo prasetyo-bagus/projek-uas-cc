@@ -23,11 +23,11 @@ $login = function () {
         case 1:
             $this->redirectIntended(default: route('superadmin', absolute: false), navigate: true);
             break;
-        case 2:
-            $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
-            break;
+        // case 2:
+        //     $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        //     break;
         default:
-            return redirect('/');
+            return redirect('dashboard');
     }
 
 };
