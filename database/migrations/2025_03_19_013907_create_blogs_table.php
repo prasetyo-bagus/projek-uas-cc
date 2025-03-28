@@ -20,7 +20,8 @@ return new class extends Migration
             $table->longText('body');
             $table->string('url')->unique();
             $table->string('picture');
-            $table->enum('status',['PUBLISH', 'DRAF'])->default('PUBLISH');
+            $table->enum('status',['PUBLISH', 'DRAF']);
+            $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
     }

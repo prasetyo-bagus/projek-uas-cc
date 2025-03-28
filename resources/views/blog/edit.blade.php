@@ -74,12 +74,19 @@
                 </trix-editor>
             </div>
 
+            <div class="flex items-center">
+                <input type="checkbox" name="is_featured" id="is_featured" value="1"
+                    class="w-6 h-6 text-blue-500 rounded border-gray-300 focus:ring-blue-500" {{ old('is_featured', $blog->is_featured ?? false) ? 'checked' : '' }}>
+                <label for="is_featured" class="ml-2 text-gray-700 text-lg font-medium">Tandai sebagai Berita
+                    Unggulan</label>
+            </div>
+
             <div>
                 <label class="block text-gray-700">Status:</label>
                 <select name="status"
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="PUBLISH" {{ $blog->status == 'PUBLISH' ? 'selected' : '' }}>Publish</option>
-                    <option value="DRAFT" {{ $blog->status == 'DRAFT' ? 'selected' : '' }}>Draft</option>
+                    <option value="DRAF" {{ $blog->status == 'DRAF' ? 'selected' : '' }}>Draft</option>
                 </select>
             </div>
 

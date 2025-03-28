@@ -62,12 +62,18 @@
                 </trix-editor>
             </div>
 
+            <div class="flex items-center space-x-3 mt-4">
+                <input type="checkbox" name="is_featured" value="1" id="is_featured"
+                    class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                <label for="is_featured" class="text-gray-700 font-medium">Tandai sebagai Berita Unggulan</label>
+            </div>
+
             <div>
                 <label class="block text-gray-700">Status:</label>
                 <select name="status"
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="PUBLISH">Publish</option>
-                    <option value="DRAFT">Draft</option>
+                    <option value="PUBLISH" required>Publish</option>
+                    <option value="DRAF">Draft</option>
                 </select>
             </div>
 

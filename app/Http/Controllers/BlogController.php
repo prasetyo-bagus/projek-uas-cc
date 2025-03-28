@@ -14,12 +14,24 @@ class BlogController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        // get all blog
-        $blogs = Blog::paginate(2);
-        // render view with blog
-        return view('blog.index', compact('blogs'));
-    }
+{
+    // Filter berdasarkan status: Jika login, ambil semua status. Jika tidak, hanya PUBLISH.
+    $statusFilter = Auth::check() ? ['PUBLISH', 'DRAF'] : ['PUBLISH'];
+
+    // Blog unggulan tidak perlu paginasi
+    $blogUnggulan = Blog::where('is_featured', true)
+        ->whereIn('status', $statusFilter)
+        ->latest()
+        ->get();
+
+    // Blog reguler dipaginasi
+    $blogReguler = Blog::where('is_featured', false)
+        ->whereIn('status', $statusFilter)
+        ->latest()
+        ->paginate(6);
+
+    return view('blog.index', compact('blogUnggulan', 'blogReguler'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -33,14 +45,14 @@ class BlogController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
+{   
     $request->validate([
         'title'         => 'required|string|max:255',
         'url'           => 'nullable|string|max:255|unique:blogs,url',
-        'category'      => 'required|in:BERITA,ACARA,PROMO,KULINER,DESTINASI,PANDUAN_WISATA,FASILITAS',
+        'category'      => 'required|in:BERITA,ACARA,DESTINASI,PANDUAN_WISATA,KULINER,PROMO,FASILITAS',
         'body'          => 'required',
         'picture'       => 'required|image|mimes:jpeg,jpg,png|max:10048',
-        'status'        => 'required|in:PUBLISH,DRAFT',
+        'status'        => 'required|in:PUBLISH,DRAF',
     ]);
 
     // Buat slug dari url jika diisi, jika tidak, buat dari title
@@ -60,13 +72,14 @@ class BlogController extends Controller
     $pictureName = basename($picturePath);
 
     // Simpan ke database
-    Blog::create([
+   $blog=Blog::create([
         'user_id'   => Auth::id(),
         'title'     => $request->title,
         'category'  => $request->category,
         'body'      => $request->body,
         'url'       => $slug,
         'picture'   => $pictureName,
+        'is_featured' => $request->has('is_featured'),
         'status'    => $request->status,
     ]);
 
@@ -100,7 +113,7 @@ class BlogController extends Controller
             'url'           => 'required|string|max:255|unique:blogs,url,' . $blog->id,
             'category'      => 'required',
             'body'          => 'required',
-            'status'        => 'required|in:PUBLISH,DRAFT',
+            'status'        => 'required|in:PUBLISH,DRAF',
             'picture'       => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -117,12 +130,13 @@ class BlogController extends Controller
             'title'   => $request->title,
             'body'    => $request->body,
             'url'     => $slug,
+            'category'      => $request->category,
+            'is_featured' => $request->has('is_featured'),
             'status'  => $request->status,
         ];
 
         // Cek apakah ada file gambar baru
         if ($request->hasFile('picture')) {
-            // dd(Storage::disk('public')->exists('blogs/' . $blog->picture));
             // Hapus gambar lama jika ada
             if ($blog->picture && Storage::disk('public')->exists('blogs/' . $blog->picture)) {
                 Storage::disk('public')->delete('blogs/' . $blog->picture);
@@ -137,9 +151,9 @@ class BlogController extends Controller
         return redirect()->route('blogs.index')->with(['success' => 'Data Berhasil Diperbarui!']);
     }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Blog $blog)
     {
     if ($blog->picture) {
