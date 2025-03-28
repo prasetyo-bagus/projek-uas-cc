@@ -59,14 +59,12 @@ Route::view('profile', 'profile')
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('/blogs', BlogController::class)->except(['index']);
+    Route::resource('/blogs', BlogController::class)->except(['index', 'show']);
 });
 
 Route::resource('/blogs', BlogController::class)->only(['index']);
 Route::get('/blogs/{url}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store')->middleware('auth');
-
-
 
 Route::post('/trix/upload', [TrixController::class, 'upload'])->name('trix.upload');
