@@ -8,14 +8,14 @@ use App\Http\Controllers\CKEditorController;
 
 /**
  * Route untuk halaman utama (Landing Page).
- * 
+ *
  * Menggunakan metode `Route::view()` untuk langsung merender tampilan `homepage.blade.php`.
  */
-Route::view('/', 'homepage');
+Route::get('/', [BlogController::class, 'homepage'])->name('homepage');
 
 /**
  * Route untuk halaman dashboard ADMIN.
- * 
+ *
  * Hanya dapat diakses oleh pengguna dengan middleware:
  *   `auth`: Memastikan pengguna sudah login.
  *   `verified`: Memastikan email pengguna sudah diverifikasi.
@@ -26,11 +26,11 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified', 'admin'])
     ->name('dashboard');
 
-    
+
 
 /**
  * Route untuk halaman dashboard SUPERADMIN.
- * 
+ *
  * Hanya dapat diakses oleh pengguna dengan middleware:
  *   `auth`: Memastikan pengguna sudah login.
  *   `verified`: Memastikan email pengguna sudah diverifikasi.
@@ -43,7 +43,7 @@ Route::view('superadmin', 'superadmin')
 
 /**
  * Route untuk halaman profil pengguna.
- * 
+ *
  * Hanya dapat diakses oleh pengguna yang sudah login (`auth` middleware).
  * Route ini memiliki nama `profile` yang dapat digunakan dalam fungsi `route('profile')`.
  */
@@ -53,18 +53,112 @@ Route::view('profile', 'profile')
 
 /**
  * Menyertakan file `auth.php` yang berisi rute autentikasi.
- * 
+ *
  * Digunakan untuk menangani proses login, register, logout, dan fitur autentikasi lainnya.
  */
-require __DIR__.'/auth.php';
-
+/**
+ * Rute untuk manajemen Blog
+ */
 Route::middleware(['auth'])->group(function () {
     Route::resource('/blogs', BlogController::class)->except(['index', 'show']);
 });
 
-Route::resource('/blogs', BlogController::class)->only(['index']);
-Route::get('/blogs/{url}', [BlogController::class, 'show'])->name('blog.show');
+/**
+ * Route untuk menampilkan daftar blog (tanpa autentikasi)
+ */
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 
+/**
+ * Route untuk menampilkan detail blog
+ */
+Route::get('/blogs/{url}', [BlogController::class, 'show'])->name('blogs.show');
+Route::get('/blog/{url}', [BlogController::class, 'show'])->name('blog.show');
+
+/**
+ * Route untuk menyimpan blog (hanya bisa diakses jika login)
+ */
 Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store')->middleware('auth');
 
+/**
+ * Route untuk upload gambar di Trix Editor
+ */
 Route::post('/trix/upload', [TrixController::class, 'upload'])->name('trix.upload');
+
+/**
+ * Menyertakan file auth.php yang berisi route autentikasi
+ */
+require __DIR__ . '/auth.php';
+
+
+
+
+
+
+
+
+
+
+
+
+// /**
+//  * Route untuk halaman utama (Landing Page).
+//  *
+//  * Menggunakan metode `Route::view()` untuk langsung merender tampilan `homepage.blade.php`.
+//  */
+// Route::view('/', 'homepage');
+
+// /**
+//  * Route untuk halaman dashboard ADMIN.
+//  *
+//  * Hanya dapat diakses oleh pengguna dengan middleware:
+//  *   `auth`: Memastikan pengguna sudah login.
+//  *   `verified`: Memastikan email pengguna sudah diverifikasi.
+//  *   `admin`: Memastikan pengguna memiliki peran sebagai admin.
+//  *    Route ini memiliki nama `dashboard` yang dapat digunakan dalam fungsi `route('dashboard')`.
+//  */
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified', 'admin'])
+//     ->name('dashboard');
+
+
+
+// /**
+//  * Route untuk halaman dashboard SUPERADMIN.
+//  *
+//  * Hanya dapat diakses oleh pengguna dengan middleware:
+//  *   `auth`: Memastikan pengguna sudah login.
+//  *   `verified`: Memastikan email pengguna sudah diverifikasi.
+//  *   `superadmin`: Memastikan pengguna memiliki peran sebagai superadmin.
+//  *    Route ini memiliki nama `superadmin` yang dapat digunakan dalam fungsi `route('superadmin')`.
+//  */
+// Route::view('superadmin', 'superadmin')
+//     ->middleware(['auth', 'superadmin'])
+//     ->name('superadmin');
+
+// /**
+//  * Route untuk halaman profil pengguna.
+//  *
+//  * Hanya dapat diakses oleh pengguna yang sudah login (`auth` middleware).
+//  * Route ini memiliki nama `profile` yang dapat digunakan dalam fungsi `route('profile')`.
+//  */
+// Route::view('profile', 'profile')
+//     ->middleware(['auth'])
+//     ->name('profile');
+
+// /**
+//  * Menyertakan file `auth.php` yang berisi rute autentikasi.
+//  *
+//  * Digunakan untuk menangani proses login, register, logout, dan fitur autentikasi lainnya.
+//  */
+// require __DIR__ . '/auth.php';
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::resource('/blogs', BlogController::class)->except(['index', 'show']);
+// });
+
+// Route::resource('/blogs', BlogController::class)->only(['index']);
+// Route::get('/blogs/{url}', [BlogController::class, 'show'])->name('blog.show');
+
+// Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store')->middleware('auth');
+
+// Route::post('/trix/upload', [TrixController::class, 'upload'])->name('trix.upload');
