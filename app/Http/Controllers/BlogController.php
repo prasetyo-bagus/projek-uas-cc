@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Auth;
 class BlogController extends Controller
 {
 
-    public function homepage()
-    {
-        $blog = Blog::where('status', 'PUBLISH')->latest()->take(6)->get();
-        return view('homepage', compact('blog'));
-    }
+    // public function homepage()
+    // {
+    //     $blog = Blog::where('status', 'PUBLISH')->latest()->take(6)->get();
+    //     return view('homepage', compact('blog'));
+    // }
 
 
     public function index()
