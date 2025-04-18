@@ -2,16 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TrixController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\CKEditorController;
+use App\Http\Controllers\DynamicAssetController;
 
 /**
  * Route untuk halaman utama (Landing Page).
  *
  * Menggunakan metode `Route::view()` untuk langsung merender tampilan `homepage.blade.php`.
  */
-Route::get('/', [BlogController::class, 'homepage'])->name('homepage');
+// Route::get('/', [BlogController::class, 'homepage'])->name('homepage');
+// Route::get('/', [LandingController::class, 'index'])->name('homepage');
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 /**
  * Route untuk halaman dashboard ADMIN.
@@ -61,6 +66,8 @@ Route::view('profile', 'profile')
  */
 Route::middleware(['auth'])->group(function () {
     Route::resource('/blogs', BlogController::class)->except(['index', 'show']);
+    Route::resource('/dynamic-assets', DynamicAssetController::class);
+    // Route::get('/dynamic-assets/create/{type}', [DynamicAssetController::class, 'create'])->name('dynamic-assets.create');
 });
 
 /**

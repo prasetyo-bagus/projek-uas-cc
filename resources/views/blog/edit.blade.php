@@ -59,7 +59,7 @@
 
                 @if ($blog->picture)
                     <div class="mt-2 text-center">
-                        <img src="{{ asset('storage/blogs/' . $blog->picture) }}" alt="Gambar Blog"
+                        <img src="{{ asset('storage/' . $blog->picture) }}" alt="Gambar Blog" width="300"
                             class="w-40 rounded-lg mx-auto">
                         <p>Gambar Lama</p>
                     </div>

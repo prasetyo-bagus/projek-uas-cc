@@ -3,11 +3,33 @@
 <body class="bg-gray-50">
     @section('content')
         <!-- Hero Section -->
-        <section class="hero-section flex items-center justify-center">
+        {{-- <section class="hero-section flex items-center justify-center">
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">Nusantara Edupark</h1>
                 <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-md">Wisata Edukasi Pertanian, Peternakan, dan
                     Perkebunan</p>
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <a href="#"
+                        class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
+                        Jelajahi Sekarang
+                    </a>
+                    <a href="#"
+                        class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
+                        Lihat Paket Wisata
+                    </a>
+                </div>
+            </div>
+        </section> --}}
+
+        <section class="hero-section flex items-center justify-center bg-cover bg-center"
+            style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ asset('storage/' . $banner->image) }}'); height: 80vh;">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                    {{ $banner->title ?? 'Nusantara Edupark' }}
+                </h1>
+                <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-md">
+                    {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
+                </p>
                 <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
                     <a href="#"
                         class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
@@ -259,6 +281,69 @@
                 </div>
                 <div class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                     <i class="fas fa-search-plus text-purple-600"></i>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="relative overflow-hidden rounded-lg group">
+                        <img src="https://images.unsplash.com/photo-1487874744939-d2c0a128fea1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
+                            alt="Gallery 1">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                            <span class="text-white font-medium"><i class="fas fa-tractor mr-2"></i> Area Pertanian</span>
+                        </div>
+                        <div
+                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-search-plus text-purple-600"></i>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-lg group">
+                        <img src="https://images.unsplash.com/photo-1500268732869-c341057e081f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
+                            alt="Gallery 2">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                            <span class="text-white font-medium"><i class="fas fa-leaf mr-2"></i> Kebun Edukasi</span>
+                        </div>
+                        <div
+                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-search-plus text-blue-600"></i>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-lg group">
+                        <img src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
+                            alt="Gallery 3">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-green-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                            <span class="text-white font-medium"><i class="fas fa-horse mr-2"></i> Area Peternakan</span>
+                        </div>
+                        <div
+                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-search-plus text-green-600"></i>
+                        </div>
+                    </div>
+
+                    <div class="relative overflow-hidden rounded-lg group">
+                        <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
+                            alt="Gallery 4">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-orange-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                            <span class="text-white font-medium"><i class="fas fa-seedling mr-2"></i> Kebun Buah</span>
+                        </div>
+                        <div
+                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-search-plus text-orange-600"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <a href="#"
+                        class="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
+                        <i class="fas fa-images mr-2"></i> Lihat Semua Foto
+                    </a>
                 </div>
             </div>
 
@@ -417,34 +502,62 @@
                     </a>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {{-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach ($blog as $blog)
-                        <div
-                            class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
+                        <div class="relative overflow-hidden">
+                            <img src="{{ asset('storage/' . $blog->picture) }}"
+                                class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                                alt="{{ $blog->title }}">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-xs font-semibold text-purple-900 mb-2">
+                                {{ $blog->created_at->format('d M Y') }}</div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                {{ $blog->title }}</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ Str::limit($blog->content, 120) }}
+                            </p>
+                            <a href="{{ route('blogs.show', $blog->url) }}"
+                                class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
+                                Baca Selengkapnya
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    @endforeach
+                </div> --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach ($blogs as $blogItem)
+                        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
                             <div class="relative overflow-hidden">
-                                <img src="{{ asset('storage/' . $blog->picture) }}"
+                                <img src="{{ asset('storage/' . $blogItem->picture) }}"
                                     class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
-                                    alt="{{ $blog->title }}">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                </div>
+                                    alt="{{ $blogItem->title }}">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
                             <div class="p-6">
                                 <div class="text-xs font-semibold text-purple-900 mb-2">
-                                    {{ $blog->created_at->format('d M Y') }}</div>
-                                <h3
-                                    class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
-                                    {{ $blog->title }}</h3>
-                                <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ Str::limit($blog->content, 120) }}
-                                </p>
-                                <a href="{{ route('blogs.show', $blog->url) }}"
+                                    {{ $blogItem->created_at->format('d M Y') }}</div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                    {{ $blogItem->title }}
+                                </h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ Str::limit($blogItem->content, 120) }}</p>
+                                <a href="{{ route('blogs.show', $blogItem->url) }}"
                                     class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
                                     Baca Selengkapnya
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 5l7 7-7 7" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                     </svg>
                                 </a>
                             </div>
