@@ -22,68 +22,55 @@
         </section>
 
 
-        <!-- Features Section with Playful Elements -->
         <section class="py-16 bg-white relative overflow-hidden">
             <!-- Background Decorative Elements -->
-            <div
-                class="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full opacity-30 transform -translate-y-1/2 translate-x-1/2">
-            </div>
-            <div
-                class="absolute bottom-0 left-0 w-48 h-48 bg-green-200 rounded-full opacity-30 transform translate-y-1/2 -translate-x-1/2">
-            </div>
+            <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-300 rounded-full opacity-50 transform -translate-y-1/2 translate-x-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-green-300 rounded-full opacity-50 transform translate-y-1/2 -translate-x-1/2"></div>
+            <div class="absolute top-1/3 left-1/4 w-16 h-16 bg-pink-300 rounded-full opacity-40"></div>
+            <div class="absolute bottom-1/3 right-1/4 w-24 h-24 bg-blue-300 rounded-full opacity-40"></div>
 
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
-                        <span class="relative z-10">Pengalaman Wisata Edukatif</span>
-                        <svg class="absolute -bottom-2 left-0 w-full h-3 text-green-200 z-0" viewBox="0 0 200 8">
-                            <path d="M0 4C40 0 60 8 100 4C140 0 160 8 200 4" fill="none" stroke="currentColor"
-                                stroke-width="4" stroke-linecap="round"></path>
+                    <h2 class="text-3xl font-bold text-pink-600 relative inline-block">
+                        <span class="relative z-10">Petualangan Belajar yang Seru</span>
+                        <svg class="absolute -bottom-2 left-0 w-full h-3 text-yellow-300 z-0" viewBox="0 0 200 8">
+                            <path d="M0 4C40 0 60 8 100 4C140 0 160 8 200 4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
                         </svg>
                     </h2>
-                    <p class="text-gray-600 mt-4">Nikmati beragam aktivitas menarik dan bermanfaat</p>
+                    <p class="text-purple-600 mt-4 font-semibold">Nikmati beragam aktivitas menarik dan bermanfaat</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group">
-                        <div
-                            class="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
-                            <i class="fas fa-seedling text-green-600 text-3xl group-hover:animate-bounce-slow"></i>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group border-2 border-green-300">
+                        <div class="bg-green-200 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all border-4 border-green-300">
+                            <i class="fas fa-seedling text-green-600 text-4xl group-hover:animate-bounce-slow"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Edukasi Pertanian</h3>
-                        <p class="text-gray-600">Pelajari teknik bertani modern dan tradisional dengan pengalaman langsung
-                            di lahan pertanian kami.</p>
+                        <h3 class="text-2xl font-bold text-green-700 mb-2">Petualangan Bertani</h3>
+                        <p class="text-green-600 font-medium">Tanam bibit, siram tanaman, dan panen hasil kebun! Jadi petani cilik yang hebat bersama teman-teman!</p>
                         <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-arrow-circle-right text-green-500"></i>
+                            <i class="fas fa-arrow-circle-right text-green-500 text-2xl"></i>
                         </div>
                     </div>
 
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group">
-                        <div
-                            class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
-                            <i class="fas fa-horse text-orange-600 text-3xl group-hover:animate-bounce-slow"></i>
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group border-2 border-orange-300">
+                        <div class="bg-orange-200 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all border-4 border-orange-300">
+                            <i class="fas fa-horse text-orange-600 text-4xl group-hover:animate-bounce-slow"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Peternakan Interaktif</h3>
-                        <p class="text-gray-600">Berinteraksi dengan beragam hewan ternak dan pelajari cara merawat mereka
-                            dengan baik.</p>
+                        <h3 class="text-2xl font-bold text-orange-700 mb-2">Sahabat Hewan</h3>
+                        <p class="text-orange-600 font-medium">Bermain dan belajar bersama hewan-hewan lucu! Beri makan kelinci, perah susu sapi, dan kumpulkan telur ayam!</p>
                         <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-arrow-circle-right text-orange-500"></i>
+                            <i class="fas fa-arrow-circle-right text-orange-500 text-2xl"></i>
                         </div>
                     </div>
 
-                    <div
-                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group">
-                        <div
-                            class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
-                            <i class="fas fa-tree text-blue-600 text-3xl group-hover:animate-bounce-slow"></i>
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group border-2 border-blue-300">
+                        <div class="bg-blue-200 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all border-4 border-blue-300">
+                            <i class="fas fa-tree text-blue-600 text-4xl group-hover:animate-bounce-slow"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Taman Perkebunan</h3>
-                        <p class="text-gray-600">Jelajahi aneka tanaman perkebunan dan pelajari proses panen hingga
-                            pengolahan hasil perkebunan.</p>
+                        <h3 class="text-2xl font-bold text-blue-700 mb-2">Taman Pohon Ajaib</h3>
+                        <p class="text-blue-600 font-medium">Jelajahi kebun buah dan sayur raksasa! Lihat bagaimana tanaman tumbuh dan berubah menjadi makanan lezat!</p>
                         <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-arrow-circle-right text-blue-500"></i>
+                            <i class="fas fa-arrow-circle-right text-blue-500 text-2xl"></i>
                         </div>
                     </div>
                 </div>
@@ -147,7 +134,7 @@
                                     <i class="fas fa-tag mr-1"></i> Rp 150.000/orang
                                 </p>
                                 <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
+                                    class="text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors flex items-center">
                                     <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                 </a>
                             </div>
@@ -157,7 +144,7 @@
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
                         <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1500595046743-cd271d694e30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            <img src="https://i.ytimg.com/vi/xT6tpI38XOA/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGGMgZShKMA8=&rs=AOn4CLAg9r7NuknVhJs_Re7LcaJ5UEq5-Q"
                                 class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
                                 alt="Peternakan Seru">
                             <div
@@ -183,7 +170,7 @@
                                     <i class="fas fa-tag mr-1"></i> Rp 180.000/orang
                                 </p>
                                 <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
+                                    class="text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors flex items-center">
                                     <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                 </a>
                             </div>
@@ -219,7 +206,7 @@
                                     <i class="fas fa-tag mr-1"></i> Rp 300.000/orang
                                 </p>
                                 <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
+                                    class="text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors flex items-center">
                                     <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                 </a>
                             </div>
@@ -229,83 +216,95 @@
             </div>
         </section>
 
-        <!-- Gallery Section with Fun Interactive Elements -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
-                        <i class="fas fa-images text-purple-500 mr-2 animate-pulse-slow"></i>
-                        Galeri Destinasi
-                    </h2>
-                    <p class="text-gray-600 mt-2">Keindahan dan keseruan di Nusantara Edupark</p>
+
+    <!-- Gallery Section with Fun Interactive Elements -->
+<!-- Gallery Section with Wavy Background -->
+<section class="py-16 relative overflow-hidden">
+    <!-- Background dengan bentuk bergelombang seperti referensi -->
+    <div class="absolute inset-0">
+        <!-- Warna dasar sesuai permintaan: rgb(220, 160, 109) -->
+        <div class="absolute inset-0" style="background-color: rgb(144, 0, 239);"></div>
+
+        <!-- Lapisan gelombang atas untuk tekstur -->
+        <div class="absolute inset-0 opacity-20">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="absolute w-full h-full">
+                <path fill="#fff" d="M0,128L48,133.3C96,139,192,149,288,149.3C384,149,480,139,576,144C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+
+        <!-- Gelombang bawah seperti referensi -->
+        <div class="absolute bottom-0 left-0 w-full">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full" style="height: 60px;">
+                <path fill="#ffffff" d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,21.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-yellow-200 relative inline-block">
+                <i class="fas fa-images text-yellow-300 mr-2 animate-pulse-slow"></i>
+                Galeri Destinasi
+            </h2>
+            <p class="text-white mt-2">Keindahan dan keseruan di Nusantara Edupark</p>
+        </div>
+
+        <!-- Container untuk gambar-gambar gallery -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+            <div class="relative overflow-hidden rounded-lg group">
+                <img src="https://bob.kemenparekraf.go.id/wp-content/uploads/2021/05/56556048_2254883347901748_7825172382198834738_n.jpg"
+                    class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500" alt="Gallery 1">
+                <div class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                    <span class="text-white font-medium"><i class="fas fa-tractor mr-2"></i> Area Pertanian</span>
                 </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://images.unsplash.com/photo-1487874744939-d2c0a128fea1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="Gallery 1">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-tractor mr-2"></i> Area Pertanian</span>
-                        </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-purple-600"></i>
-                        </div>
-                    </div>
-
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://images.unsplash.com/photo-1500268732869-c341057e081f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="Gallery 2">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-leaf mr-2"></i> Kebun Edukasi</span>
-                        </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-blue-600"></i>
-                        </div>
-                    </div>
-
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="Gallery 3">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-green-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-horse mr-2"></i> Area Peternakan</span>
-                        </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-green-600"></i>
-                        </div>
-                    </div>
-
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="Gallery 4">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-orange-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-seedling mr-2"></i> Kebun Buah</span>
-                        </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-orange-600"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center mt-8">
-                    <a href="#"
-                        class="inline-block border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
-                        <i class="fas fa-images mr-2"></i> Lihat Semua Foto
-                    </a>
+                <div class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-search-plus text-purple-600"></i>
                 </div>
             </div>
-        </section>
+
+            <div class="relative overflow-hidden rounded-lg group">
+                <img src="https://sentulfresh.com/wp-content/uploads/2016/01/wei.jpg"
+                    class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500" alt="Gallery 2">
+                <div class="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                    <span class="text-white font-medium"><i class="fas fa-leaf mr-2"></i> Kebun Edukasi</span>
+                </div>
+                <div class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-search-plus text-blue-600"></i>
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden rounded-lg group">
+                <img src="https://cdn.idntimes.com/content-images/post/20240120/snapinstaapp-13707056-156168484806757-1065501168-n-1080-5988a86a9617547c61ca519636de6f0b.jpg"
+                    class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500" alt="Gallery 3">
+                <div class="absolute inset-0 bg-gradient-to-t from-green-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                    <span class="text-white font-medium"><i class="fas fa-horse mr-2"></i> Area Peternakan</span>
+                </div>
+                <div class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-search-plus text-green-600"></i>
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden rounded-lg group">
+                <img src="https://kampungcoklat.id/wp-content/uploads/2023/01/Paket-Edukasi-A.png"
+                    class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500" alt="Gallery 4">
+                <div class="absolute inset-0 bg-gradient-to-t from-orange-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                    <span class="text-white font-medium"><i class="fas fa-seedling mr-2"></i> Kebun Buah</span>
+                </div>
+                <div class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i class="fas fa-search-plus text-orange-600"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-10">
+            <a href="#"
+                class="inline-block border-2 border-yellow-400 bg-yellow-300 text-purple-800 hover:bg-yellow-400 hover:border-yellow-500 font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
+                <i class="fas fa-images mr-2"></i> Lihat Semua Foto
+            </a>
+        </div>
+    </div>
+</section>
+
 
         <!-- Testimonials Section with Animated Ratings -->
         <section class="py-16 bg-gray-50 relative overflow-hidden">
