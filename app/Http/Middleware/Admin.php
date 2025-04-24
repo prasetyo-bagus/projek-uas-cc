@@ -23,11 +23,11 @@ class Admin
 
         $userRole=Auth::user()->role;
 
-        if($userRole==2){
+        if($userRole=='ADMIN'){
             return $next($request);
         }
 
-        if($userRole==1){
+        if($userRole=='SUPER_ADMIN'){
             return redirect()->route('superadmin');
         }
 
