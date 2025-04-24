@@ -46,6 +46,7 @@ class DynamicAssetController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'description' => 'nullable|string|max:255',
             'detail' => 'nullable|string',
+            'is_active' => 'required|boolean',
         ]);
 
         // Menyimpan gambar dan mendapatkan path
@@ -58,6 +59,7 @@ class DynamicAssetController extends Controller
             'image' => $imagePath,
             'description' => $request->description,
             'detail' => $request->detail,
+            'is_active' => $request->is_active,
         ]);
 
         // Redirect setelah sukses
@@ -81,9 +83,8 @@ class DynamicAssetController extends Controller
     {
         // Mengambil tipe dari asset yang akan diedit
         $type = $dynamicAsset->type;
-        return view('dynamic-assets.edit', [
-            'type' => $type,
-            'data' => $dynamicAsset
+        return view('dynamic_assets.edit', [
+            'dynamicAsset' => $dynamicAsset
         ]);
     }
 
@@ -99,10 +100,11 @@ class DynamicAssetController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'description' => 'nullable|string|max:255',
             'detail' => 'nullable|string',
+            'is_active' => 'required|boolean',
         ]);
 
         // Menyimpan data yang ada di request
-        $data = $request->only(['type', 'title', 'description', 'detail']);
+        $data = $request->only(['type', 'title', 'description', 'detail', 'is_active']);
 
         // Jika ada gambar yang diupload, proses penggantian gambar
         if ($request->hasFile('image')) {
@@ -136,5 +138,18 @@ class DynamicAssetController extends Controller
         $dynamicAsset->delete();
 
         return redirect()->route('dynamic-assets.index')->with('success', 'Data berhasil dihapus.');
+    }
+
+    /**
+     * Toggle status aktif/nonaktif dari asset
+     */
+    public function toggleStatus(string $id)
+    {
+        $dynamicAsset = DynamicAsset::findOrFail($id);
+        $dynamicAsset->is_active = !$dynamicAsset->is_active;
+        $dynamicAsset->save();
+
+        $statusText = $dynamicAsset->is_active ? 'diaktifkan' : 'dinonaktifkan';
+        return redirect()->back()->with('success', "Data berhasil $statusText.");
     }
 }

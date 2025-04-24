@@ -32,6 +32,24 @@
             class="w-full border rounded p-2">{{ old('detail', $data->detail ?? '') }}</textarea>
     </div>
 
+    <div class="mb-4">
+        <label class="block font-medium mb-2">Status</label>
+        <div class="flex items-center space-x-6">
+            <label class="inline-flex items-center">
+                <input type="radio" name="is_active" value="1" 
+                    {{ old('is_active', $data->is_active ?? true) ? 'checked' : '' }} 
+                    class="form-radio h-4 w-4 text-green-600">
+                <span class="ml-2">Aktif</span>
+            </label>
+            <label class="inline-flex items-center">
+                <input type="radio" name="is_active" value="0" 
+                    {{ old('is_active', $data->is_active ?? true) ? '' : 'checked' }} 
+                    class="form-radio h-4 w-4 text-red-600">
+                <span class="ml-2">Nonaktif</span>
+            </label>
+        </div>
+    </div>
+
     <div class="text-right">
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
             {{ isset($data) ? 'Update' : 'Simpan' }} Fasilitas

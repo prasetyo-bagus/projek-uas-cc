@@ -192,7 +192,7 @@
                     <span>Blog</span>
                 </a>
 
-                <a href="{{ route('dynamic-assets.create') }}"
+                <a href="{{ route('dynamic-assets.index') }}"
                     class="px-6 py-3 flex items-center sidebar-hover {{ request()->routeIs('dynamic-assets.*') ? 'active' : '' }}">
                     <span class="sidebar-icon"><i class="fa-solid fa-photo-film text-primary-400"></i></span>
                     <span>Assets</span>

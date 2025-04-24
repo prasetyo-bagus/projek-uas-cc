@@ -9,14 +9,14 @@
                 <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-md">Wisata Edukasi Pertanian, Peternakan, dan
                     Perkebunan</p>
                 <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                    <a href="#"
+                    <!-- <a href="#"
                         class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
                         Jelajahi Sekarang
-                    </a>
-                    <a href="#"
+                    </a> -->
+                    <!-- <a href="#"
                         class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
                         Lihat Paket Wisata
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </section> --}}
@@ -31,14 +31,14 @@
                     {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
                 </p>
                 <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                    <a href="#"
+                    <!-- <a href="#"
                         class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
                         Jelajahi Sekarang
                     </a>
                     <a href="#"
                         class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
                         Lihat Paket Wisata
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </section>
@@ -112,7 +112,7 @@
             </div>
         </section>
 
-        <!-- Popular Tours Section with Animated Effects -->
+        <!-- FACILITY -->
         <section class="py-16 bg-gray-50 relative overflow-hidden">
             <!-- Decorative Background Elements -->
             <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
@@ -129,27 +129,28 @@
                     <div>
                         <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
                             <i class="fas fa-star text-yellow-400 mr-2 animate-pulse-slow"></i>
-                            Paket Wisata Favorit
+                            FASILITAS
                         </h2>
-                        <p class="text-gray-600 mt-2">Pilihan paket wisata edukatif yang paling diminati</p>
+                        <p class="text-gray-600 mt-2">FASILITAS YANG TERSEDIA</p>
                     </div>
-                    <a href="#"
+                    <a href="{{ route('facilities') }}"
                         class="text-green-600 hover:text-green-700 font-semibold transition-all flex items-center group">
                         Lihat Semua <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    @forelse ($facilities as $facility)
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
                         <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                            <img src="{{ asset('storage/' . $facility->image) }}"
                                 class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt="Agro Edukasi">
+                                alt="{{ $facility->title }}">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
                                 <p class="text-white px-4 pb-4 font-medium">
-                                    <i class="fas fa-camera mr-2"></i> 12+ aktivitas seru
+                                    <i class="fas fa-building mr-2"></i> Fasilitas
                                 </p>
                             </div>
                         </div>
@@ -157,96 +158,29 @@
                             <div class="flex justify-between items-center mb-3">
                                 <span
                                     class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-crown text-yellow-500 mr-1"></i> Bestseller
+                                    <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
                                 </span>
-                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 1 Hari</span>
                             </div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Paket Agro Edukasi</h3>
-                            <p class="text-gray-600 mb-4">Mengenal berbagai tanaman, cara menanam dan merawatnya dengan
-                                metode organik.</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-green-600 font-bold flex items-center">
-                                    <i class="fas fa-tag mr-1"></i> Rp 150.000/orang
-                                </p>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
+                            <p class="text-gray-600 mb-4">{{ $facility->description }}</p>
+                            @if($facility->detail)
+                            <div class="flex justify-end">
                                 <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
-                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
+                                    class="text-blue-600 hover:text-blue-800 font-medium transition-colors flex items-center">
+                                    <i class="fas fa-info-circle mr-1"></i> Detail
                                 </a>
                             </div>
+                            @endif
                         </div>
                     </div>
-
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1500595046743-cd271d694e30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt="Peternakan Seru">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                <p class="text-white px-4 pb-4 font-medium">
-                                    <i class="fas fa-camera mr-2"></i> 15+ aktivitas seru
-                                </p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-3">
-                                <span
-                                    class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-users mr-1"></i> Keluarga
-                                </span>
-                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 1 Hari</span>
-                            </div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Peternakan Seru</h3>
-                            <p class="text-gray-600 mb-4">Berinteraksi dengan hewan ternak dan belajar proses pengolahan
-                                hasil peternakan.</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-green-600 font-bold flex items-center">
-                                    <i class="fas fa-tag mr-1"></i> Rp 180.000/orang
-                                </p>
-                                <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
-                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
-                                </a>
-                            </div>
+                    @empty
+                    <div class="col-span-3 text-center py-12">
+                        <div class="bg-gray-100 rounded-lg p-8 inline-block">
+                            <i class="fas fa-building text-gray-400 text-4xl mb-3"></i>
+                            <p class="text-gray-500">Belum ada fasilitas yang tersedia.</p>
                         </div>
                     </div>
-
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt="Paket Lengkap">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                <p class="text-white px-4 pb-4 font-medium">
-                                    <i class="fas fa-camera mr-2"></i> 20+ aktivitas seru
-                                </p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-3">
-                                <span
-                                    class="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-percentage mr-1"></i> Hemat
-                                </span>
-                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 2 Hari</span>
-                            </div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Paket Lengkap</h3>
-                            <p class="text-gray-600 mb-4">Gabungan edukasi pertanian, peternakan, dan perkebunan dalam satu
-                                paket lengkap.</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-green-600 font-bold flex items-center">
-                                    <i class="fas fa-tag mr-1"></i> Rp 300.000/orang
-                                </p>
-                                <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
-                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </section>
@@ -292,68 +226,128 @@
 
                 <!-- Container untuk gambar-gambar gallery -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+                    @forelse ($galleries as $gallery)
                     <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://bob.kemenparekraf.go.id/wp-content/uploads/2021/05/56556048_2254883347901748_7825172382198834738_n.jpg"
+                        <img src="{{ asset('storage/' . $gallery->image) }}"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="Gallery 1">
+                            alt="{{ $gallery->title }}">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-tractor mr-2"></i> Area Pertanian</span>
+                            <span class="text-white font-medium"><i class="fas fa-image mr-2"></i> {{ $gallery->title }}</span>
                         </div>
                         <div
                             class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                             <i class="fas fa-search-plus text-purple-600"></i>
                         </div>
                     </div>
-
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://sentulfresh.com/wp-content/uploads/2016/01/wei.jpg"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="Gallery 2">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-blue-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-leaf mr-2"></i> Kebun Edukasi</span>
-                        </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-blue-600"></i>
+                    @empty
+                    <div class="col-span-4 text-center py-12">
+                        <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
+                            <i class="fas fa-image text-4xl mb-3"></i>
+                            <p>Belum ada foto galeri yang tersedia.</p>
                         </div>
                     </div>
-
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://cdn.idntimes.com/content-images/post/20240120/snapinstaapp-13707056-156168484806757-1065501168-n-1080-5988a86a9617547c61ca519636de6f0b.jpg"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="Gallery 3">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-green-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-horse mr-2"></i> Area Peternakan</span>
-                        </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-green-600"></i>
-                        </div>
-                    </div>
-
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://kampungcoklat.id/wp-content/uploads/2023/01/Paket-Edukasi-A.png"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="Gallery 4">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-orange-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-seedling mr-2"></i> Kebun Buah</span>
-                        </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-orange-600"></i>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
 
                 <div class="text-center mb-10">
-                    <a href="#"
+                    <a href="{{ route('gallery') }}"
                         class="inline-block border-2 border-yellow-400 bg-yellow-300 text-purple-800 hover:bg-yellow-400 hover:border-yellow-500 font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
                         <i class="fas fa-images mr-2"></i> Lihat Semua Foto
                     </a>
+                </div>
+            </div>
+        </section>
+
+    <!-- Blog Section -->
+    <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+                    <div>
+                        <h2
+                            class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-900">
+                            Blog Unggulan</h2>
+                        <p class="text-gray-600 mt-3 text-lg">Artikel terbaru seputar edukasi</p>
+                    </div>
+                    <a href="#"
+                        class="group flex items-center mt-4 md:mt-0 text-purple-900 font-semibold hover:text-purple-900 transition-all duration-300">
+                        Semua Artikel
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
+
+                {{-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach ($blog as $blog)
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
+                        <div class="relative overflow-hidden">
+                            <img src="{{ asset('storage/' . $blog->picture) }}"
+                                class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                                alt="{{ $blog->title }}">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-xs font-semibold text-purple-900 mb-2">
+                                {{ $blog->created_at->format('d M Y') }}</div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                {{ $blog->title }}</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ Str::limit($blog->content, 120) }}
+                            </p>
+                            <a href="{{ route('blogs.show', $blog->url) }}"
+                                class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
+                                Baca Selengkapnya
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    @endforeach
+                </div> --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach ($blogs as $blogItem)
+                        <div
+                            class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
+                            <div class="relative overflow-hidden">
+                                <img src="{{ asset('storage/' . $blogItem->picture) }}"
+                                    class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                                    alt="{{ $blogItem->title }}">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="text-xs font-semibold text-purple-900 mb-2">
+                                    {{ $blogItem->created_at->format('d M Y') }}</div>
+                                <h3
+                                    class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                    {{ $blogItem->title }}
+                                </h3>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    {{ Str::limit($blogItem->content, 120) }}</p>
+                                <a href="{{ route('blogs.show', $blogItem->url) }}"
+                                    class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
+                                    Baca Selengkapnya
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -547,98 +541,7 @@
         });
         </script>
 
-        <!-- Blog Section -->
-        <section class="py-20 bg-gray-50">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
-                    <div>
-                        <h2
-                            class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-900">
-                            Blog Unggulan</h2>
-                        <p class="text-gray-600 mt-3 text-lg">Artikel terbaru seputar edukasi</p>
-                    </div>
-                    <a href="#"
-                        class="group flex items-center mt-4 md:mt-0 text-purple-900 font-semibold hover:text-purple-900 transition-all duration-300">
-                        Semua Artikel
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </a>
-                </div>
-
-                {{-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @foreach ($blog as $blog)
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
-                        <div class="relative overflow-hidden">
-                            <img src="{{ asset('storage/' . $blog->picture) }}"
-                                class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
-                                alt="{{ $blog->title }}">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-xs font-semibold text-purple-900 mb-2">
-                                {{ $blog->created_at->format('d M Y') }}</div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
-                                {{ $blog->title }}</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ Str::limit($blog->content, 120) }}
-                            </p>
-                            <a href="{{ route('blogs.show', $blog->url) }}"
-                                class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
-                                Baca Selengkapnya
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    @endforeach
-                </div> --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @foreach ($blogs as $blogItem)
-                        <div
-                            class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
-                            <div class="relative overflow-hidden">
-                                <img src="{{ asset('storage/' . $blogItem->picture) }}"
-                                    class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
-                                    alt="{{ $blogItem->title }}">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                </div>
-                            </div>
-                            <div class="p-6">
-                                <div class="text-xs font-semibold text-purple-900 mb-2">
-                                    {{ $blogItem->created_at->format('d M Y') }}</div>
-                                <h3
-                                    class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
-                                    {{ $blogItem->title }}
-                                </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                                    {{ Str::limit($blogItem->content, 120) }}</p>
-                                <a href="{{ route('blogs.show', $blogItem->url) }}"
-                                    class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
-                                    Baca Selengkapnya
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
-                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
+    
         
 
         <script>

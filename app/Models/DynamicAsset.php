@@ -11,6 +11,7 @@ class DynamicAsset extends Model
         'title',
         'image',
         'description',
-        'detail'
+        'detail',
+        'is_active'
     ];
 }
