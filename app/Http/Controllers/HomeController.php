@@ -11,14 +11,20 @@ class HomeController extends Controller
     public function index()
     {
         // Ambil data banner
-        // $banner = DynamicAsset::where('type', 'BANNER')->latest()->first();
+        // $banner = DynamicAsset::where('type', 'BANNER')->where('is_active', true)->latest()->first();
+
+        // Ambil data galeri
+        $galleries = DynamicAsset::where('type', 'GALERY')->where('is_active', true)->latest()->take(4)->get();
+
+        // Ambil data fasilitas
+        $facilities = DynamicAsset::where('type', 'FACILITY')->where('is_active', true)->latest()->take(3)->get();
         $banners = DynamicAsset::where('type', 'BANNER')->latest()->take(3)->get();        
 
         // Ambil data blog (misalnya 5 blog terbaru)
         $blogs = Blog::latest()->take(6)->get();
 
         // Kembalikan data ke view
-        return view('homepage', compact('banners', 'blogs'));
+        return view('homepage', compact('banners', 'blogs', 'galleries', 'facilities'));
     }
     public function adminDashboard()
     {
@@ -64,5 +70,27 @@ class HomeController extends Controller
             'recentBlogs',
             'recentAssets'
         ));
+    }
+
+    /**
+     * Menampilkan halaman galeri
+     */
+    public function gallery()
+    {
+        // Ambil semua galeri
+        $galleries = DynamicAsset::where('type', 'GALERY')->where('is_active', true)->latest()->paginate(12);
+        
+        return view('gallery', compact('galleries'));
+    }
+
+    /**
+     * Menampilkan halaman fasilitas
+     */
+    public function facilities()
+    {
+        // Ambil semua fasilitas
+        $facilities = DynamicAsset::where('type', 'FACILITY')->where('is_active', true)->latest()->paginate(9);
+        
+        return view('facilities', compact('facilities'));
     }
 }

@@ -24,6 +24,16 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 /**
+ * Route untuk halaman galeri
+ */
+Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
+
+/**
+ * Route untuk halaman fasilitas
+ */
+Route::get('/fasilitas', [HomeController::class, 'facilities'])->name('facilities');
+
+/**
  * Route untuk halaman dashboard ADMIN.
  *
  * Hanya dapat diakses oleh pengguna dengan middleware:
@@ -72,6 +82,7 @@ Route::view('profile', 'profile')
 Route::middleware(['auth'])->group(function () {
     Route::resource('/blogs', BlogController::class)->except(['index', 'show']);
     Route::resource('/dynamic-assets', DynamicAssetController::class);
+    Route::patch('/dynamic-assets/{id}/toggle-status', [DynamicAssetController::class, 'toggleStatus'])->name('dynamic-assets.toggle-status');
     // Route::get('/dynamic-assets/create/{type}', [DynamicAssetController::class, 'create'])->name('dynamic-assets.create');
     
     // Routes untuk admin testimonial

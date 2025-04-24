@@ -60,6 +60,27 @@
         </div>
     </div>
 
+    <div class="col-span-2">
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">Status</label>
+            <div class="flex items-center space-x-6">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="is_active" value="1" 
+                        {{ old('is_active', $data->is_active ?? true) ? 'checked' : '' }} 
+                        class="form-radio h-4 w-4 text-green-600">
+                    <span class="ml-2">Aktif</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="is_active" value="0" 
+                        {{ old('is_active', $data->is_active ?? true) ? '' : 'checked' }} 
+                        class="form-radio h-4 w-4 text-red-600">
+                    <span class="ml-2">Nonaktif</span>
+                </label>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Banner yang aktif akan ditampilkan di halaman utama</p>
+        </div>
+    </div>
+
     <!-- Button Submit -->
     <div class="flex justify-end">
         <button type="submit"

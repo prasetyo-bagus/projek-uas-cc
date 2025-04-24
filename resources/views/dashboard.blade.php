@@ -67,6 +67,9 @@
                 <span class="text-green-500">
                     <i class="fas fa-photo-video"></i> {{ $galleries }} Galeri
                 </span>
+                <span class="text-green-500">
+                    <i class="fas fa-building"></i> {{ $facilities }} Fasilitas
+                </span>
             </div>
         </div>
 
