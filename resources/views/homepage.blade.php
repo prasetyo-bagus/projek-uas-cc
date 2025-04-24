@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('navbar.guestnavbar')
 
 <body class="bg-gray-50">
     @section('content')
@@ -251,20 +251,49 @@
             </div>
         </section>
 
+
         <!-- Gallery Section with Fun Interactive Elements -->
-        <section class="py-16 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
-                        <i class="fas fa-images text-purple-500 mr-2 animate-pulse-slow"></i>
-                        Galeri Destinasi
-                    </h2>
-                    <p class="text-gray-600 mt-2">Keindahan dan keseruan di Nusantara Edupark</p>
+        <!-- Gallery Section with Wavy Background -->
+        <section class="py-16 relative overflow-hidden">
+            <!-- Background dengan bentuk bergelombang seperti referensi -->
+            <div class="absolute inset-0">
+                <!-- Warna dasar sesuai permintaan: rgb(220, 160, 109) -->
+                <div class="absolute inset-0" style="background-color: rgb(144, 0, 239);"></div>
+
+                <!-- Lapisan gelombang atas untuk tekstur -->
+                <div class="absolute inset-0 opacity-20">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
+                        class="absolute w-full h-full">
+                        <path fill="#fff"
+                            d="M0,128L48,133.3C96,139,192,149,288,149.3C384,149,480,139,576,144C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                        </path>
+                    </svg>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Gelombang bawah seperti referensi -->
+                <div class="absolute bottom-0 left-0 w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none"
+                        class="w-full" style="height: 60px;">
+                        <path fill="#ffffff"
+                            d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,21.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-yellow-200 relative inline-block">
+                        <i class="fas fa-images text-yellow-300 mr-2 animate-pulse-slow"></i>
+                        Galeri Destinasi
+                    </h2>
+                    <p class="text-white mt-2">Keindahan dan keseruan di Nusantara Edupark</p>
+                </div>
+
+                <!-- Container untuk gambar-gambar gallery -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
                     <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://images.unsplash.com/photo-1487874744939-d2c0a128fea1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        <img src="https://bob.kemenparekraf.go.id/wp-content/uploads/2021/05/56556048_2254883347901748_7825172382198834738_n.jpg"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
                             alt="Gallery 1">
                         <div
@@ -278,7 +307,7 @@
                     </div>
 
                     <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://images.unsplash.com/photo-1500268732869-c341057e081f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        <img src="https://sentulfresh.com/wp-content/uploads/2016/01/wei.jpg"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
                             alt="Gallery 2">
                         <div
@@ -292,7 +321,7 @@
                     </div>
 
                     <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        <img src="https://cdn.idntimes.com/content-images/post/20240120/snapinstaapp-13707056-156168484806757-1065501168-n-1080-5988a86a9617547c61ca519636de6f0b.jpg"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
                             alt="Gallery 3">
                         <div
@@ -306,7 +335,7 @@
                     </div>
 
                     <div class="relative overflow-hidden rounded-lg group">
-                        <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        <img src="https://kampungcoklat.id/wp-content/uploads/2023/01/Paket-Edukasi-A.png"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
                             alt="Gallery 4">
                         <div
@@ -320,17 +349,18 @@
                     </div>
                 </div>
 
-                <div class="text-center mt-8">
+                <div class="text-center mb-10">
                     <a href="#"
-                        class="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
+                        class="inline-block border-2 border-yellow-400 bg-yellow-300 text-purple-800 hover:bg-yellow-400 hover:border-yellow-500 font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
                         <i class="fas fa-images mr-2"></i> Lihat Semua Foto
                     </a>
                 </div>
             </div>
         </section>
 
+
         <!-- Testimonials Section with Animated Ratings -->
-        <section class="py-16 bg-gray-50 relative overflow-hidden">
+        <section id="testimonials" class="py-16 bg-gray-50 relative overflow-hidden">
             <!-- Background decorative elements -->
             <div class="absolute top-10 left-10 text-6xl text-gray-200 opacity-20 transform -rotate-12">
                 <i class="fas fa-quote-left"></i>
@@ -339,6 +369,7 @@
                 <i class="fas fa-quote-right"></i>
             </div>
 
+      
             <div class="container mx-auto px-6 relative z-10">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
@@ -347,8 +378,17 @@
                     </h2>
                     <p class="text-gray-600 mt-2">Pengalaman pengunjung di Nusantara Edupark</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all">
+                
+               
+                
+                <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
+                    <i class="fas fa-quote-left text-purple-500 mr-3"></i>
+                    Testimonial Pengunjung
+                </h3>
+                
+                <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial akan dirender melalui JavaScript -->
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
                         <div class="flex items-center mb-4">
                             <div class="text-yellow-400 flex">
                                 <i class="fas fa-star"></i>
@@ -359,18 +399,16 @@
                             </div>
                             <span class="text-gray-600 ml-2">5.0</span>
                         </div>
-                        <p class="text-gray-600 mb-4">"Pengalaman yang luar biasa bagi anak-anak kami. Mereka bisa belajar
-                            tentang pertanian sambil bermain. Sangat direkomendasikan untuk liburan keluarga!"</p>
+                        <div class="h-20 bg-gray-200 rounded mb-4"></div>
                         <div class="flex items-center">
-                            <img src="https://randomuser.me/api/portraits/women/12.jpg" class="w-12 h-12 rounded-full"
-                                alt="User">
+                            <div class="w-12 h-12 rounded-full bg-gray-300"></div>
                             <div class="ml-3">
-                                <h4 class="font-semibold text-gray-800">Sinta Dewi</h4>
-                                <p class="text-gray-600 text-sm">Jakarta</p>
+                                <div class="h-5 bg-gray-200 rounded w-24"></div>
+                                <div class="h-4 bg-gray-200 rounded w-16 mt-1"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all">
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
                         <div class="flex items-center mb-4">
                             <div class="text-yellow-400 flex">
                                 <i class="fas fa-star"></i>
@@ -381,18 +419,16 @@
                             </div>
                             <span class="text-gray-600 ml-2">4.5</span>
                         </div>
-                        <p class="text-gray-600 mb-4">"Pemandu wisatanya sangat ramah dan menjelaskan dengan detail.
-                            Kegiatan memerah susu sapi menjadi favorit anak-anak. Pasti akan berkunjung lagi!"</p>
+                        <div class="h-20 bg-gray-200 rounded mb-4"></div>
                         <div class="flex items-center">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-12 h-12 rounded-full"
-                                alt="User">
+                            <div class="w-12 h-12 rounded-full bg-gray-300"></div>
                             <div class="ml-3">
-                                <h4 class="font-semibold text-gray-800">Budi Santoso</h4>
-                                <p class="text-gray-600 text-sm">Bandung</p>
+                                <div class="h-5 bg-gray-200 rounded w-24"></div>
+                                <div class="h-4 bg-gray-200 rounded w-16 mt-1"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all">
+                    <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
                         <div class="flex items-center mb-4">
                             <div class="text-yellow-400 flex">
                                 <i class="fas fa-star"></i>
@@ -403,20 +439,113 @@
                             </div>
                             <span class="text-gray-600 ml-2">5.0</span>
                         </div>
-                        <p class="text-gray-600 mb-4">"Tempatnya bersih dan tertata dengan baik. Anak-anak sekolah kami
-                            sangat antusias dengan semua kegiatan. Paket edukasi yang ditawarkan sangat informatif."</p>
+                        <div class="h-20 bg-gray-200 rounded mb-4"></div>
                         <div class="flex items-center">
-                            <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-12 h-12 rounded-full"
-                                alt="User">
+                            <div class="w-12 h-12 rounded-full bg-gray-300"></div>
                             <div class="ml-3">
-                                <h4 class="font-semibold text-gray-800">Rina Wijaya</h4>
-                                <p class="text-gray-600 text-sm">Surabaya</p>
+                                <div class="h-5 bg-gray-200 rounded w-24"></div>
+                                <div class="h-4 bg-gray-200 rounded w-16 mt-1"></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <div class="text-center mt-8">
+                    <a href="#" class="inline-flex items-center text-purple-700 font-medium hover:text-purple-900 transition-colors">
+                        <span>Lihat Semua Testimonial</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
             </div>
+              <!-- Form Testimonial -->
+         <div class="max-w-4xl mx-auto mb-16 mt-16">
+                    @include('review.formkomentar')
+                </div>
         </section>
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ambil testimonial dari API
+            fetch('{{ route("api.testimonials") }}')
+                .then(response => response.json())
+                .then(data => {
+                    // Kosongkan container untuk menghilangkan skeletons
+                    const container = document.getElementById('testimonials-container');
+                    container.innerHTML = '';
+                    
+                    // Jika tidak ada testimonial yg disetujui, tampilkan placeholder
+                    if (data.length === 0) {
+                        const noData = document.createElement('div');
+                        noData.className = 'col-span-3 text-center py-10';
+                        noData.innerHTML = `
+                            <div class="text-gray-500">
+                                <i class="fas fa-comment-slash text-4xl mb-3"></i>
+                                <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
+                            </div>
+                        `;
+                        container.appendChild(noData);
+                        return;
+                    }
+                    
+                    // Render testimonial
+                    data.forEach(testimonial => {
+                        // Buat elemen bintang berdasarkan rating
+                        let starsHtml = '';
+                        for (let i = 1; i <= 5; i++) {
+                            if (i <= testimonial.rating) {
+                                starsHtml += '<i class="fas fa-star"></i>';
+                            } else {
+                                starsHtml += '<i class="far fa-star"></i>';
+                            }
+                        }
+                        
+                        // Tentukan foto profil (pakai default jika tidak ada)
+                        let photoHtml = '';
+                        if (testimonial.foto) {
+                            photoHtml = `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
+                        } else {
+                            photoHtml = `
+                                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                    <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
+                                </div>
+                            `;
+                        }
+                        
+                        // Buat card testimonial
+                        const testimonialCard = document.createElement('div');
+                        testimonialCard.className = 'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
+                        testimonialCard.innerHTML = `
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400 flex">
+                                    ${starsHtml}
+                                </div>
+                                <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
+                            <div class="flex items-center">
+                                ${photoHtml}
+                                <div class="ml-3">
+                                    <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
+                                    <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
+                                </div>
+                                <div class="ml-auto text-xs text-gray-400">
+                                    ${new Date(testimonial.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}
+                                </div>
+                            </div>
+                        `;
+                        
+                        container.appendChild(testimonialCard);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching testimonials:', error);
+                    const container = document.getElementById('testimonials-container');
+                    container.innerHTML = '<div class="col-span-3 text-center py-8 text-red-500">Gagal memuat testimonial</div>';
+                });
+        });
+        </script>
 
         <!-- Blog Section -->
         <section class="py-20 bg-gray-50">
@@ -475,27 +604,33 @@
                 </div> --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach ($blogs as $blogItem)
-                        <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
+                        <div
+                            class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
                             <div class="relative overflow-hidden">
                                 <img src="{{ asset('storage/' . $blogItem->picture) }}"
                                     class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
                                     alt="{{ $blogItem->title }}">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
                             </div>
                             <div class="p-6">
                                 <div class="text-xs font-semibold text-purple-900 mb-2">
                                     {{ $blogItem->created_at->format('d M Y') }}</div>
-                                <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                <h3
+                                    class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
                                     {{ $blogItem->title }}
                                 </h3>
-                                <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ Str::limit($blogItem->content, 120) }}</p>
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    {{ Str::limit($blogItem->content, 120) }}</p>
                                 <a href="{{ route('blogs.show', $blogItem->url) }}"
                                     class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
                                     Baca Selengkapnya
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
                                     </svg>
                                 </a>
                             </div>
@@ -504,6 +639,21 @@
                 </div>
             </div>
         </section>
+        
+
+        <script>
+            function validateCaptcha() {
+                // Memeriksa apakah reCAPTCHA terisi
+                var response = grecaptcha.getResponse();
+                if (response.length == 0) {
+                    alert("Harap centang CAPTCHA terlebih dahulu.");
+                    return false; // Menjaga form tidak dikirim jika CAPTCHA tidak dicentang
+                }
+                return true; // Mengirimkan form jika CAPTCHA terisi
+            }
+        </script>
+
+        </main>
         {{-- <!-- CTA Section -->
         <section class="py-20"
             style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); background-size: cover; background-position: center;">
@@ -519,3 +669,7 @@
             </div>
         </section> --}}
     @endsection
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+</body>
