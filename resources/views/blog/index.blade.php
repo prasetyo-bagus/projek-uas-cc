@@ -158,12 +158,19 @@
                                         @endif
 
                                         <div class="p-4 flex flex-col flex-grow">
-                                            <h2
+                                            {{-- <h2
                                                 class="font-semibold text-gray-800 hover:text-yellow-500 transition-colors duration-200 min-h-[80px]">
+                                                {{ $blog->title }}
+                                            </h2> --}}
+                                            <h2
+                                                class="font-semibold text-gray-800 hover:text-yellow-500 transition-colors duration-200 min-h-[80px] text-[clamp(1rem,2vw,1.25rem)] line-clamp-2 leading-snug">
                                                 {{ $blog->title }}
                                             </h2>
                                             <p class="text-gray-600 text-sm mt-2">
-                                                {{ Str::limit(strip_tags($blog->body), 100) }}
+                                                {{-- {{ Str::limit(strip_tags($blog->body), 100) }} --}}
+                                                {{ Str::limit(strip_tags(
+                            preg_replace(['/<!--.*?-->/', '/<img[^>]*>/i', '/<[^>]*>.*?<\/figcaption>/is'], '', $blog->body)
+                        ), 100) }}
                                             </p>
                                             <span class="mt-auto text-purple-700 hover:text-purple-500 transition-colors duration-200">
                                                 Baca Selengkapnya
