@@ -32,8 +32,9 @@
             class="w-full border rounded p-2">{{ old('detail', $data->detail ?? '') }}</textarea>
     </div>
 
-    <div class="text-right">
+    <div class="flex justify-end">
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
+            <i class="fa-solid fa-floppy-disk mr-2"></i>
             {{ isset($data) ? 'Update' : 'Simpan' }} Fasilitas
         </button>
     </div>

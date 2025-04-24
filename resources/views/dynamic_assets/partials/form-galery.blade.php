@@ -26,8 +26,9 @@
             class="w-full border rounded p-2">
     </div>
 
-    <div class="text-right">
+    <div class="flex justify-center">
         <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">
+            <i class="fa-solid fa-floppy-disk mr-2"></i>
             {{ isset($data) ? 'Update' : 'Simpan' }} Galeri
         </button>
     </div>

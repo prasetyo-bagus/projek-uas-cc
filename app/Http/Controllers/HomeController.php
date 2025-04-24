@@ -11,13 +11,14 @@ class HomeController extends Controller
     public function index()
     {
         // Ambil data banner
-        $banner = DynamicAsset::where('type', 'BANNER')->latest()->first();
+        // $banner = DynamicAsset::where('type', 'BANNER')->latest()->first();
+        $banners = DynamicAsset::where('type', 'BANNER')->latest()->take(3)->get();        
 
         // Ambil data blog (misalnya 5 blog terbaru)
         $blogs = Blog::latest()->take(6)->get();
 
         // Kembalikan data ke view
-        return view('homepage', compact('banner', 'blogs'));
+        return view('homepage', compact('banners', 'blogs'));
     }
     public function adminDashboard()
     {
