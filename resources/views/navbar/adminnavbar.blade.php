@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Nusantara Edupark</title>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                            950: '#2e1065',
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .sidebar-icon {
+            width: 24px;
+            display: inline-block;
+            margin-right: 12px;
+            text-align: center;
+        }
+
+        .sidebar-hover {
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-hover:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid #8b5cf6;
+            transform: translateX(4px);
+        }
+
+        .active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid #8b5cf6;
+            position: relative;
+        }
+        
+        .active::after {
+            content: '';
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #8b5cf6;
+        }
+
+        button.sidebar-hover {
+            padding: 0.75rem 0;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        button.sidebar-hover:hover {
+            padding-left: calc(1.5rem - 3px);
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                position: fixed;
+                z-index: 50;
+                height: 100%;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+                display: none;
+                backdrop-filter: blur(3px);
+            }
+
+            .overlay.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+    <!-- Mobile overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Mobile header -->
+    <header class="md:hidden bg-gradient-to-r from-primary-800 to-primary-600 text-white p-4 flex items-center justify-between sticky top-0 z-30 shadow-lg">
+        <button id="sidebarToggle" class="text-white p-2 focus:outline-none hover:bg-primary-700 rounded-lg transition-all">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <span class="font-bold text-lg text-white">NUSANTARA EDUPARK</span>
+        <div class="glass-effect rounded-full p-2">
+            <i class="fa-solid fa-bolt text-white"></i>
+        </div>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar bg-gradient-to-b from-gray-900 to-primary-900 text-white w-72 flex-shrink-0 shadow-xl md:translate-x-0">
+            <!-- Logo section - hidden on mobile as it's in the header -->
+            <div class="hidden md:block px-6 py-6 border-b border-gray-800/50">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="glass-effect p-2 rounded-lg">
+                            <i class="fa-solid fa-mountain-sun text-primary-400 text-xl"></i>
+                        </div>
+                        <span class="font-bold text-xl text-white">NUSANTARA EDUPARK</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile close button -->
+            <div class="md:hidden p-4 flex justify-end">
+                <button id="closeSidebar" class="text-white focus:outline-none hover:bg-primary-800 p-2 rounded-lg transition-all">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- User profile section -->
+            <div class="px-6 py-6 border-b border-gray-800/50">
+                <div class="flex items-center space-x-4">
+                    <div class="glass-effect p-3 rounded-xl">
+                        <i class="fa-solid fa-user text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <p class="font-medium text-white">Admin User</p>
+                        <div class="flex items-center text-xs text-gray-300 mt-1">
+                            <span class="flex items-center">
+                                <i class="fa-solid fa-circle text-green-400 text-[8px] mr-1.5"></i> Administrator
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="py-6">
+                <p class="px-6 py-2 text-xs uppercase tracking-wider text-gray-400 font-semibold">Menu Utama</p>
+
+                <a href="{{ route('dashboard') }}"
+                    class="px-6 py-3 flex items-center sidebar-hover {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <span class="sidebar-icon"><i class="fa-solid fa-gauge-high text-primary-400"></i></span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="{{ route('blogs.store') }}"
+                    class="px-6 py-3 flex items-center sidebar-hover {{ request()->routeIs('blogs.*') ? 'active' : '' }}">
+                    <span class="sidebar-icon"><i class="fa-solid fa-newspaper text-primary-400"></i></span>
+                    <span>Blog</span>
+                </a>
+
+                <a href="{{ route('dynamic-assets.create') }}"
+                    class="px-6 py-3 flex items-center sidebar-hover {{ request()->routeIs('dynamic-assets.*') ? 'active' : '' }}">
+                    <span class="sidebar-icon"><i class="fa-solid fa-photo-film text-primary-400"></i></span>
+                    <span>Assets</span>
+                </a>
+
+                <a href="{{ route('testimonials.index') }}"
+                    class="px-6 py-3 flex items-center sidebar-hover {{ request()->routeIs('testimonials.*') ? 'active' : '' }}">
+                    <span class="sidebar-icon"><i class="fa-solid fa-star text-primary-400"></i></span>
+                    <span>Testimonial</span>
+                </a>
+
+                <p class="px-6 py-2 mt-6 text-xs uppercase tracking-wider text-gray-400 font-semibold">Akun</p>
+
+                <a href="#"
+                    class="px-6 py-3 flex items-center sidebar-hover {{ request()->is('admin/settings') ? 'active' : '' }}">
+                    <span class="sidebar-icon"><i class="fa-solid fa-gear text-primary-400"></i></span>
+                    <span>Settings</span>
+                </a>
+
+                <form action="{{ route('logout') }}" method="POST" class="px-6 py-3">
+                    @csrf
+                    <button type="submit" class="flex items-center w-full text-left sidebar-hover group">
+                        <span class="sidebar-icon"><i class="fa-solid fa-right-from-bracket text-primary-400 group-hover:text-red-400 transition-colors"></i></span>
+                        <span class="group-hover:text-red-400 transition-colors">Logout</span>
+                    </button>
+                </form>
+            </div>
+            
+            
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 overflow-auto">
+            <div class="py-6 px-4 md:px-8">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const overlay = document.getElementById('overlay');
+            const links = document.querySelectorAll('.sidebar-hover');
+
+            // Toggle sidebar on mobile
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                    overlay.classList.toggle('active');
+                });
+            }
+
+            // Close sidebar when clicking close button
+            if (closeSidebar) {
+                closeSidebar.addEventListener('click', function() {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                });
+            }
+
+            // Close sidebar when clicking overlay
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                });
+            }
+
+            // Close sidebar when clicking a link on mobile
+            const mobileCheck = window.matchMedia('(max-width: 768px)');
+            if (mobileCheck.matches) {
+                links.forEach(link => {
+                    link.addEventListener('click', function() {
+                        sidebar.classList.remove('open');
+                        overlay.classList.remove('active');
+                    });
+                });
+            }
+
+            // Active link highlighting
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    links.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

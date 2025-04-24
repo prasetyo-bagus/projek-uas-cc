@@ -8,6 +8,11 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\DynamicAssetController;
+use App\Http\Controllers\AdController;
+use App\Http\Controllers\TestimonialController;
+use App\Models\DynamicAsset;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Route untuk halaman utama (Landing Page).
@@ -27,7 +32,7 @@ Route::get('/', [HomeController::class, 'index'])->name('homepage');
  *   `admin`: Memastikan pengguna memiliki peran sebagai admin.
  *    Route ini memiliki nama `dashboard` yang dapat digunakan dalam fungsi `route('dashboard')`.
  */
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', [HomeController::class, 'adminDashboard'])
     ->middleware(['auth', 'verified', 'admin'])
     ->name('dashboard');
 
@@ -68,6 +73,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/blogs', BlogController::class)->except(['index', 'show']);
     Route::resource('/dynamic-assets', DynamicAssetController::class);
     // Route::get('/dynamic-assets/create/{type}', [DynamicAssetController::class, 'create'])->name('dynamic-assets.create');
+    
+    // Routes untuk admin testimonial
+    Route::get('/admin/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
+    Route::patch('/admin/testimonials/{testimonial}/status', [TestimonialController::class, 'updateStatus'])->name('testimonials.update.status');
+    Route::delete('/admin/testimonials/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
 });
 
 /**
@@ -91,7 +101,29 @@ Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store')->mi
  */
 Route::post('/trix/upload', [TrixController::class, 'upload'])->name('trix.upload');
 
+// Routes untuk testimonial
+Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.store');
+Route::get('/api/testimonials', [TestimonialController::class, 'getApprovedTestimonials'])->name('api.testimonials');
+
 /**
  * Menyertakan file auth.php yang berisi route autentikasi
  */
 require __DIR__ . '/auth.php';
+
+Route::get('/ads', [AdController::class, 'create']);
+Route::post('/ads', [AdController::class, 'store'])->name('ads.store');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::resource('blogs', BlogController::class);
+    Route::resource('dynamic-assets', DynamicAssetController::class);
+    // Route::resource('ads', AdController::class);
+});
+
+
+Route::post('/logout', function () {
+    Auth::guard('web')->logout();
+    session()->invalidate();
+    session()->regenerateToken();
+    return redirect('/'); // arahkan ke halaman utama setelah logout
+})->name('logout');
