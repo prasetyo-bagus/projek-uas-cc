@@ -12,13 +12,13 @@ class HomeController extends Controller
     {
         // Ambil data banner
         // $banner = DynamicAsset::where('type', 'BANNER')->where('is_active', true)->latest()->first();
+        $banners = DynamicAsset::where('type', 'BANNER')->latest()->take(3)->get();      
 
         // Ambil data galeri
         $galleries = DynamicAsset::where('type', 'GALERY')->where('is_active', true)->latest()->take(4)->get();
 
         // Ambil data fasilitas
-        $facilities = DynamicAsset::where('type', 'FACILITY')->where('is_active', true)->latest()->take(3)->get();
-        $banners = DynamicAsset::where('type', 'BANNER')->latest()->take(3)->get();        
+        $facilities = DynamicAsset::where('type', 'FACILITY')->where('is_active', true)->latest()->take(3)->get();  
 
         // Ambil data blog (misalnya 5 blog terbaru)
         $blogs = Blog::latest()->take(6)->get();

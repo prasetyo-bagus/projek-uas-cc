@@ -2,54 +2,11 @@
 
 <body class="bg-gray-50">
     @section('content')
-        <!-- Hero Section -->
-        {{-- <section class="hero-section flex items-center justify-center">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">Nusantara Edupark</h1>
-                <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-md">Wisata Edukasi Pertanian, Peternakan, dan
-                    Perkebunan</p>
-                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                    <!-- <a href="#"
-                        class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
-                        Jelajahi Sekarang
-                    </a> -->
-                    <!-- <a href="#"
-                        class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
-                        Lihat Paket Wisata
-                    </a> -->
-                </div>
-            </div>
-        </section> --}}
-
-        {{-- <section class="hero-section flex items-center justify-center bg-cover bg-center"
-            style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                                url('{{ optional($banner)->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}'); height: 80vh;">
-            <div class="container mx-auto px-6 text-center">
-                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                    {{ $banner->title ?? 'Nusantara Edupark' }}
-                </h1>
-                <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-md">
-                    {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
-                </p>
-                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                    <!-- <a href="#"
-                        class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
-                        Jelajahi Sekarang
-                    </a>
-                    <a href="#"
-                        class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
-                        Lihat Paket Wisata
-                    </a> -->
-                </div>
-            </div>
-        </section> --}}
-
-
         <div class="swiper heroSwiper w-full h-[80vh] relative">
             <div class="swiper-wrapper w-full h-full">
                 @foreach($banners as $banner)
                     <div class="swiper-slide w-full h-full bg-cover bg-center flex"
-                        style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.pn') }}');">
+                        style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}');">
 
                         <!-- Konten di bawah -->
                         <div class="flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-12">
@@ -316,7 +273,7 @@
 
                 <div class="text-center mb-10">
                     <a href="{{ route('gallery') }}"
-                        class="inline-block border-2 border-yellow-400 bg-yellow-300 text-purple-800 hover:bg-yellow-400 hover:border-yellow-500 font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
+                        class="border-2 border-yellow-400 bg-yellow-300 text-purple-800 hover:bg-yellow-400 hover:border-yellow-500 font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
                         <i class="fas fa-images mr-2"></i> Lihat Semua Foto
                     </a>
                 </div>
