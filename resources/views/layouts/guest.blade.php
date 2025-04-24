@@ -12,7 +12,8 @@
     @livewireStyles
 
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
@@ -40,7 +41,7 @@
         @yield('content')
 
         <!-- Footer -->
-        <footer class="bg-[rgb(33,15,55)] text-white pt-16 pb-6 mt-16">
+        <footer class="bg-[rgb(33,15,55)] text-white pt-16 pb-6">
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
@@ -70,12 +71,16 @@
                         <h4 class="text-lg font-semibold mb-4">Tautan Cepat</h4>
                         <ul class="space-y-2">
                             <li><a href="#" class="text-gray-400 hover:text-white transition-all">Beranda</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition-all">Tentang Kami</a>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-all">Tentang
+                                    Kami</a>
                             </li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition-all">Paket Wisata</a>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-all">Paket
+                                    Wisata</a>
                             </li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition-all">Galeri</a></li>
-                            <li><a href="#" class="text-gray-400 hover:text-white transition-all">Blog</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-all">Galeri</a>
+                            </li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition-all">Blog</a>
+                            </li>
                         </ul>
                     </div>
                     <div>
@@ -112,26 +117,34 @@
                                 <span class="text-gray-400">09:00 - 16:00</span>
                             </li>
                         </ul>
-
-                        <div class="border-t border-gray-700 mt-10 pt-6">
-                            <div class="flex flex-col md:flex-row justify-between items-center">
-                                <p class="text-gray-400 text-sm">© 2025 Nusantara Edupark. Hak Cipta Dilindungi.</p>
-                                <div class="flex space-x-4 mt-4 md:mt-0">
-                                    <a href="#"
-                                        class="text-gray-400 hover:text-white text-sm transition-all">Kebijakan
-                                        Privasi</a>
-                                    <a href="#"
-                                        class="text-gray-400 hover:text-white text-sm transition-all">Syarat &
-                                        Ketentuan</a>
-                                    <a href="#"
-                                        class="text-gray-400 hover:text-white text-sm transition-all">FAQ</a>
-                                </div>
+                        {{-- <div class="mt-6">
+                            <h4 class="text-lg font-semibold mb-2">Newsletter</h4>
+                            <div class="flex">
+                                <input type="email" placeholder="Email Anda"
+                                    class="bg-gray-700 text-white px-4 py-2 rounded-l-md w-full focus:outline-none">
+                                <button
+                                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-r-md transition-all">Langganan</button>
                             </div>
+                            <p class="text-gray-400 text-sm mt-2">Dapatkan info terbaru dan promo menarik</p>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="border-t border-gray-700 mt-10 pt-6">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-400 text-sm">© 2025 Nusantara Edupark. Hak Cipta Dilindungi.</p>
+                        <div class="flex space-x-4 mt-4 md:mt-0">
+                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">Kebijakan
+                                Privasi</a>
+                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">Syarat
+                                &
+                                Ketentuan</a>
+                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">FAQ</a>
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
+
 
         @livewireScripts
 </body>
