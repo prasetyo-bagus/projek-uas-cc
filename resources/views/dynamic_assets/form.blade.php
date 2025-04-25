@@ -18,6 +18,8 @@
             @include('dynamic_assets.partials.form-galery')
         @elseif ($type === 'FACILITY')
             @include('dynamic_assets.partials.form-facility')
+        @elseif ($type === 'PACKET')
+            @include('dynamic_assets.partials.form-packet')
         @else
             <p class="text-red-500">Tipe tidak dikenali.</p>
         @endif

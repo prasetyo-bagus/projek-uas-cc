@@ -47,6 +47,17 @@
                     </h3>
                     <p class="text-xs text-gray-500 text-center mt-1">Fasilitas dan layanan</p>
                 </a>
+
+                <a href="{{ route('dynamic-assets.create', ['type' => 'PACKET']) }}"
+                    class="flex flex-col items-center p-6 rounded-xl border-2 transition-all {{ $type == 'PACKET' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50/50' }}">
+                    <div
+                        class="w-16 h-16 flex items-center justify-center rounded-full {{ $type == 'PACKET' ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-500' }} mb-3">
+                        <i class="fa-solid fa-building text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold {{ $type == 'PACKET' ? 'text-primary-700' : 'text-gray-700' }}">Paket Wisata
+                    </h3>
+                    <p class="text-xs text-gray-500 text-center mt-1">Harga Paket Wisata</p>
+                </a>
             </div>
         </div>
 
@@ -60,9 +71,12 @@
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800">Tambah
-                            {{ $type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : 'Fasilitas') }}</h3>
+                            {{ $type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : ($type == 'FACILITY' ? 'Fasilitas' : 'Paket Wisata')) }}
+                        </h3>
                         <p class="text-sm text-gray-500">Silakan isi detail informasi
-                            {{ strtolower($type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : 'Fasilitas')) }}</p>
+                            {{ strtolower($type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : 'Fasilitas')) }}
+                            {{ strtolower($type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : ($type == 'FACILITY' ? 'Fasilitas' : 'Paket Wisata'))) }}
+                        </p>
                     </div>
                 </div>
 

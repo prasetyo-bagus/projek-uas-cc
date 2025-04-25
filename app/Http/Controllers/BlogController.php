@@ -23,8 +23,15 @@ class BlogController extends Controller
     {
         $statusFilter = Auth::check() ? ['PUBLISH', 'DRAF'] : ['PUBLISH'];
 
-        $blogUnggulan = Blog::published()->where('is_featured', true)->latest()->get();
-        $blogReguler = Blog::published()->where('is_featured', false)->latest()->paginate(6);
+        $blogUnggulan = Blog::whereIn('status', $statusFilter)
+        ->where('is_featured', true)
+        ->latest()
+        ->get();
+
+        $blogReguler = Blog::whereIn('status', $statusFilter)
+        ->where('is_featured', false)
+        ->latest()
+        ->paginate(6);
 
         return view('blog.index', compact('blogUnggulan', 'blogReguler'));
     }

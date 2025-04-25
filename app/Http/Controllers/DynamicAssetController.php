@@ -26,10 +26,10 @@ class DynamicAssetController extends Controller
         $type = strtoupper($request->query('type', 'BANNER')); // Default ke BANNER
 
         // Validasi jika tipe tidak valid
-        if (!in_array($type, ['BANNER', 'GALERY', 'FACILITY'])) {
+        if (!in_array($type, ['BANNER', 'GALERY', 'FACILITY', 'PACKET'])) {
             abort(404); // Tampilkan error 404 jika tipe tidak valid
         }
-
+        
         // Kirimkan data tipe ke view
         return view('dynamic_assets.create', compact('type'));
     }
