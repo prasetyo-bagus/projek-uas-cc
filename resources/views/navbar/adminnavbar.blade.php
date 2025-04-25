@@ -10,7 +10,8 @@
     <!-- Font Awesome 6 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts (Poppins) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -44,7 +45,7 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
-        
+
         .sidebar-icon {
             width: 24px;
             display: inline-block;
@@ -67,7 +68,7 @@
             border-left: 3px solid #8b5cf6;
             position: relative;
         }
-        
+
         .active::after {
             content: '';
             position: absolute;
@@ -127,8 +128,10 @@
     <div class="overlay" id="overlay"></div>
 
     <!-- Mobile header -->
-    <header class="md:hidden bg-gradient-to-r from-primary-800 to-primary-600 text-white p-4 flex items-center justify-between sticky top-0 z-30 shadow-lg">
-        <button id="sidebarToggle" class="text-white p-2 focus:outline-none hover:bg-primary-700 rounded-lg transition-all">
+    <header
+        class="md:hidden bg-gradient-to-r from-primary-800 to-primary-600 text-white p-4 flex items-center justify-between sticky top-0 z-30 shadow-lg">
+        <button id="sidebarToggle"
+            class="text-white p-2 focus:outline-none hover:bg-primary-700 rounded-lg transition-all">
             <i class="fa-solid fa-bars"></i>
         </button>
         <span class="font-bold text-lg text-white">NUSANTARA EDUPARK</span>
@@ -139,7 +142,8 @@
 
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <div id="sidebar" class="sidebar bg-gradient-to-b from-gray-900 to-primary-900 text-white w-72 flex-shrink-0 shadow-xl md:translate-x-0">
+        <div id="sidebar"
+            class="sidebar bg-gradient-to-b from-gray-900 to-primary-900 text-white w-72 flex-shrink-0 shadow-xl md:translate-x-0">
             <!-- Logo section - hidden on mobile as it's in the header -->
             <div class="hidden md:block px-6 py-6 border-b border-gray-800/50">
                 <div class="flex items-center justify-between">
@@ -154,7 +158,8 @@
 
             <!-- Mobile close button -->
             <div class="md:hidden p-4 flex justify-end">
-                <button id="closeSidebar" class="text-white focus:outline-none hover:bg-primary-800 p-2 rounded-lg transition-all">
+                <button id="closeSidebar"
+                    class="text-white focus:outline-none hover:bg-primary-800 p-2 rounded-lg transition-all">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
@@ -166,7 +171,7 @@
                         <i class="fa-solid fa-user text-white text-lg"></i>
                     </div>
                     <div>
-                        <p class="font-medium text-white">Admin User</p>
+                        <p class="font-medium text-white">{{ auth()->user()->name }}</p>
                         <div class="flex items-center text-xs text-gray-300 mt-1">
                             <span class="flex items-center">
                                 <i class="fa-solid fa-circle text-green-400 text-[8px] mr-1.5"></i> Administrator
@@ -215,13 +220,14 @@
                 <form action="{{ route('logout') }}" method="POST" class="px-6 py-3">
                     @csrf
                     <button type="submit" class="flex items-center w-full text-left sidebar-hover group">
-                        <span class="sidebar-icon"><i class="fa-solid fa-right-from-bracket text-primary-400 group-hover:text-red-400 transition-colors"></i></span>
+                        <span class="sidebar-icon"><i
+                                class="fa-solid fa-right-from-bracket text-primary-400 group-hover:text-red-400 transition-colors"></i></span>
                         <span class="group-hover:text-red-400 transition-colors">Logout</span>
                     </button>
                 </form>
             </div>
-            
-            
+
+
         </div>
 
         <!-- Content -->
@@ -233,7 +239,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.getElementById('sidebar');
             const sidebarToggle = document.getElementById('sidebarToggle');
             const closeSidebar = document.getElementById('closeSidebar');
@@ -242,7 +248,7 @@
 
             // Toggle sidebar on mobile
             if (sidebarToggle) {
-                sidebarToggle.addEventListener('click', function() {
+                sidebarToggle.addEventListener('click', function () {
                     sidebar.classList.toggle('open');
                     overlay.classList.toggle('active');
                 });
@@ -250,7 +256,7 @@
 
             // Close sidebar when clicking close button
             if (closeSidebar) {
-                closeSidebar.addEventListener('click', function() {
+                closeSidebar.addEventListener('click', function () {
                     sidebar.classList.remove('open');
                     overlay.classList.remove('active');
                 });
@@ -258,7 +264,7 @@
 
             // Close sidebar when clicking overlay
             if (overlay) {
-                overlay.addEventListener('click', function() {
+                overlay.addEventListener('click', function () {
                     sidebar.classList.remove('open');
                     overlay.classList.remove('active');
                 });
@@ -268,7 +274,7 @@
             const mobileCheck = window.matchMedia('(max-width: 768px)');
             if (mobileCheck.matches) {
                 links.forEach(link => {
-                    link.addEventListener('click', function() {
+                    link.addEventListener('click', function () {
                         sidebar.classList.remove('open');
                         overlay.classList.remove('active');
                     });
@@ -277,14 +283,14 @@
 
             // Active link highlighting
             links.forEach(link => {
-                link.addEventListener('click', function() {
+                link.addEventListener('click', function () {
                     links.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
                 });
             });
 
             // Handle window resize
-            window.addEventListener('resize', function() {
+            window.addEventListener('resize', function () {
                 if (window.innerWidth > 768) {
                     sidebar.classList.remove('open');
                     overlay.classList.remove('active');
