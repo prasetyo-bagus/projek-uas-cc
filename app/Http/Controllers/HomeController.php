@@ -32,7 +32,7 @@ class HomeController extends Controller
         $publishedBlogs = Blog::where('status', 'PUBLISH')->count();
         $draftBlogs = Blog::where('status', 'DRAF')->count();
         $featuredBlogs = Blog::where('is_featured', true)->count();
-        
+
         // Kategori blog
         $blogCategories = [
             'BERITA' => Blog::where('category', 'BERITA')->count(),
@@ -43,23 +43,23 @@ class HomeController extends Controller
             'PROMO' => Blog::where('category', 'PROMO')->count(),
             'FASILITAS' => Blog::where('category', 'FASILITAS')->count(),
         ];
-        
+
         // Statistik asset
         $totalAssets = DynamicAsset::count();
         $banners = DynamicAsset::where('type', 'BANNER')->count();
         $galleries = DynamicAsset::where('type', 'GALERY')->count();
         $facilities = DynamicAsset::where('type', 'FACILITY')->count();
-        
+
         // Blog terbaru
         $recentBlogs = Blog::latest()->take(5)->get();
-        
+
         // Asset terbaru
         $recentAssets = DynamicAsset::latest()->take(5)->get();
-        
+
         return view('dashboard', compact(
-            'totalBlogs', 
-            'publishedBlogs', 
-            'draftBlogs', 
+            'totalBlogs',
+            'publishedBlogs',
+            'draftBlogs',
             'featuredBlogs',
             'blogCategories',
             'totalAssets',
@@ -78,7 +78,7 @@ class HomeController extends Controller
     {
         // Ambil semua galeri
         $galleries = DynamicAsset::where('type', 'GALERY')->where('is_active', true)->latest()->paginate(12);
-        
+
         return view('gallery', compact('galleries'));
     }
 
@@ -89,7 +89,7 @@ class HomeController extends Controller
     {
         // Ambil semua fasilitas
         $facilities = DynamicAsset::where('type', 'FACILITY')->where('is_active', true)->latest()->paginate(9);
-        
+
         return view('facilities', compact('facilities'));
     }
 }

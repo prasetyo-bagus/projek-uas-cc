@@ -127,13 +127,13 @@
     <div class="overlay" id="overlay"></div>
 
     <!-- Mobile header -->
-    <header class="md:hidden bg-gradient-to-r from-primary-800 to-primary-600 text-white p-4 flex items-center justify-between sticky top-0 z-30 shadow-lg">
+    <header class="md:hidden bg-gradient-to-r from-primary-900 to-primary-900 text-white p-4 flex items-center justify-between sticky top-0 z-30 shadow-lg">
         <button id="sidebarToggle" class="text-white p-2 focus:outline-none hover:bg-primary-700 rounded-lg transition-all">
             <i class="fa-solid fa-bars"></i>
         </button>
         <span class="font-bold text-lg text-white">NUSANTARA EDUPARK</span>
-        <div class="glass-effect rounded-full p-2">
-            <i class="fa-solid fa-bolt text-white"></i>
+        <div class="p-2">
+            <img src="{{ asset('storage/logoNusantaraEdupark.jpg') }}" alt="Logo" class="w-12 h-12 object-cover">
         </div>
     </header>
 
@@ -144,8 +144,8 @@
             <div class="hidden md:block px-6 py-6 border-b border-gray-800/50">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-3">
-                        <div class="glass-effect p-2 rounded-lg">
-                            <i class="fa-solid fa-mountain-sun text-primary-400 text-xl"></i>
+                        <div class="rounded-lg">
+                            <img src="{{ asset('storage/logoNusantaraEdupark.jpg') }}" alt="Logo" class="w-13 h-13 object-cover">
                         </div>
                         <span class="font-bold text-xl text-white">NUSANTARA EDUPARK</span>
                     </div>
