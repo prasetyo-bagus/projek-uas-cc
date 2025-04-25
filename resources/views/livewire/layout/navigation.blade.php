@@ -2,20 +2,8 @@
 
 use App\Livewire\Actions\Logout;
 
-<<<<<<< HEAD
 $logout = function (Logout $logout) {
     $logout();
-=======
-<body>
-    <?php
-    use App\Livewire\Actions\Logout;
-
-    $logout = function (Logout $logout) {
-        $logout();
-        $this->redirect('/', navigate: true);
-    };
-    ?>
->>>>>>> 0106c76ec3974c78b9461ac480ca341fac229527
 
     $this->redirect('/', navigate: true);
 };
