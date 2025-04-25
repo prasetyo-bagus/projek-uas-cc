@@ -52,12 +52,12 @@
                             <i class="fas fa-newspaper mr-1"></i> Blog
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="{{ route('homepage') }}"
                             class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0">
                             <i class="fas fa-comment-dots mr-1"></i> Testimonial
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>

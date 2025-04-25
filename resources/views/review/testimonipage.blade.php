@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('navbar.guestnavbar')
 
 @section('content')
 <div class="bg-gray-50 min-h-screen py-16">
@@ -9,8 +9,34 @@
         </div>
 
         <!-- Form Testimonial -->
-        <div class="max-w-4xl mx-auto mb-20">
+        <!-- <div class="max-w-4xl mx-auto mb-20">
             @include('review.formkomentar')
+        </div> -->
+
+        <!-- Filter Rating -->
+        <div class="max-w-7xl mx-auto mb-10">
+            <div class="bg-white p-5 rounded-xl shadow-sm">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Filter berdasarkan rating:</h3>
+                <div class="flex flex-wrap gap-3">
+                    <a href="{{ route('testimonials.all') }}" class="rating-filter {{ !request('rating') ? 'bg-purple-100 border-purple-500 text-purple-700' : 'bg-gray-50 hover:bg-gray-100 border-gray-200 text-gray-700' }} border rounded-lg px-4 py-2 transition-all text-sm font-medium">
+                        Semua Rating
+                    </a>
+                    @for ($i = 5; $i >= 1; $i--)
+                        <a href="{{ route('testimonials.all', ['rating' => $i]) }}" class="rating-filter {{ request('rating') == $i ? 'bg-purple-100 border-purple-500 text-purple-700' : 'bg-gray-50 hover:bg-gray-100 border-gray-200 text-gray-700' }} border rounded-lg px-4 py-2 transition-all text-sm font-medium flex items-center">
+                            <span class="mr-1">{{ $i }}</span>
+                            <div class="text-yellow-400 flex">
+                                @for($j = 1; $j <= 5; $j++)
+                                    @if($j <= $i)
+                                        <i class="fas fa-star text-sm"></i>
+                                    @else
+                                        <i class="far fa-star text-sm"></i>
+                                    @endif
+                                @endfor
+                            </div>
+                        </a>
+                    @endfor
+                </div>
+            </div>
         </div>
 
         <!-- Daftar Testimonial -->
@@ -18,6 +44,11 @@
             <h2 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
                 <i class="fas fa-quote-left text-purple-500 mr-3"></i>
                 Apa Kata Mereka?
+                @if(request('rating'))
+                    <span class="ml-3 text-sm font-normal bg-purple-100 text-purple-700 py-1 px-3 rounded-full">
+                        Rating: {{ request('rating') }} Bintang
+                    </span>
+                @endif
             </h2>
 
             @if($testimonials->isEmpty())
@@ -26,8 +57,14 @@
                     <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
                     </svg>
-                    <p class="mt-4 text-lg text-gray-500">Belum ada testimonial dari pengunjung.</p>
-                    <p class="mt-2 text-gray-500">Jadilah yang pertama memberikan testimonial!</p>
+                    <p class="mt-4 text-lg text-gray-500">Belum ada testimonial dari pengunjung {{ request('rating') ? 'dengan rating ' . request('rating') . ' bintang' : '' }}.</p>
+                    <p class="mt-2 text-gray-500">
+                        @if(request('rating'))
+                            <a href="{{ route('testimonials.all') }}" class="text-purple-600 hover:text-purple-800">Lihat semua testimonial</a>
+                        @else
+                            Jadilah yang pertama memberikan testimonial!
+                        @endif
+                    </p>
                 </div>
             </div>
             @else

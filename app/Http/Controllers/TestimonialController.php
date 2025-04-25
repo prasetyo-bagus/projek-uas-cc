@@ -70,4 +70,20 @@ class TestimonialController extends Controller
         $testimonials = Testimonial::approved()->orderBy('created_at', 'desc')->take(6)->get();
         return response()->json($testimonials);
     }
+
+    public function showAll(Request $request)
+    {
+        $rating = $request->rating;
+        $query = Testimonial::where('status', 'approved')
+                       ->orderBy('created_at', 'desc');
+        
+        // Filter berdasarkan rating jika parameter rating ada
+        if ($rating && in_array($rating, ['1', '2', '3', '4', '5'])) {
+            $query->where('rating', $rating);
+        }
+        
+        $testimonials = $query->paginate(12)->withQueryString();
+        
+        return view('review.testimonipage', compact('testimonials', 'rating'));
+    }
 }

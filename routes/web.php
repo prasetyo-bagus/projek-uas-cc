@@ -123,6 +123,7 @@ Route::post('/trix/upload', [TrixController::class, 'upload'])->name('trix.uploa
 // Routes untuk testimonial
 Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.store');
 Route::get('/api/testimonials', [TestimonialController::class, 'getApprovedTestimonials'])->name('api.testimonials');
+Route::get('/review', [TestimonialController::class, 'showAll'])->name('testimonials.all');
 
 /**
  * Menyertakan file auth.php yang berisi route autentikasi

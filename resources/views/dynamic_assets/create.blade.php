@@ -65,7 +65,9 @@
         @if ($type)
             <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
                 <div class="flex items-center mb-6">
+
                     <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
+
                         <i
                             class="fa-solid {{ $type == 'BANNER' ? 'fa-image' : ($type == 'GALERY' ? 'fa-images' : 'fa-building') }} text-lg"></i>
                     </div>
@@ -88,6 +90,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Form fields will be included here -->
                         @includeIf('dynamic_assets.partials.form-' . strtolower($type))
+
                     </div>
 
                     {{-- <div class="border-t border-gray-200 pt-6 mt-6">
@@ -102,6 +105,8 @@
                             </button>
                         </div>
                     </div> --}}
+
+
                 </form>
             </div>
         @else
@@ -110,8 +115,9 @@
                     <i class="fa-solid fa-lightbulb text-yellow-500 text-2xl"></i>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">Pilih Jenis Aset</h3>
-                <p class="text-gray-600 mb-4">Silakan pilih jenis aset terlebih dahulu dari pilihan di atas untuk menampilkan
-                    formulir.</p>
+
+                <p class="text-gray-600 mb-4">Silakan pilih jenis aset terlebih dahulu dari pilihan di atas untuk
+                    menampilkan formulir.</p>
             </div>
         @endif
     </div>
