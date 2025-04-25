@@ -2,66 +2,6 @@
 
 <body class="bg-gray-50">
     @section('content')
-        {{-- <div class="swiper heroSwiper w-full h-[80vh] relative">
-            <div class="swiper-wrapper w-full h-full">
-                @foreach($banners as $banners)
-                <div class="swiper-slide w-full h-full bg-cover bg-center flex"
-                    style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}');">
-
-                    <!-- Konten di bawah -->
-                    <div class="flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-12">
-                        <div class="container mx-auto">
-                            <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                                {{ $banners->title ?? 'Nusantara Edupark' }}
-                            </h1>
-                            <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-md">
-                                {{ $banners->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
-                            </p>
-                            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                                <a href="#"
-                                    class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
-                                    Jelajahi Sekarang
-                                </a>
-                                <a href="#"
-                                    class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
-                                    Lihat Paket Wisata
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                @endforeach
-            </div>
-
-
-            <section class="hero-section flex items-center justify-center bg-cover bg-center"
-                style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ asset('storage/' . $banners->image) }}'); height: 80vh;">
-                <div class="container mx-auto px-6 text-center">
-                    <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                        {{ $banners->title ?? 'Nusantara Edupark' }}
-                    </h1>
-                    <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-md">
-                        {{ $banners->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
-                    </p>
-                    <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                        <!-- <a href="#"
-                                                            class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
-                                                            Jelajahi Sekarang
-                                                        </a>
-                                                        <a href="#"
-                                                            class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
-                                                            Lihat Paket Wisata
-                                                        </a> -->
-                    </div>
-
-
-                </div>
-                <div
-                    class="swiper-button-next w-6 h-6 mr-4 top-1/2 -translate-y-1/2 right-0 absolute z-10 filter brightness-0 invert">
-                </div>
-        </div>
-        </div> --}}
         <div class="swiper heroSwiper w-full h-[80vh] relative">
             <div class="swiper-wrapper w-full h-full">
                 @foreach($banners as $banner)
@@ -704,11 +644,11 @@
                             noData.className = 'col-span-3 text-center py-10';
                             noData.innerHTML = `
 
-                                                <div class="text-gray-500">
-                                                    <i class="fas fa-comment-slash text-4xl mb-3"></i>
-                                                    <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
-                                                </div>
-                                            `;
+                                                    <div class="text-gray-500">
+                                                        <i class="fas fa-comment-slash text-4xl mb-3"></i>
+                                                        <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
+                                                    </div>
+                                                `;
 
                             container.appendChild(noData);
                             return;
@@ -739,10 +679,10 @@
                                     `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
                             } else {
                                 photoHtml = `
-                                                    <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                                                        <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
-                                                    </div>
-                                                `;
+                                                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                                            <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
+                                                        </div>
+                                                    `;
 
                             }
 
@@ -752,24 +692,24 @@
                             testimonialCard.className =
                                 'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
                             testimonialCard.innerHTML = `
-                                                <div class="flex items-center mb-4">
-                                                    <div class="text-yellow-400 flex">
-                                                        ${starsHtml}
+                                                    <div class="flex items-center mb-4">
+                                                        <div class="text-yellow-400 flex">
+                                                            ${starsHtml}
+                                                        </div>
+                                                        <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
                                                     </div>
-                                                    <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
-                                                </div>
-                                                <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
-                                                <div class="flex items-center">
-                                                    ${photoHtml}
-                                                    <div class="ml-3">
-                                                        <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
-                                                        <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
+                                                    <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
+                                                    <div class="flex items-center">
+                                                        ${photoHtml}
+                                                        <div class="ml-3">
+                                                            <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
+                                                            <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
+                                                        </div>
+                                                        <div class="ml-auto text-xs text-gray-400">
+                                                            ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                                        </div>
                                                     </div>
-                                                    <div class="ml-auto text-xs text-gray-400">
-                                                        ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                                    </div>
-                                                </div>
-                                            `;
+                                                `;
 
 
                             container.appendChild(testimonialCard);
