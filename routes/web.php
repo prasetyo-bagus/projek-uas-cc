@@ -9,6 +9,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\DynamicAssetController;
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestimonialController;
 use App\Models\DynamicAsset;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -42,7 +43,7 @@ Route::get('/fasilitas', [HomeController::class, 'facilities'])->name('facilitie
  *   `admin`: Memastikan pengguna memiliki peran sebagai admin.
  *    Route ini memiliki nama `dashboard` yang dapat digunakan dalam fungsi `route('dashboard')`.
  */
-Route::get('dashboard', [HomeController::class, 'adminDashboard'])
+Route::get('dashboard', [DashboardController::class, 'adminDashboard'])
     ->middleware(['auth', 'verified', 'admin'])
     ->name('dashboard');
 
@@ -60,6 +61,13 @@ Route::get('dashboard', [HomeController::class, 'adminDashboard'])
 Route::view('superadmin', 'superadmin')
     ->middleware(['auth', 'superadmin'])
     ->name('superadmin');
+
+
+
+Route::get('superadmin', [DashboardController::class, 'superadminDashboard'])
+
+->middleware(['auth', 'verified', 'superadmin'])
+->name('superadmin');
 
 /**
  * Route untuk halaman profil pengguna.

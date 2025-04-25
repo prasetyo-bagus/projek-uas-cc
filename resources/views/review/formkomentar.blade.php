@@ -5,6 +5,7 @@
             Beri Testimoni Anda
         </h4>
 
+
         {{-- @if (session('success'))
             <div class="bg-green-600 text-white px-5 py-4 mb-8 rounded-lg shadow-md flex items-center">
                 <i class="fas fa-check-circle text-xl mr-3"></i>
@@ -14,6 +15,7 @@
         {{-- </div>
             </div>
         @endif --}}
+
 
         <form id="testimoniForm" action="{{ route('testimonials.store') }}" method="POST" enctype="multipart/form-data"
             class="space-y-6" onsubmit="return validateForm()">
@@ -55,8 +57,10 @@
                     <div class="absolute top-3 left-3 flex items-start pointer-events-none">
                         <i class="fas fa-quote-left text-purple-300"></i>
                     </div>
+
                     <textarea name="pesan" id="pesan" placeholder="Bagaimana pengalaman Anda di Nusantara Edupark?" rows="5"
                         required
+
                         class="w-full pl-10 px-4 py-3 rounded-lg bg-white/10 text-white border border-white/30 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400/50 focus:outline-none placeholder-white/50"></textarea>
                 </div>
                 @error('pesan')
@@ -98,8 +102,10 @@
                 <label for="foto" class="block text-white text-sm font-medium mb-2">Foto Anda (Opsional)</label>
                 <div class="mt-1 flex items-center">
                     <div id="photoPreview"
+
                         class="hidden w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mr-4 overflow-hidden">
                         <img id="previewImage" src="#" class="w-full h-full object-cover">
+
                     </div>
                     <label for="foto"
                         class="cursor-pointer bg-white/10 hover:bg-white/20 py-2 px-4 border border-white/30 rounded-lg flex items-center transition-colors duration-200">
@@ -127,12 +133,12 @@
 </section>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const starContainer = document.querySelector('.star-rating');
         const stars = document.querySelectorAll('.star-rating label');
 
         stars.forEach((star) => {
-            star.addEventListener('click', function() {
+            star.addEventListener('click', function () {
                 // Mendapatkan semua label bintang sebelumnya (untuk sistem rating dari kanan ke kiri)
                 let prevStars = [];
                 let nextStar = this;
@@ -160,7 +166,7 @@
         });
 
         // Efek hover menggunakan event delegation
-        starContainer.addEventListener('mouseover', function(e) {
+        starContainer.addEventListener('mouseover', function (e) {
             if (e.target.tagName === 'LABEL') {
                 const hoverStar = e.target;
 
@@ -188,7 +194,7 @@
         });
 
         // Reset efek hover saat mouse keluar
-        starContainer.addEventListener('mouseleave', function() {
+        starContainer.addEventListener('mouseleave', function () {
             // Kembalikan status aktif berdasarkan rating yang dipilih
             stars.forEach(star => {
                 const input = document.getElementById(star.getAttribute('for'));
@@ -229,7 +235,9 @@
         if (input.files && input.files[0]) {
             const reader = new FileReader();
 
+
             reader.onload = function(e) {
+
                 previewImg.src = e.target.result;
                 preview.classList.remove('hidden');
             }
