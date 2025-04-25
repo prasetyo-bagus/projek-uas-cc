@@ -54,7 +54,9 @@
         @if ($type)
             <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
                 <div class="flex items-center mb-6">
+
                     <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
+
                         <i
                             class="fa-solid {{ $type == 'BANNER' ? 'fa-image' : ($type == 'GALERY' ? 'fa-images' : 'fa-building') }} text-lg"></i>
                     </div>
@@ -62,7 +64,11 @@
                         <h3 class="text-xl font-semibold text-gray-800">Tambah
                             {{ $type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : 'Fasilitas') }}</h3>
                         <p class="text-sm text-gray-500">Silakan isi detail informasi
-                            {{ strtolower($type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : 'Fasilitas')) }}</p>
+
+                            {{ strtolower($type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : 'Fasilitas')) }}
+                        </p>
+
+                          
                     </div>
                 </div>
 
@@ -74,20 +80,21 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Form fields will be included here -->
                         @includeIf('dynamic_assets.partials.form-' . strtolower($type))
+
                     </div>
 
                     {{-- <div class="border-t border-gray-200 pt-6 mt-6">
-                        <div class="flex justify-end space-x-3">
-                            <a href="{{ route('dynamic-assets.index') }}"
-                                class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-                                Batal
-                            </a>
-                            <button type="submit"
-                                class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center">
-                                <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Aset
-                            </button>
-                        </div>
-                    </div> --}}
+                    <div class="flex justify-end space-x-3">
+                        <a href="{{ route('dynamic-assets.index') }}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                            Batal
+                        </a>
+                        <button type="submit" class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center">
+                            <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Aset
+                        </button>
+                    </div>
+                </div> --}}
+
+
                 </form>
             </div>
         @else
@@ -96,9 +103,11 @@
                     <i class="fa-solid fa-lightbulb text-yellow-500 text-2xl"></i>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">Pilih Jenis Aset</h3>
-                <p class="text-gray-600 mb-4">Silakan pilih jenis aset terlebih dahulu dari pilihan di atas untuk menampilkan
-                    formulir.</p>
+
+                <p class="text-gray-600 mb-4">Silakan pilih jenis aset terlebih dahulu dari pilihan di atas untuk
+                    menampilkan formulir.</p>
             </div>
         @endif
     </div>
 @endsection
+

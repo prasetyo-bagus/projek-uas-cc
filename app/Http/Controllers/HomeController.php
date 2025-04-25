@@ -24,7 +24,6 @@ class HomeController extends Controller
         $blogs = Blog::latest()->take(6)->get();
 
         // Kembalikan data ke view
-        return view('homepage', compact('banners', 'blogs', 'galleries', 'facilities'));
     }
 
     /**
@@ -34,7 +33,7 @@ class HomeController extends Controller
     {
         // Ambil semua galeri
         $galleries = DynamicAsset::where('type', 'GALERY')->where('is_active', true)->latest()->paginate(12);
-        
+
         return view('gallery', compact('galleries'));
     }
 
@@ -45,7 +44,7 @@ class HomeController extends Controller
     {
         // Ambil semua fasilitas
         $facilities = DynamicAsset::where('type', 'FACILITY')->where('is_active', true)->latest()->paginate(9);
-        
+
         return view('facilities', compact('facilities'));
     }
 }

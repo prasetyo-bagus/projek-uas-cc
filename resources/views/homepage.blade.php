@@ -34,9 +34,28 @@
                 @endforeach
             </div>
 
-            <!-- Tombol Navigasi -->
-            <div
-                class="swiper-button-prev w-6 h-6 ml-4 top-1/2 -translate-y-1/2 left-0 absolute z-10 filter brightness-0 invert">
+
+        <section class="hero-section flex items-center justify-center bg-cover bg-center"
+            style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{{ asset('storage/' . $banner->image) }}'); height: 80vh;">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+                    {{ $banner->title ?? 'Nusantara Edupark' }}
+                </h1>
+                <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-md">
+                    {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
+                </p>
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <!-- <a href="#"
+                                        class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
+                                        Jelajahi Sekarang
+                                    </a>
+                                    <a href="#"
+                                        class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
+                                        Lihat Paket Wisata
+                                    </a> -->
+                </div>
+
+ 
             </div>
             <div
                 class="swiper-button-next w-6 h-6 mr-4 top-1/2 -translate-y-1/2 right-0 absolute z-10 filter brightness-0 invert">
@@ -133,6 +152,146 @@
             </div>
         </section>
 
+        <!-- Popular Tours Section with Animated Effects -->
+        <section class="py-16 bg-gray-50 relative overflow-hidden">
+            <!-- Decorative Background Elements -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
+                <i class="fas fa-leaf absolute text-green-500 text-6xl" style="top: 10%; left: 5%;"></i>
+                <i class="fas fa-carrot absolute text-orange-500 text-5xl" style="top: 30%; left: 15%;"></i>
+                <i class="fas fa-tractor absolute text-red-500 text-7xl" style="top: 70%; left: 8%;"></i>
+                <i class="fas fa-cow absolute text-gray-500 text-6xl" style="top: 40%; right: 12%;"></i>
+                <i class="fas fa-egg absolute text-yellow-500 text-5xl" style="top: 15%; right: 20%;"></i>
+                <i class="fas fa-apple-alt absolute text-red-500 text-4xl" style="top: 80%; right: 5%;"></i>
+            </div>
+
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="flex justify-between items-center mb-10">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
+                            <i class="fas fa-star text-yellow-400 mr-2 animate-pulse-slow"></i>
+                            Paket Wisata Favorit
+                        </h2>
+                        <p class="text-gray-600 mt-2">Pilihan paket wisata edukatif yang paling diminati</p>
+                    </div>
+                    <a href="#"
+                        class="text-green-600 hover:text-green-700 font-semibold transition-all flex items-center group">
+                        Lihat Semua <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
+                                alt="Agro Edukasi">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                                <p class="text-white px-4 pb-4 font-medium">
+                                    <i class="fas fa-camera mr-2"></i> 12+ aktivitas seru
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span
+                                    class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-crown text-yellow-500 mr-1"></i> Bestseller
+                                </span>
+                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 1 Hari</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Paket Agro Edukasi</h3>
+                            <p class="text-gray-600 mb-4">Mengenal berbagai tanaman, cara menanam dan merawatnya dengan
+                                metode organik.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="text-green-600 font-bold flex items-center">
+                                    <i class="fas fa-tag mr-1"></i> Rp 150.000/orang
+                                </p>
+                                <a href="#"
+                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
+                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1500595046743-cd271d694e30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
+                                alt="Peternakan Seru">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                                <p class="text-white px-4 pb-4 font-medium">
+                                    <i class="fas fa-camera mr-2"></i> 15+ aktivitas seru
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span
+                                    class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-users mr-1"></i> Keluarga
+                                </span>
+                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 1 Hari</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Peternakan Seru</h3>
+                            <p class="text-gray-600 mb-4">Berinteraksi dengan hewan ternak dan belajar proses pengolahan
+                                hasil peternakan.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="text-green-600 font-bold flex items-center">
+                                    <i class="fas fa-tag mr-1"></i> Rp 180.000/orang
+                                </p>
+                                <a href="#"
+                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
+                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
+                                alt="Paket Lengkap">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                                <p class="text-white px-4 pb-4 font-medium">
+                                    <i class="fas fa-camera mr-2"></i> 20+ aktivitas seru
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span
+                                    class="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-percentage mr-1"></i> Hemat
+                                </span>
+                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 2 Hari</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Paket Lengkap</h3>
+                            <p class="text-gray-600 mb-4">Gabungan edukasi pertanian, peternakan, dan perkebunan dalam satu
+                                paket lengkap.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="text-green-600 font-bold flex items-center">
+                                    <i class="fas fa-tag mr-1"></i> Rp 300.000/orang
+                                </p>
+                                <a href="#"
+                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
+                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
         <!-- FACILITY -->
         <section class="py-16 bg-gray-50 relative overflow-hidden">
             <!-- Decorative Background Elements -->
@@ -162,45 +321,45 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     @forelse ($facilities as $facility)
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
-                        <div class="relative overflow-hidden">
-                            <img src="{{ asset('storage/' . $facility->image) }}"
-                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt="{{ $facility->title }}">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                <p class="text-white px-4 pb-4 font-medium">
-                                    <i class="fas fa-building mr-2"></i> Fasilitas
-                                </p>
+                        <div
+                            class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
+                            <div class="relative overflow-hidden">
+                                <img src="{{ asset('storage/' . $facility->image) }}"
+                                    class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
+                                    alt="{{ $facility->title }}">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                                    <p class="text-white px-4 pb-4 font-medium">
+                                        <i class="fas fa-building mr-2"></i> Fasilitas
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span
+                                        class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                        <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
+                                <p class="text-gray-600 mb-4">{{ $facility->description }}</p>
+                                @if ($facility->detail)
+                                    <div class="flex justify-end">
+                                        <a href="#"
+                                            class="text-blue-600 hover:text-blue-800 font-medium transition-colors flex items-center">
+                                            <i class="fas fa-info-circle mr-1"></i> Detail
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-3">
-                                <span
-                                    class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
-                                </span>
-                            </div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
-                            <p class="text-gray-600 mb-4">{{ $facility->description }}</p>
-                            @if($facility->detail)
-                            <div class="flex justify-end">
-                                <a href="#"
-                                    class="text-blue-600 hover:text-blue-800 font-medium transition-colors flex items-center">
-                                    <i class="fas fa-info-circle mr-1"></i> Detail
-                                </a>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
                     @empty
-                    <div class="col-span-3 text-center py-12">
-                        <div class="bg-gray-100 rounded-lg p-8 inline-block">
-                            <i class="fas fa-building text-gray-400 text-4xl mb-3"></i>
-                            <p class="text-gray-500">Belum ada fasilitas yang tersedia.</p>
+                        <div class="col-span-3 text-center py-12">
+                            <div class="bg-gray-100 rounded-lg p-8 inline-block">
+                                <i class="fas fa-building text-gray-400 text-4xl mb-3"></i>
+                                <p class="text-gray-500">Belum ada fasilitas yang tersedia.</p>
+                            </div>
                         </div>
-                    </div>
                     @endforelse
                 </div>
             </div>
@@ -248,26 +407,27 @@
                 <!-- Container untuk gambar-gambar gallery -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
                     @forelse ($galleries as $gallery)
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="{{ asset('storage/' . $gallery->image) }}"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="{{ $gallery->title }}">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-image mr-2"></i> {{ $gallery->title }}</span>
+                        <div class="relative overflow-hidden rounded-lg group">
+                            <img src="{{ asset('storage/' . $gallery->image) }}"
+                                class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
+                                alt="{{ $gallery->title }}">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                                <span class="text-white font-medium"><i class="fas fa-image mr-2"></i>
+                                    {{ $gallery->title }}</span>
+                            </div>
+                            <div
+                                class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <i class="fas fa-search-plus text-purple-600"></i>
+                            </div>
                         </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-purple-600"></i>
-                        </div>
-                    </div>
                     @empty
-                    <div class="col-span-4 text-center py-12">
-                        <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
-                            <i class="fas fa-image text-4xl mb-3"></i>
-                            <p>Belum ada foto galeri yang tersedia.</p>
+                        <div class="col-span-4 text-center py-12">
+                            <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
+                                <i class="fas fa-image text-4xl mb-3"></i>
+                                <p>Belum ada foto galeri yang tersedia.</p>
+                            </div>
                         </div>
-                    </div>
                     @endforelse
                 </div>
 
@@ -280,8 +440,8 @@
             </div>
         </section>
 
-    <!-- Blog Section -->
-    <section class="py-20 bg-gray-50">
+        <!-- Blog Section -->
+        <section class="py-20 bg-gray-50">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
                     <div>
@@ -466,7 +626,9 @@
                 </div>
 
                 <div class="text-center mt-8">
-                    <a href="#"
+
+                    <a href="{{ route('testimonials.all') }}"
+
                         class="inline-flex items-center text-purple-700 font-medium hover:text-purple-900 transition-colors">
                         <span>Lihat Semua Testimonial</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24"
@@ -484,9 +646,11 @@
         </section>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+
+            document.addEventListener('DOMContentLoaded', function() {
                 // Ambil testimonial dari API
-                fetch('{{ route("api.testimonials") }}')
+                fetch('{{ route('api.testimonials') }}')
+
                     .then(response => response.json())
                     .then(data => {
                         // Kosongkan container untuk menghilangkan skeletons
@@ -498,17 +662,24 @@
                             const noData = document.createElement('div');
                             noData.className = 'col-span-3 text-center py-10';
                             noData.innerHTML = `
-                                                    <div class="text-gray-500">
-                                                        <i class="fas fa-comment-slash text-4xl mb-3"></i>
-                                                        <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
-                                                    </div>
-                                                `;
+
+                            <div class="text-gray-500">
+                                <i class="fas fa-comment-slash text-4xl mb-3"></i>
+                                <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
+                            </div>
+                        `;
+
                             container.appendChild(noData);
                             return;
                         }
 
+
+                        // Hanya tampilkan 3 testimonial terbaru
+                        const latestThree = data.slice(0, 3);
+
                         // Render testimonial
-                        data.forEach(testimonial => {
+                        latestThree.forEach(testimonial => {
+
                             // Buat elemen bintang berdasarkan rating
                             let starsHtml = '';
                             for (let i = 1; i <= 5; i++) {
@@ -522,37 +693,43 @@
                             // Tentukan foto profil (pakai default jika tidak ada)
                             let photoHtml = '';
                             if (testimonial.foto) {
-                                photoHtml = `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
+
+                                photoHtml =
+                                    `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
                             } else {
                                 photoHtml = `
-                                                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                                                            <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
-                                                        </div>
-                                                    `;
+                                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                    <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
+                                </div>
+                            `;
+
                             }
 
                             // Buat card testimonial
                             const testimonialCard = document.createElement('div');
-                            testimonialCard.className = 'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
+
+                            testimonialCard.className =
+                                'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
                             testimonialCard.innerHTML = `
-                                                    <div class="flex items-center mb-4">
-                                                        <div class="text-yellow-400 flex">
-                                                            ${starsHtml}
-                                                        </div>
-                                                        <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
-                                                    </div>
-                                                    <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
-                                                    <div class="flex items-center">
-                                                        ${photoHtml}
-                                                        <div class="ml-3">
-                                                            <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
-                                                            <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
-                                                        </div>
-                                                        <div class="ml-auto text-xs text-gray-400">
-                                                            ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                                        </div>
-                                                    </div>
-                                                `;
+                            <div class="flex items-center mb-4">
+                                <div class="text-yellow-400 flex">
+                                    ${starsHtml}
+                                </div>
+                                <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
+                            <div class="flex items-center">
+                                ${photoHtml}
+                                <div class="ml-3">
+                                    <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
+                                    <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
+                                </div>
+                                <div class="ml-auto text-xs text-gray-400">
+                                    ${new Date(testimonial.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}
+                                </div>
+                            </div>
+                        `;
+
 
                             container.appendChild(testimonialCard);
                         });
@@ -560,13 +737,16 @@
                     .catch(error => {
                         console.error('Error fetching testimonials:', error);
                         const container = document.getElementById('testimonials-container');
-                        container.innerHTML = '<div class="col-span-3 text-center py-8 text-red-500">Gagal memuat testimonial</div>';
+
+                        container.innerHTML =
+                            '<div class="col-span-3 text-center py-8 text-red-500">Gagal memuat testimonial</div>';
+
                     });
             });
         </script>
 
-    
-        
+
+
 
         <script>
             function validateCaptcha() {
