@@ -41,7 +41,7 @@ class DynamicAssetController extends Controller
     {
         // Validasi data request
         $request->validate([
-            'type' => 'required|in:BANNER,GALERY,FACILITY',
+            'type' => 'required|in:BANNER,GALERY,FACILITY','PACKET',
             'title' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'description' => 'nullable|string|max:255',

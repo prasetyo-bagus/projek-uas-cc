@@ -24,6 +24,7 @@ class HomeController extends Controller
         $blogs = Blog::latest()->take(6)->get();
 
         // Kembalikan data ke view
+        return view('homepage', compact('banners', 'blogs', 'galleries', 'facilities'));
     }
 
     /**
