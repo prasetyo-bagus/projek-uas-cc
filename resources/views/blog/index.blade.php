@@ -1,4 +1,4 @@
-@extends(Auth::check() ? 'navbar.adminnavbar' : 'navbar.guestnavbar')
+@extends(Auth::check() ? 'navbar.adminnavbar' : 'layouts.guest')
 
 @section('content')
     @php
@@ -51,8 +51,8 @@
                                 </td>
                                 <td class="py-2 px-2 border hidden sm:table-cell">
                                     <code class="text-xs bg-gray-100 px-1 py-1 rounded">
-                                                                https://officialnusantaraedupark/blogs/{{ $blog->url }}
-                                                </code>
+                                                                                                    https://officialnusantaraedupark/blogs/{{ $blog->url }}
+                                                                                    </code>
                                 </td>
                                 <td class="py-2 px-4 border text-center">
                                     @if ($blog->is_featured)
