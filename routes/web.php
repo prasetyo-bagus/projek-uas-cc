@@ -1,19 +1,19 @@
 <?php
 
+use App\Models\DynamicAsset;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TrixController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\CKEditorController;
-use App\Http\Controllers\DynamicAssetController;
-use App\Http\Controllers\AdController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestimonialController;
-use App\Models\DynamicAsset;
+use App\Http\Controllers\DynamicAssetController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Route untuk halaman utama (Landing Page).

@@ -18,7 +18,14 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        <livewire:layout.navigation />
+
+
+        {{--
+        <livewire:layout.navigation /> --}}
+        {{-- @include('navbar.guestnavbar') --}}
+        {{-- @guest
+        @include('navbar.guestnavbar')
+        @endguest --}}
 
         <!-- Page Heading -->
         @if (isset($header))
@@ -33,6 +40,11 @@
         <main>
             {{ $slot }}
         </main>
+
+        {{-- @guest
+        @include('navbar.guestfooter')
+        @endguest --}}
+
     </div>
 </body>
 
