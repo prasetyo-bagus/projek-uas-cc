@@ -25,7 +25,11 @@
 
         {{--
         <livewire:layout.navigation /> --}}
-        @include('navbar.guestnavbar')
+        {{-- @include('navbar.guestnavbar') --}}
+        @if (!Auth::check())
+            @include('navbar.guestnavbar')
+        @endif
+
         {{-- @guest
         @include('navbar.guestnavbar')
         @endguest --}}
@@ -47,7 +51,9 @@
     </div>
 
     {{-- footer --}}
-    @include('navbar.guestfooter')
+    @if (!Auth::check())
+        @include('navbar.guestfooter')
+    @endif
 
 </body>
 
