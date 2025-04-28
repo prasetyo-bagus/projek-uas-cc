@@ -35,6 +35,7 @@ class DashboardController extends Controller
         $banners = DynamicAsset::where('type', 'BANNER')->count();
         $galleries = DynamicAsset::where('type', 'GALERY')->count();
         $facilities = DynamicAsset::where('type', 'FACILITY')->count();
+        $sponsors = DynamicAsset::where('type', 'SPONSOR')->count();
         
         // Blog terbaru
         $recentBlogs = Blog::latest()->take(5)->get();
@@ -52,6 +53,7 @@ class DashboardController extends Controller
             'banners',
             'galleries',
             'facilities',
+            'sponsors',
             'recentBlogs',
             'recentAssets'
         ));
@@ -84,6 +86,7 @@ class DashboardController extends Controller
         $banners = DynamicAsset::where('type', 'BANNER')->count();
         $galleries = DynamicAsset::where('type', 'GALERY')->count();
         $facilities = DynamicAsset::where('type', 'FACILITY')->count();
+        $sponsors = DynamicAsset::where('type', 'SPONSOR')->count();
         
         // Blog terbaru
         $recentBlogs = Blog::latest()->take(5)->get();
@@ -101,6 +104,7 @@ class DashboardController extends Controller
             'banners',
             'galleries',
             'facilities',
+            'sponsors',
             'recentBlogs',
             'recentAssets'
         ));

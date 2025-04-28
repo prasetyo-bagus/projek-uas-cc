@@ -26,10 +26,10 @@ class DynamicAssetController extends Controller
         $type = strtoupper($request->query('type', 'BANNER')); // Default ke BANNER
 
         // Validasi jika tipe tidak valid
-        if (!in_array($type, ['BANNER', 'GALERY', 'FACILITY'])) {
+        if (!in_array($type, ['BANNER', 'GALERY', 'FACILITY', 'PACKET', 'SPONSOR'])) {
             abort(404); // Tampilkan error 404 jika tipe tidak valid
         }
-
+        
         // Kirimkan data tipe ke view
         return view('dynamic_assets.create', compact('type'));
     }
@@ -41,7 +41,7 @@ class DynamicAssetController extends Controller
     {
         // Validasi data request
         $request->validate([
-            'type' => 'required|in:BANNER,GALERY,FACILITY',
+            'type' => 'required|in:BANNER,GALERY,FACILITY,PACKET,SPONSOR',
             'title' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'description' => 'nullable|string|max:255',
@@ -95,7 +95,7 @@ class DynamicAssetController extends Controller
     {
         // Validasi data yang akan diupdate
         $request->validate([
-            'type' => 'required|in:BANNER,GALERY,FACILITY',
+            'type' => 'required|in:BANNER,GALERY,FACILITY,PACKET,SPONSOR',
             'title' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'description' => 'nullable|string|max:255',

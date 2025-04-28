@@ -20,11 +20,17 @@ class HomeController extends Controller
         // Ambil data fasilitas
         $facilities = DynamicAsset::where('type', 'FACILITY')->where('is_active', true)->latest()->take(3)->get();  
 
+        // Ambil data paket wisata
+        $packets = DynamicAsset::where('type', 'PACKET')->where('is_active', true)->latest()->take(3)->get();
+
+        // Ambil data sponsor
+        $sponsors = DynamicAsset::where('type', 'SPONSOR')->where('is_active', true)->latest()->get();
+
         // Ambil data blog (misalnya 5 blog terbaru)
-        $blogs = Blog::latest()->take(6)->get();
+        $blogs = Blog::where('status', 'PUBLISH')->latest()->take(6)->get();
 
         // Kembalikan data ke view
-        return view('homepage', compact('banners', 'blogs', 'galleries', 'facilities'));
+        return view('homepage', compact('banners', 'blogs', 'galleries', 'facilities', 'packets', 'sponsors'));
     }
 
     /**
@@ -34,7 +40,7 @@ class HomeController extends Controller
     {
         // Ambil semua galeri
         $galleries = DynamicAsset::where('type', 'GALERY')->where('is_active', true)->latest()->paginate(12);
-        
+
         return view('gallery', compact('galleries'));
     }
 
@@ -45,7 +51,18 @@ class HomeController extends Controller
     {
         // Ambil semua fasilitas
         $facilities = DynamicAsset::where('type', 'FACILITY')->where('is_active', true)->latest()->paginate(9);
-        
+
         return view('facilities', compact('facilities'));
+    }
+
+    /**
+     * Menampilkan halaman paket wisata
+     */
+    public function packets()
+    {
+        // Ambil semua paket wisata
+        $packets = DynamicAsset::where('type', 'PACKET')->where('is_active', true)->latest()->paginate(9);
+
+        return view('packets', compact('packets'));
     }
 }

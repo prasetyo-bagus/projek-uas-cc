@@ -35,6 +35,11 @@ Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/fasilitas', [HomeController::class, 'facilities'])->name('facilities');
 
 /**
+ * Route untuk halaman paket wisata
+ */
+Route::get('/paket-wisata', [HomeController::class, 'packets'])->name('packets');
+
+/**
  * Route untuk halaman dashboard ADMIN.
  *
  * Hanya dapat diakses oleh pengguna dengan middleware:
@@ -123,6 +128,7 @@ Route::post('/trix/upload', [TrixController::class, 'upload'])->name('trix.uploa
 // Routes untuk testimonial
 Route::post('/testimonials', [TestimonialController::class, 'store'])->name('testimonials.store');
 Route::get('/api/testimonials', [TestimonialController::class, 'getApprovedTestimonials'])->name('api.testimonials');
+Route::get('/review', [TestimonialController::class, 'showAll'])->name('testimonials.all');
 
 /**
  * Menyertakan file auth.php yang berisi route autentikasi

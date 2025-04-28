@@ -47,6 +47,28 @@
                     </h3>
                     <p class="text-xs text-gray-500 text-center mt-1">Fasilitas dan layanan</p>
                 </a>
+
+                <a href="{{ route('dynamic-assets.create', ['type' => 'PACKET']) }}"
+                    class="flex flex-col items-center p-6 rounded-xl border-2 transition-all {{ $type == 'PACKET' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50/50' }}">
+                    <div
+                        class="w-16 h-16 flex items-center justify-center rounded-full {{ $type == 'PACKET' ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-500' }} mb-3">
+                        <i class="fa-solid fa-building text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold {{ $type == 'PACKET' ? 'text-primary-700' : 'text-gray-700' }}">Paket Wisata
+                    </h3>
+                    <p class="text-xs text-gray-500 text-center mt-1">Harga Paket Wisata</p>
+                </a>
+
+                <a href="{{ route('dynamic-assets.create', ['type' => 'SPONSOR']) }}"
+                    class="flex flex-col items-center p-6 rounded-xl border-2 transition-all {{ $type == 'SPONSOR' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50/50' }}">
+                    <div
+                        class="w-16 h-16 flex items-center justify-center rounded-full {{ $type == 'SPONSOR' ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-500' }} mb-3">
+                        <i class="fa-solid fa-handshake text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold {{ $type == 'SPONSOR' ? 'text-primary-700' : 'text-gray-700' }}">Sponsor
+                    </h3>
+                    <p class="text-xs text-gray-500 text-center mt-1">Logo sponsor dan partner</p>
+                </a>
             </div>
         </div>
 
@@ -54,15 +76,20 @@
         @if ($type)
             <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
                 <div class="flex items-center mb-6">
-                    <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
+
+                    <div
+                        class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
+
                         <i
-                            class="fa-solid {{ $type == 'BANNER' ? 'fa-image' : ($type == 'GALERY' ? 'fa-images' : 'fa-building') }} text-lg"></i>
+                            class="fa-solid {{ $type == 'BANNER' ? 'fa-image' : ($type == 'GALERY' ? 'fa-images' : ($type == 'FACILITY' ? 'fa-building' : ($type == 'SPONSOR' ? 'fa-handshake' : 'fa-building'))) }} text-lg"></i>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800">Tambah
-                            {{ $type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : 'Fasilitas') }}</h3>
+                            {{ $type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : ($type == 'FACILITY' ? 'Fasilitas' : ($type == 'SPONSOR' ? 'Sponsor' : 'Paket Wisata'))) }}
+                        </h3>
                         <p class="text-sm text-gray-500">Silakan isi detail informasi
-                            {{ strtolower($type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : 'Fasilitas')) }}</p>
+                            {{ strtolower($type == 'BANNER' ? 'Banner' : ($type == 'GALERY' ? 'Galeri' : ($type == 'FACILITY' ? 'Fasilitas' : ($type == 'SPONSOR' ? 'Sponsor' : 'Paket Wisata')))) }}
+                        </p>
                     </div>
                 </div>
 
@@ -74,9 +101,10 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Form fields will be included here -->
                         @includeIf('dynamic_assets.partials.form-' . strtolower($type))
-                    </div>
 
-                    {{-- <div class="border-t border-gray-200 pt-6 mt-6">
+                    </div>
+                    {{--
+                    <div class="border-t border-gray-200 pt-6 mt-6">
                         <div class="flex justify-end space-x-3">
                             <a href="{{ route('dynamic-assets.index') }}"
                                 class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
@@ -88,6 +116,7 @@
                             </button>
                         </div>
                     </div> --}}
+
                 </form>
             </div>
         @else
@@ -96,8 +125,9 @@
                     <i class="fa-solid fa-lightbulb text-yellow-500 text-2xl"></i>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-800 mb-2">Pilih Jenis Aset</h3>
-                <p class="text-gray-600 mb-4">Silakan pilih jenis aset terlebih dahulu dari pilihan di atas untuk menampilkan
-                    formulir.</p>
+
+                <p class="text-gray-600 mb-4">Silakan pilih jenis aset terlebih dahulu dari pilihan di atas untuk
+                    menampilkan formulir.</p>
             </div>
         @endif
     </div>

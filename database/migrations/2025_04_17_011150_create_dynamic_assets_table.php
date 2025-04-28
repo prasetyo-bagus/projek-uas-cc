@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dynamic_assets', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['BANNER', 'GALERY', 'FACILITY']);
+            $table->enum('type', ['BANNER', 'GALERY', 'FACILITY', 'PACKET', 'SPONSOR']);
             $table->string('title')->nullable();
             $table->string('image');
             $table->string('description')->nullable();
