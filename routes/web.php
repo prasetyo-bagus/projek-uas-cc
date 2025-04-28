@@ -14,6 +14,7 @@ use App\Http\Controllers\TestimonialController;
 use App\Models\DynamicAsset;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
 
 /**
  * Route untuk halaman utama (Landing Page).
@@ -97,11 +98,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/dynamic-assets', DynamicAssetController::class);
     Route::patch('/dynamic-assets/{id}/toggle-status', [DynamicAssetController::class, 'toggleStatus'])->name('dynamic-assets.toggle-status');
     // Route::get('/dynamic-assets/create/{type}', [DynamicAssetController::class, 'create'])->name('dynamic-assets.create');
-    
+
     // Routes untuk admin testimonial
     Route::get('/admin/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
     Route::patch('/admin/testimonials/{testimonial}/status', [TestimonialController::class, 'updateStatus'])->name('testimonials.update.status');
     Route::delete('/admin/testimonials/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 /**

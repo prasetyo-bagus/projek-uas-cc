@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('photo_path')->nullable();
             // $table->integer('role')->default(2); // 1-superadmin | 2-admin
             $table->enum('role', ['SUPER_ADMIN', 'ADMIN'])->default('ADMIN');
             $table->timestamp('email_verified_at')->nullable();
