@@ -35,6 +35,11 @@ Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/fasilitas', [HomeController::class, 'facilities'])->name('facilities');
 
 /**
+ * Route untuk halaman paket wisata
+ */
+Route::get('/paket-wisata', [HomeController::class, 'packets'])->name('packets');
+
+/**
  * Route untuk halaman dashboard ADMIN.
  *
  * Hanya dapat diakses oleh pengguna dengan middleware:
