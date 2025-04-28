@@ -172,7 +172,8 @@
                 <div class="flex items-center space-x-4">
                     <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-400">
                         @if(auth()->user()->photo_path)
-                            <img src="{{ asset('storage/' . auth()->user()->photo_path) }}" alt="Profile Photo" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/' . auth()->user()->photo_path) }}" alt="Profile Photo"
+                                class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full bg-primary-600 flex items-center justify-center">
                                 <i class="fa-solid fa-user text-white text-xl"></i>
@@ -218,13 +219,17 @@
                     <span>Testimonial</span>
                 </a>
 
-                <a href="{{ route('register') }}"
-                    class="px-6 py-3 flex items-center sidebar-hover {{ request()->is('register.*') ? 'active' : '' }}">
-                    <span class="sidebar-icon">
-                        <i class="fa-solid fa-user-plus"></i>
-                    </span>
-                    <span>Kelola Admin</span>
-                </a>
+                @auth
+                    @if (auth()->user()->role === 'SUPER_ADMIN')
+                        <a href="{{ route('register') }}"
+                            class="px-6 py-3 flex items-center sidebar-hover {{ request()->is('register*') ? 'active' : '' }}">
+                            <span class="sidebar-icon">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </span>
+                            <span>Kelola Admin</span>
+                        </a>
+                    @endif
+                @endauth
 
                 <p class="px-6 py-2 mt-6 text-xs uppercase tracking-wider text-gray-400 font-semibold">Akun</p>
 
