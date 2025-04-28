@@ -14,6 +14,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\DynamicAssetController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
 
 /**
  * Route untuk halaman utama (Landing Page).
@@ -33,6 +35,11 @@ Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
  * Route untuk halaman fasilitas
  */
 Route::get('/fasilitas', [HomeController::class, 'facilities'])->name('facilities');
+
+/**
+ * Route untuk halaman paket wisata
+ */
+Route::get('/paket-wisata', [HomeController::class, 'packets'])->name('packets');
 
 /**
  * Route untuk halaman dashboard ADMIN.
@@ -92,11 +99,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/dynamic-assets', DynamicAssetController::class);
     Route::patch('/dynamic-assets/{id}/toggle-status', [DynamicAssetController::class, 'toggleStatus'])->name('dynamic-assets.toggle-status');
     // Route::get('/dynamic-assets/create/{type}', [DynamicAssetController::class, 'create'])->name('dynamic-assets.create');
-    
+
     // Routes untuk admin testimonial
     Route::get('/admin/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
     Route::patch('/admin/testimonials/{testimonial}/status', [TestimonialController::class, 'updateStatus'])->name('testimonials.update.status');
     Route::delete('/admin/testimonials/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 /**

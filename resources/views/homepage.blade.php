@@ -4,7 +4,7 @@
     @section('content')
         <div class="swiper heroSwiper w-full h-[80vh] relative">
             <div class="swiper-wrapper w-full h-full">
-                @foreach($banners as $banner)
+                @foreach ($banners as $banner)
                     <div class="swiper-slide w-full h-full bg-cover bg-center flex"
                         style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}');">
 
@@ -22,7 +22,7 @@
                                         class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
                                         Jelajahi Sekarang
                                     </a>
-                                    <a href="#"
+                                    <a href="{{ route('packets') }}"
                                         class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
                                         Lihat Paket Wisata
                                     </a>
@@ -46,7 +46,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const swiper = new Swiper(".heroSwiper", {
                     loop: true,
                     autoplay: {
@@ -63,7 +63,27 @@
             });
         </script>
 
+        <!-- Sponsors Section -->
+        <section class="py-4 bg-white  border-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-6">
+                    <!-- <h3 class="text-lg font-medium text-gray-500">Didukung Oleh</h3> -->
+                </div>
 
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                    @forelse ($sponsors as $sponsor)
+                        <div class="group">
+                            <a href="{{ $sponsor->detail }}" target="_blank" class="block" title="{{ $sponsor->title }}">
+                                <img src="{{ asset('storage/' . $sponsor->image) }}" alt="{{ $sponsor->title }}"
+                                    class="h-20 md:h-20 filter hover:grayscale-0 transition-all duration-300 hover:scale-110">
+                            </a>
+                        </div>
+                    @empty
+                        <div class="text-gray-400 italic text-sm">Belum ada sponsor</div>
+                    @endforelse
+                </div>
+            </div>
+        </section>
 
         <!-- Features Section with Playful Elements -->
         <section class="py-16 bg-white relative overflow-hidden">
@@ -133,6 +153,7 @@
             </div>
         </section>
 
+        <!-- PACKET -->
         <!-- Popular Tours Section with Animated Effects -->
         <section class="py-16 bg-gray-50 relative overflow-hidden">
             <!-- Decorative Background Elements -->
@@ -154,120 +175,55 @@
                         </h2>
                         <p class="text-gray-600 mt-2">Pilihan paket wisata edukatif yang paling diminati</p>
                     </div>
-                    <a href="#"
+                    <a href="{{ route('packets') }}"
                         class="text-green-600 hover:text-green-700 font-semibold transition-all flex items-center group">
                         Lihat Semua <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt="Agro Edukasi">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                <p class="text-white px-4 pb-4 font-medium">
-                                    <i class="fas fa-camera mr-2"></i> 12+ aktivitas seru
-                                </p>
+                    @forelse ($packets as $packet)
+                        <div
+                            class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
+                            <div class="relative overflow-hidden">
+                                <img src="{{ asset('storage/' . $packet->image) }}"
+                                    class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
+                                    alt="{{ $packet->title }}">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                                    <p class="text-white px-4 pb-4 font-medium">
+                                        <i class="fas fa-camera mr-2"></i> Paket Wisata
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span
+                                        class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                        <i class="fas fa-crown text-yellow-500 mr-1"></i> Bestseller
+                                    </span>
+                                </div>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $packet->title }}</h3>
+                                <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-green-600 font-bold flex items-center">
+                                        <i class="fas fa-tag mr-1"></i> {{ $packet->detail ?? 'Hubungi kami' }}
+                                    </p>
+                                    <a href="#"
+                                        class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
+                                        <i class="fas fa-ticket-alt mr-1"></i> Pesan
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-3">
-                                <span
-                                    class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-crown text-yellow-500 mr-1"></i> Bestseller
-                                </span>
-                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 1 Hari</span>
-                            </div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Paket Agro Edukasi</h3>
-                            <p class="text-gray-600 mb-4">Mengenal berbagai tanaman, cara menanam dan merawatnya dengan
-                                metode organik.</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-green-600 font-bold flex items-center">
-                                    <i class="fas fa-tag mr-1"></i> Rp 150.000/orang
-                                </p>
-                                <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
-                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
-                                </a>
+                    @empty
+                        <div class="col-span-3 text-center py-12">
+                            <div class="bg-gray-100 rounded-lg p-8 inline-block">
+                                <i class="fas fa-ticket-alt text-gray-400 text-4xl mb-3"></i>
+                                <p class="text-gray-500">Belum ada paket wisata yang tersedia.</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1500595046743-cd271d694e30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt="Peternakan Seru">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                <p class="text-white px-4 pb-4 font-medium">
-                                    <i class="fas fa-camera mr-2"></i> 15+ aktivitas seru
-                                </p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-3">
-                                <span
-                                    class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-users mr-1"></i> Keluarga
-                                </span>
-                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 1 Hari</span>
-                            </div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Peternakan Seru</h3>
-                            <p class="text-gray-600 mb-4">Berinteraksi dengan hewan ternak dan belajar proses pengolahan
-                                hasil peternakan.</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-green-600 font-bold flex items-center">
-                                    <i class="fas fa-tag mr-1"></i> Rp 180.000/orang
-                                </p>
-                                <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
-                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt="Paket Lengkap">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                <p class="text-white px-4 pb-4 font-medium">
-                                    <i class="fas fa-camera mr-2"></i> 20+ aktivitas seru
-                                </p>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-3">
-                                <span
-                                    class="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-percentage mr-1"></i> Hemat
-                                </span>
-                                <span class="text-gray-600"><i class="fas fa-clock mr-1"></i> 2 Hari</span>
-                            </div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Paket Lengkap</h3>
-                            <p class="text-gray-600 mb-4">Gabungan edukasi pertanian, peternakan, dan perkebunan dalam satu
-                                paket lengkap.</p>
-                            <div class="flex justify-between items-center">
-                                <p class="text-green-600 font-bold flex items-center">
-                                    <i class="fas fa-tag mr-1"></i> Rp 300.000/orang
-                                </p>
-                                <a href="#"
-                                    class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
-                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
             </div>
         </section>
@@ -347,30 +303,166 @@
         </section>
 
 
-        <!-- Gallery Section with Fun Interactive Elements -->
-        <!-- Gallery Section with Wavy Background -->
-        <section class="py-16 relative overflow-hidden">
-            <!-- Background dengan bentuk bergelombang seperti referensi -->
+         <!-- Gallery Section with Fun Interactive Elements -->
+         <section class="py-16 relative overflow-hidden">
+            <!-- Background dengan bentuk gelombang dan icon anak-anak -->
             <div class="absolute inset-0">
-                <!-- Warna dasar sesuai permintaan: rgb(220, 160, 109) -->
+                <!-- Warna dasar sesuai permintaan: rgb(144, 0, 239) -->
                 <div class="absolute inset-0" style="background-color: rgb(144, 0, 239);"></div>
 
-                <!-- Lapisan gelombang atas untuk tekstur -->
-                <div class="absolute inset-0 opacity-20">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
-                        class="absolute w-full h-full">
-                        <path fill="#fff"
-                            d="M0,128L48,133.3C96,139,192,149,288,149.3C384,149,480,139,576,144C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                <!-- Icon anak-anak yang transparan di background (lebih banyak dan ramai) -->
+                <div class="absolute inset-0 opacity-10">
+                    <!-- Icon anak bermain 1 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-10 left-1/4 w-24 h-24">
+                        <path fill="#ffffff" d="M50,10 C55,10 59,14 59,19 C59,24 55,28 50,28 C45,28 41,24 41,19 C41,14 45,10 50,10 Z"/>
+                        <path fill="#ffffff" d="M40,30 L60,30 L65,50 L60,70 L40,70 L35,50 Z"/>
+                        <path fill="#ffffff" d="M35,45 L25,60 L30,65 L40,50 Z"/>
+                        <path fill="#ffffff" d="M65,45 L75,60 L70,65 L60,50 Z"/>
+                        <path fill="#ffffff" d="M40,70 L35,90 L45,90 L48,70 Z"/>
+                        <path fill="#ffffff" d="M60,70 L65,90 L55,90 L52,70 Z"/>
+                    </svg>
+
+                    <!-- Icon anak membaca -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-40 right-1/4 w-28 h-28">
+                        <path fill="#ffffff" d="M30,30 C35,25 45,25 50,30 C55,25 65,25 70,30 C75,35 75,65 70,70 C65,75 55,75 50,70 C45,75 35,75 30,70 C25,65 25,35 30,30 Z"/>
+                        <circle fill="#ffffff" cx="50" cy="20" r="10"/>
+                        <path fill="#ffffff" d="M45,15 C45,15 47,20 50,20 C53,20 55,15 55,15"/>
+                    </svg>
+
+                    <!-- Icon balon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-40 left-1/5 w-16 h-16">
+                        <path fill="#ffffff" d="M50,10 C65,10 75,25 75,40 C75,55 65,70 50,70 C35,70 25,55 25,40 C25,25 35,10 50,10 Z"/>
+                        <path fill="#ffffff" d="M50,70 L45,90 L55,90 L50,70 Z"/>
+                    </svg>
+
+                    <!-- Icon mainan kubus -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-60 left-20 w-20 h-20">
+                        <rect fill="#ffffff" x="20" y="20" width="60" height="60" rx="10" ry="10"/>
+                        <circle fill="#9000EF" cx="35" cy="35" r="5"/>
+                        <circle fill="#9000EF" cx="65" cy="35" r="5"/>
+                        <circle fill="#9000EF" cx="35" cy="65" r="5"/>
+                        <circle fill="#9000EF" cx="65" cy="65" r="5"/>
+                    </svg>
+
+                    <!-- TAMBAHAN IKON -->
+
+                    <!-- Icon anak bermain 2 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-24 left-2/3 w-20 h-20">
+                        <circle fill="#ffffff" cx="50" cy="20" r="15"/>
+                        <path fill="#ffffff" d="M35,40 L65,40 L70,80 L30,80 Z"/>
+                        <path fill="#ffffff" d="M30,50 L20,70 L30,70 Z"/>
+                        <path fill="#ffffff" d="M70,50 L80,70 L70,70 Z"/>
+                    </svg>
+
+                    <!-- Icon pensil -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/3 left-10 w-24 h-24" transform="rotate(30)">
+                        <path fill="#ffffff" d="M20,80 L30,20 L70,20 L80,80 Z"/>
+                        <path fill="#9000EF" d="M30,20 L70,20 L70,10 L30,10 Z"/>
+                    </svg>
+
+                    <!-- Icon buku -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-60 right-20 w-28 h-28">
+                        <path fill="#ffffff" d="M20,20 L80,20 L80,80 L20,80 Z"/>
+                        <path fill="#9000EF" d="M50,20 L50,80 L52,80 L52,20 Z"/>
+                        <path fill="#ffffff" d="M30,35 L45,35 L45,40 L30,40 Z"/>
+                        <path fill="#ffffff" d="M55,35 L70,35 L70,40 L55,40 Z"/>
+                        <path fill="#ffffff" d="M30,50 L45,50 L45,55 L30,55 Z"/>
+                        <path fill="#ffffff" d="M55,50 L70,50 L70,55 L55,55 Z"/>
+                        <path fill="#ffffff" d="M30,65 L45,65 L45,70 L30,70 Z"/>
+                        <path fill="#ffffff" d="M55,65 L70,65 L70,70 L55,70 Z"/>
+                    </svg>
+
+                    <!-- Icon bintang -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-10 right-20 w-12 h-12">
+                        <path fill="#ffffff" d="M50,10 L61,35 L90,35 L65,50 L75,80 L50,65 L25,80 L35,50 L10,35 L39,35 Z"/>
+                    </svg>
+
+                    <!-- Icon robot mainan -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-32 right-1/3 w-24 h-24">
+                        <rect fill="#ffffff" x="30" y="20" width="40" height="30" rx="5" ry="5"/>
+                        <rect fill="#ffffff" x="35" y="50" width="30" height="30"/>
+                        <rect fill="#ffffff" x="25" y="60" width="10" height="20"/>
+                        <rect fill="#ffffff" x="65" y="60" width="10" height="20"/>
+                        <circle fill="#9000EF" cx="40" cy="30" r="5"/>
+                        <circle fill="#9000EF" cx="60" cy="30" r="5"/>
+                        <rect fill="#9000EF" x="40" y="40" width="20" height="5"/>
+                    </svg>
+
+                    <!-- Icon puzzle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/2 right-10 w-16 h-16">
+                        <path fill="#ffffff" d="M25,25 L40,25 L40,40 L55,40 L55,25 L70,25 L70,40 L55,55 L70,55 L70,70 L55,70 L55,55 L40,55 L40,70 L25,70 L25,55 L40,40 L25,40 Z"/>
+                    </svg>
+
+                    <!-- Icon anak melompat -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-40 left-1/3 w-20 h-20">
+                        <circle fill="#ffffff" cx="50" cy="20" r="10"/>
+                        <path fill="#ffffff" d="M45,30 L55,30 L60,50 L40,50 Z"/>
+                        <path fill="#ffffff" d="M40,50 L30,80 L40,80 Z"/>
+                        <path fill="#ffffff" d="M60,50 L70,80 L60,80 Z"/>
+                        <path fill="#ffffff" d="M40,40 L20,45 L20,35 Z"/>
+                        <path fill="#ffffff" d="M60,40 L80,45 L80,35 Z"/>
+                    </svg>
+
+                    <!-- Icon matahari -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-20 left-1/2 w-16 h-16">
+                        <circle fill="#ffffff" cx="50" cy="50" r="20"/>
+                        <path fill="#ffffff" d="M50,15 L50,5 M50,95 L50,85 M15,50 L5,50 M95,50 L85,50 M25,25 L18,18 M75,75 L82,82 M25,75 L18,82 M75,25 L82,18" stroke="#ffffff" stroke-width="3"/>
+                    </svg>
+
+                    <!-- Icon bola -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-20 right-20 w-14 h-14">
+                        <circle fill="#ffffff" cx="50" cy="50" r="30"/>
+                        <path fill="none" stroke="#9000EF" stroke-width="2" d="M20,50 L80,50 M50,20 L50,80 M30,30 L70,70 M30,70 L70,30"/>
+                    </svg>
+
+                    <!-- Icon pesawat kertas -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-36 left-36 w-18 h-18">
+                        <path fill="#ffffff" d="M10,40 L50,20 L90,40 L50,60 Z"/>
+                        <path fill="#ffffff" d="M50,60 L50,90 L40,75 L50,60 Z"/>
+                    </svg>
+
+                    <!-- Icon rumah -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-2/3 left-2/3 w-20 h-20">
+                        <path fill="#ffffff" d="M20,50 L50,20 L80,50 L80,90 L20,90 Z"/>
+                        <rect fill="#9000EF" x="45" y="60" width="10" height="30"/>
+                        <rect fill="#9000EF" x="30" y="70" width="10" height="10"/>
+                        <rect fill="#9000EF" x="60" y="70" width="10" height="10"/>
+                    </svg>
+                </div>
+
+                <!-- Gelombang sederhana di bagian atas -->
+                <div class="absolute top-0 left-0 w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full"
+                        style="height: 60px;">
+                        <path fill="#ffffff"
+                            d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,21.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
                         </path>
                     </svg>
                 </div>
 
-                <!-- Gelombang bawah seperti referensi -->
-                <div class="absolute bottom-0 left-0 w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full"
-                        style="height: 60px;">
+                <!-- Gelombang bertumpuk di bagian bawah seperti di referensi -->
+                <div class="absolute bottom-0 left-0 w-full overflow-hidden" style="height: 200px;">
+                    <!-- Gelombang 1 (paling belakang, paling terang) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
+                        class="absolute w-full bottom-0" style="height: 200px; opacity: 0.3;">
                         <path fill="#ffffff"
-                            d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,21.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z">
+                            d="M0,224L80,213.3C160,203,320,181,480,181.3C640,181,800,203,960,202.7C1120,203,1280,181,1360,170.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+                        </path>
+                    </svg>
+
+                    <!-- Gelombang 2 (tengah) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
+                        class="absolute w-full bottom-0" style="height: 170px; opacity: 0.4;">
+                        <path fill="#ffffff"
+                            d="M0,192L80,176C160,160,320,128,480,128C640,128,800,160,960,160C1120,160,1280,128,1360,112L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+                        </path>
+                    </svg>
+
+                    <!-- Gelombang 3 (paling depan) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
+                        class="absolute w-full bottom-0" style="height: 140px; opacity: 0.5;">
+                        <path fill="#ffffff"
+                            d="M0,160L80,144C160,128,320,96,480,96C640,96,800,128,960,128C1120,128,1280,96,1360,80L1440,64L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
                         </path>
                     </svg>
                 </div>
@@ -388,27 +480,26 @@
                 <!-- Container untuk gambar-gambar gallery -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
                     @forelse ($galleries as $gallery)
-                        <div class="relative overflow-hidden rounded-lg group">
-                            <img src="{{ asset('storage/' . $gallery->image) }}"
-                                class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                                alt="{{ $gallery->title }}">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                                <span class="text-white font-medium"><i class="fas fa-image mr-2"></i>
-                                    {{ $gallery->title }}</span>
-                            </div>
-                            <div
-                                class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <i class="fas fa-search-plus text-purple-600"></i>
-                            </div>
+                    <div class="relative overflow-hidden rounded-lg group">
+                        <img src="{{ asset('storage/' . $gallery->image) }}"
+                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
+                            alt="{{ $gallery->title }}">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                            <span class="text-white font-medium"><i class="fas fa-image mr-2"></i> {{ $gallery->title }}</span>
                         </div>
+                        <div
+                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fas fa-search-plus text-purple-600"></i>
+                        </div>
+                    </div>
                     @empty
-                        <div class="col-span-4 text-center py-12">
-                            <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
-                                <i class="fas fa-image text-4xl mb-3"></i>
-                                <p>Belum ada foto galeri yang tersedia.</p>
-                            </div>
+                    <div class="col-span-4 text-center py-12">
+                        <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
+                            <i class="fas fa-image text-4xl mb-3"></i>
+                            <p>Belum ada foto galeri yang tersedia.</p>
                         </div>
+                    </div>
                     @endforelse
                 </div>
 
@@ -443,39 +534,6 @@
                     </a>
                 </div>
 
-                {{-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    @foreach ($blog as $blog)
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
-                        <div class="relative overflow-hidden">
-                            <img src="{{ asset('storage/' . $blog->picture) }}"
-                                class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
-                                alt="{{ $blog->title }}">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="text-xs font-semibold text-purple-900 mb-2">
-                                {{ $blog->created_at->format('d M Y') }}</div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
-                                {{ $blog->title }}</h3>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-4">{{ Str::limit($blog->content, 120) }}
-                            </p>
-                            <a href="{{ route('blogs.show', $blog->url) }}"
-                                class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
-                                Baca Selengkapnya
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    @endforeach
-                </div> --}}
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     @foreach ($blogs as $blogItem)
                         <div
@@ -492,7 +550,8 @@
                                 <div class="text-xs font-semibold text-purple-900 mb-2">
                                     {{ $blogItem->created_at->format('d M Y') }}
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                <h3
+                                    class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
                                     {{ $blogItem->title }}
                                 </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed mb-4">
@@ -627,8 +686,7 @@
         </section>
 
         <script>
-
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 // Ambil testimonial dari API
                 fetch('{{ route('api.testimonials') }}')
 
@@ -773,3 +831,11 @@
         });
     </script> --}}
 </body>
+
+
+
+
+
+
+
+

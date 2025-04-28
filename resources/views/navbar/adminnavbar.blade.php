@@ -170,8 +170,14 @@
             <!-- User profile section -->
             <div class="px-6 py-6 border-b border-gray-800/50">
                 <div class="flex items-center space-x-4">
-                    <div class="glass-effect p-3 rounded-xl">
-                        <i class="fa-solid fa-user text-white text-lg"></i>
+                    <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-400">
+                        @if(auth()->user()->photo_path)
+                            <img src="{{ asset('storage/' . auth()->user()->photo_path) }}" alt="Profile Photo" class="w-full h-full object-cover">
+                        @else
+                            <div class="w-full h-full bg-primary-600 flex items-center justify-center">
+                                <i class="fa-solid fa-user text-white text-xl"></i>
+                            </div>
+                        @endif
                     </div>
                     <div>
                         <p class="font-medium text-white">{{ auth()->user()->name }}</p>
@@ -222,10 +228,10 @@
 
                 <p class="px-6 py-2 mt-6 text-xs uppercase tracking-wider text-gray-400 font-semibold">Akun</p>
 
-                <a href="#"
-                    class="px-6 py-3 flex items-center sidebar-hover {{ request()->is('admin/settings') ? 'active' : '' }}">
+                <a href="{{ route('profile.edit') }}"
+                    class="px-6 py-3 flex items-center sidebar-hover {{ request()->routeIs('profile.*') ? 'active' : '' }}">
                     <span class="sidebar-icon"><i class="fa-solid fa-gear text-primary-400"></i></span>
-                    <span>Settings</span>
+                    <span>Profile</span>
                 </a>
 
                 <form action="{{ route('logout') }}" method="POST" class="px-6 py-3">
