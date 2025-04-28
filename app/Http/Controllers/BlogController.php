@@ -78,7 +78,9 @@ class BlogController extends Controller
 
     public function show($url)
     {
-        $blog = Blog::where('url', $url)->firstOrFail();
+        $blog = Blog::where('url', $url)
+                    ->where('status', 'PUBLISH')
+                    ->firstOrFail();
         return view('blog.show', compact('blog'));
     }
 

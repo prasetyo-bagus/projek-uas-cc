@@ -52,6 +52,24 @@
                             <i class="fas fa-newspaper mr-1"></i> Blog
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('packets') }}"
+                            class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('packets') ? 'text-purple-700 font-bold' : '' }}">
+                            <i class="fas fa-ticket-alt mr-1"></i> Paket Wisata
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('gallery') }}"
+                            class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('gallery') ? 'text-purple-700 font-bold' : '' }}">
+                            <i class="fas fa-images mr-1"></i> Galeri
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('facilities') }}"
+                            class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('facilities') ? 'text-purple-700 font-bold' : '' }}">
+                            <i class="fas fa-building mr-1"></i> Fasilitas
+                        </a>
+                    </li>
                     <!-- <li>
                         <a href="{{ route('homepage') }}"
                             class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0">
