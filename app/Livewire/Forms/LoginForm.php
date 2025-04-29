@@ -30,15 +30,33 @@ class LoginForm extends Form
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only(['email', 'password']), $this->remember)) {
-            RateLimiter::hit($this->throttleKey());
+    $user = \App\Models\User::where('email', $this->email)->first();
 
-            throw ValidationException::withMessages([
-                'form.email' => trans('auth.failed'),
-            ]);
-        }
+    // Gagal jika user tidak ditemukan atau password salah
+    if (! $user || ! \Illuminate\Support\Facades\Hash::check($this->password, $user->password)) {
+        RateLimiter::hit($this->throttleKey());
 
-        RateLimiter::clear($this->throttleKey());
+        throw ValidationException::withMessages([
+            'form.email' => trans('auth.failed'),
+        ]);
+    }
+
+    // Blokir user jika tidak aktif
+    if ($user->status !== 'AKTIF') {
+        throw ValidationException::withMessages([
+            'form.email' => 'Akun Anda tidak aktif.',
+        ]);
+    }
+
+    // Lolos semua cek → sekarang baru lakukan login via attempt
+    if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
+        // Ini jarang terjadi, tapi tetap amankan
+        throw ValidationException::withMessages([
+            'form.email' => trans('auth.failed'),
+        ]);
+    }
+
+    RateLimiter::clear($this->throttleKey());
     }
 
     /**

@@ -52,7 +52,7 @@
                     class="flex flex-col items-center p-6 rounded-xl border-2 transition-all {{ $type == 'PACKET' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50/50' }}">
                     <div
                         class="w-16 h-16 flex items-center justify-center rounded-full {{ $type == 'PACKET' ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-500' }} mb-3">
-                        <i class="fa-solid fa-building text-2xl"></i>
+                        <i class="fas fa-ticket-alt mr-1 text-2xl"></i>
                     </div>
                     <h3 class="font-semibold {{ $type == 'PACKET' ? 'text-primary-700' : 'text-gray-700' }}">Paket Wisata
                     </h3>
@@ -77,8 +77,7 @@
             <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
                 <div class="flex items-center mb-6">
 
-                    <div
-                        class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
 
                         <i
                             class="fa-solid {{ $type == 'BANNER' ? 'fa-image' : ($type == 'GALERY' ? 'fa-images' : ($type == 'FACILITY' ? 'fa-building' : ($type == 'SPONSOR' ? 'fa-handshake' : 'fa-building'))) }} text-lg"></i>

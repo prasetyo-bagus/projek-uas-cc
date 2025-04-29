@@ -1,4 +1,4 @@
-@extends('navbar.guestnavbar')
+@extends('layouts.guest')
 
 <body class="bg-gray-50">
     @section('content')
@@ -22,36 +22,37 @@
         <section class="py-16 bg-gray-50">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 @if($galleries->count() > 0)
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                    @foreach($galleries as $gallery)
-                    <div class="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
-                        <img src="{{ asset('storage/' . $gallery->image) }}" 
-                            alt="{{ $gallery->title }}" 
-                            class="w-full aspect-square object-cover transform group-hover:scale-110 transition-all duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-purple-800/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4">
-                            <h3 class="text-white font-semibold text-lg">{{ $gallery->title }}</h3>
-                            @if($gallery->description)
-                            <p class="text-white/90 text-sm">{{ $gallery->description }}</p>
-                            @endif
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                        @foreach($galleries as $gallery)
+                            <div
+                                class="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                                <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}"
+                                    class="w-full aspect-square object-cover transform group-hover:scale-110 transition-all duration-500">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-purple-800/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-4">
+                                    <h3 class="text-white font-semibold text-lg">{{ $gallery->title }}</h3>
+                                    @if($gallery->description)
+                                        <p class="text-white/90 text-sm">{{ $gallery->description }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-12">
+                        {{ $galleries->links() }}
+                    </div>
+                @else
+                    <div class="text-center py-20">
+                        <div class="inline-block p-6 rounded-lg bg-gray-100 shadow-sm">
+                            <i class="fas fa-images text-gray-400 text-5xl mb-4"></i>
+                            <h3 class="text-xl font-medium text-gray-700 mb-2">Belum Ada Foto</h3>
+                            <p class="text-gray-500">Galeri foto akan segera ditambahkan. Silakan kunjungi kembali nanti.</p>
                         </div>
                     </div>
-                    @endforeach
-                </div>
-
-                <!-- Pagination -->
-                <div class="mt-12">
-                    {{ $galleries->links() }}
-                </div>
-                @else
-                <div class="text-center py-20">
-                    <div class="inline-block p-6 rounded-lg bg-gray-100 shadow-sm">
-                        <i class="fas fa-images text-gray-400 text-5xl mb-4"></i>
-                        <h3 class="text-xl font-medium text-gray-700 mb-2">Belum Ada Foto</h3>
-                        <p class="text-gray-500">Galeri foto akan segera ditambahkan. Silakan kunjungi kembali nanti.</p>
-                    </div>
-                </div>
                 @endif
             </div>
         </section>
     @endsection
-</body> 
+</body>

@@ -138,6 +138,7 @@
 
         @livewireScripts
     </main>
+    @extends('navbar.guestfooter')
 </body>
 
 </html>
