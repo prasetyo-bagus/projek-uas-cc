@@ -39,16 +39,16 @@ $register = function () {
 
 ?>
 
-<div class="flex min-h-screen bg-gray-50">
-    <!-- Sidebar/Navbar -->
-    <div class="w-64 bg-white shadow-lg">
-        @if (Auth::check())
+<div class="min-h-screen flex bg-gray-50">
+    <!-- Sidebar -->
+    @if (Auth::check())
+        <div class="w-64 bg-white shadow-lg">
             @include('navbar.adminnavbar')
-        @endif
-    </div>
+        </div>
+    @endif
 
-    <!-- Form Register -->
-    <div class="flex-1 p-10">
+    <!-- Register Form -->
+    <div class="flex-1 flex items-center justify-center">
         <div class="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg">
             <!-- Header with Logo -->
             <div class="text-center">
@@ -70,7 +70,7 @@ $register = function () {
                             </svg>
                         </div>
                         <x-text-input wire:model="name" id="name"
-                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white"
                             type="text" name="name" required autofocus autocomplete="name" />
                     </div>
                     <x-input-error :messages="$errors->get('name')" class="mt-2 text-sm text-red-600" />
@@ -88,7 +88,7 @@ $register = function () {
                             </svg>
                         </div>
                         <x-text-input wire:model="email" id="email"
-                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white"
                             type="email" name="email" required autocomplete="username" />
                     </div>
                     <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-red-600" />
@@ -107,7 +107,7 @@ $register = function () {
                             </svg>
                         </div>
                         <x-text-input wire:model="password" id="password"
-                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white"
                             type="password" name="password" required autocomplete="new-password" />
                     </div>
                     <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-red-600" />
@@ -126,7 +126,7 @@ $register = function () {
                             </svg>
                         </div>
                         <x-text-input wire:model="password_confirmation" id="password_confirmation"
-                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                            class="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-white"
                             type="password" name="password_confirmation" required autocomplete="new-password" />
                     </div>
                     <x-input-error :messages="$errors->get('password_confirmation')"

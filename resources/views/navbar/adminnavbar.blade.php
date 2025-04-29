@@ -223,10 +223,8 @@
                     @if (auth()->user()->role === 'SUPER_ADMIN')
                         <a href="{{ route('register') }}"
                             class="px-6 py-3 flex items-center sidebar-hover {{ request()->is('register*') ? 'active' : '' }}">
-                            <span class="sidebar-icon">
-                                <i class="fa-solid fa-user-plus"></i>
-                            </span>
-                            <span>Kelola Admin</span>
+                            <span class="sidebar-icon"><i class="fa-solid fa-user-plus text-primary-400"></i></span><span>Kelola
+                                Admin</span>
                         </a>
                     @endif
                 @endauth

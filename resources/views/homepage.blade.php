@@ -46,7 +46,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 const swiper = new Swiper(".heroSwiper", {
                     loop: true,
                     autoplay: {
@@ -303,8 +303,8 @@
         </section>
 
 
-         <!-- Gallery Section with Fun Interactive Elements -->
-         <section class="py-16 relative overflow-hidden">
+        <!-- Gallery Section with Fun Interactive Elements -->
+        <section class="py-16 relative overflow-hidden">
             <!-- Background dengan bentuk gelombang dan icon anak-anak -->
             <div class="absolute inset-0">
                 <!-- Warna dasar sesuai permintaan: rgb(144, 0, 239) -->
@@ -313,120 +313,140 @@
                 <!-- Icon anak-anak yang transparan di background (lebih banyak dan ramai) -->
                 <div class="absolute inset-0 opacity-10">
                     <!-- Icon anak bermain 1 -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-10 left-1/4 w-24 h-24">
-                        <path fill="#ffffff" d="M50,10 C55,10 59,14 59,19 C59,24 55,28 50,28 C45,28 41,24 41,19 C41,14 45,10 50,10 Z"/>
-                        <path fill="#ffffff" d="M40,30 L60,30 L65,50 L60,70 L40,70 L35,50 Z"/>
-                        <path fill="#ffffff" d="M35,45 L25,60 L30,65 L40,50 Z"/>
-                        <path fill="#ffffff" d="M65,45 L75,60 L70,65 L60,50 Z"/>
-                        <path fill="#ffffff" d="M40,70 L35,90 L45,90 L48,70 Z"/>
-                        <path fill="#ffffff" d="M60,70 L65,90 L55,90 L52,70 Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-10 left-1/4 w-24 h-24">
+                        <path fill="#ffffff"
+                            d="M50,10 C55,10 59,14 59,19 C59,24 55,28 50,28 C45,28 41,24 41,19 C41,14 45,10 50,10 Z" />
+                        <path fill="#ffffff" d="M40,30 L60,30 L65,50 L60,70 L40,70 L35,50 Z" />
+                        <path fill="#ffffff" d="M35,45 L25,60 L30,65 L40,50 Z" />
+                        <path fill="#ffffff" d="M65,45 L75,60 L70,65 L60,50 Z" />
+                        <path fill="#ffffff" d="M40,70 L35,90 L45,90 L48,70 Z" />
+                        <path fill="#ffffff" d="M60,70 L65,90 L55,90 L52,70 Z" />
                     </svg>
 
                     <!-- Icon anak membaca -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-40 right-1/4 w-28 h-28">
-                        <path fill="#ffffff" d="M30,30 C35,25 45,25 50,30 C55,25 65,25 70,30 C75,35 75,65 70,70 C65,75 55,75 50,70 C45,75 35,75 30,70 C25,65 25,35 30,30 Z"/>
-                        <circle fill="#ffffff" cx="50" cy="20" r="10"/>
-                        <path fill="#ffffff" d="M45,15 C45,15 47,20 50,20 C53,20 55,15 55,15"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-40 right-1/4 w-28 h-28">
+                        <path fill="#ffffff"
+                            d="M30,30 C35,25 45,25 50,30 C55,25 65,25 70,30 C75,35 75,65 70,70 C65,75 55,75 50,70 C45,75 35,75 30,70 C25,65 25,35 30,30 Z" />
+                        <circle fill="#ffffff" cx="50" cy="20" r="10" />
+                        <path fill="#ffffff" d="M45,15 C45,15 47,20 50,20 C53,20 55,15 55,15" />
                     </svg>
 
                     <!-- Icon balon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-40 left-1/5 w-16 h-16">
-                        <path fill="#ffffff" d="M50,10 C65,10 75,25 75,40 C75,55 65,70 50,70 C35,70 25,55 25,40 C25,25 35,10 50,10 Z"/>
-                        <path fill="#ffffff" d="M50,70 L45,90 L55,90 L50,70 Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute bottom-40 left-1/5 w-16 h-16">
+                        <path fill="#ffffff"
+                            d="M50,10 C65,10 75,25 75,40 C75,55 65,70 50,70 C35,70 25,55 25,40 C25,25 35,10 50,10 Z" />
+                        <path fill="#ffffff" d="M50,70 L45,90 L55,90 L50,70 Z" />
                     </svg>
 
                     <!-- Icon mainan kubus -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-60 left-20 w-20 h-20">
-                        <rect fill="#ffffff" x="20" y="20" width="60" height="60" rx="10" ry="10"/>
-                        <circle fill="#9000EF" cx="35" cy="35" r="5"/>
-                        <circle fill="#9000EF" cx="65" cy="35" r="5"/>
-                        <circle fill="#9000EF" cx="35" cy="65" r="5"/>
-                        <circle fill="#9000EF" cx="65" cy="65" r="5"/>
+                        <rect fill="#ffffff" x="20" y="20" width="60" height="60" rx="10" ry="10" />
+                        <circle fill="#9000EF" cx="35" cy="35" r="5" />
+                        <circle fill="#9000EF" cx="65" cy="35" r="5" />
+                        <circle fill="#9000EF" cx="35" cy="65" r="5" />
+                        <circle fill="#9000EF" cx="65" cy="65" r="5" />
                     </svg>
 
                     <!-- TAMBAHAN IKON -->
 
                     <!-- Icon anak bermain 2 -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-24 left-2/3 w-20 h-20">
-                        <circle fill="#ffffff" cx="50" cy="20" r="15"/>
-                        <path fill="#ffffff" d="M35,40 L65,40 L70,80 L30,80 Z"/>
-                        <path fill="#ffffff" d="M30,50 L20,70 L30,70 Z"/>
-                        <path fill="#ffffff" d="M70,50 L80,70 L70,70 Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-24 left-2/3 w-20 h-20">
+                        <circle fill="#ffffff" cx="50" cy="20" r="15" />
+                        <path fill="#ffffff" d="M35,40 L65,40 L70,80 L30,80 Z" />
+                        <path fill="#ffffff" d="M30,50 L20,70 L30,70 Z" />
+                        <path fill="#ffffff" d="M70,50 L80,70 L70,70 Z" />
                     </svg>
 
                     <!-- Icon pensil -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/3 left-10 w-24 h-24" transform="rotate(30)">
-                        <path fill="#ffffff" d="M20,80 L30,20 L70,20 L80,80 Z"/>
-                        <path fill="#9000EF" d="M30,20 L70,20 L70,10 L30,10 Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/3 left-10 w-24 h-24"
+                        transform="rotate(30)">
+                        <path fill="#ffffff" d="M20,80 L30,20 L70,20 L80,80 Z" />
+                        <path fill="#9000EF" d="M30,20 L70,20 L70,10 L30,10 Z" />
                     </svg>
 
                     <!-- Icon buku -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-60 right-20 w-28 h-28">
-                        <path fill="#ffffff" d="M20,20 L80,20 L80,80 L20,80 Z"/>
-                        <path fill="#9000EF" d="M50,20 L50,80 L52,80 L52,20 Z"/>
-                        <path fill="#ffffff" d="M30,35 L45,35 L45,40 L30,40 Z"/>
-                        <path fill="#ffffff" d="M55,35 L70,35 L70,40 L55,40 Z"/>
-                        <path fill="#ffffff" d="M30,50 L45,50 L45,55 L30,55 Z"/>
-                        <path fill="#ffffff" d="M55,50 L70,50 L70,55 L55,55 Z"/>
-                        <path fill="#ffffff" d="M30,65 L45,65 L45,70 L30,70 Z"/>
-                        <path fill="#ffffff" d="M55,65 L70,65 L70,70 L55,70 Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute bottom-60 right-20 w-28 h-28">
+                        <path fill="#ffffff" d="M20,20 L80,20 L80,80 L20,80 Z" />
+                        <path fill="#9000EF" d="M50,20 L50,80 L52,80 L52,20 Z" />
+                        <path fill="#ffffff" d="M30,35 L45,35 L45,40 L30,40 Z" />
+                        <path fill="#ffffff" d="M55,35 L70,35 L70,40 L55,40 Z" />
+                        <path fill="#ffffff" d="M30,50 L45,50 L45,55 L30,55 Z" />
+                        <path fill="#ffffff" d="M55,50 L70,50 L70,55 L55,55 Z" />
+                        <path fill="#ffffff" d="M30,65 L45,65 L45,70 L30,70 Z" />
+                        <path fill="#ffffff" d="M55,65 L70,65 L70,70 L55,70 Z" />
                     </svg>
 
                     <!-- Icon bintang -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-10 right-20 w-12 h-12">
-                        <path fill="#ffffff" d="M50,10 L61,35 L90,35 L65,50 L75,80 L50,65 L25,80 L35,50 L10,35 L39,35 Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-10 right-20 w-12 h-12">
+                        <path fill="#ffffff" d="M50,10 L61,35 L90,35 L65,50 L75,80 L50,65 L25,80 L35,50 L10,35 L39,35 Z" />
                     </svg>
 
                     <!-- Icon robot mainan -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-32 right-1/3 w-24 h-24">
-                        <rect fill="#ffffff" x="30" y="20" width="40" height="30" rx="5" ry="5"/>
-                        <rect fill="#ffffff" x="35" y="50" width="30" height="30"/>
-                        <rect fill="#ffffff" x="25" y="60" width="10" height="20"/>
-                        <rect fill="#ffffff" x="65" y="60" width="10" height="20"/>
-                        <circle fill="#9000EF" cx="40" cy="30" r="5"/>
-                        <circle fill="#9000EF" cx="60" cy="30" r="5"/>
-                        <rect fill="#9000EF" x="40" y="40" width="20" height="5"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute bottom-32 right-1/3 w-24 h-24">
+                        <rect fill="#ffffff" x="30" y="20" width="40" height="30" rx="5" ry="5" />
+                        <rect fill="#ffffff" x="35" y="50" width="30" height="30" />
+                        <rect fill="#ffffff" x="25" y="60" width="10" height="20" />
+                        <rect fill="#ffffff" x="65" y="60" width="10" height="20" />
+                        <circle fill="#9000EF" cx="40" cy="30" r="5" />
+                        <circle fill="#9000EF" cx="60" cy="30" r="5" />
+                        <rect fill="#9000EF" x="40" y="40" width="20" height="5" />
                     </svg>
 
                     <!-- Icon puzzle -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/2 right-10 w-16 h-16">
-                        <path fill="#ffffff" d="M25,25 L40,25 L40,40 L55,40 L55,25 L70,25 L70,40 L55,55 L70,55 L70,70 L55,70 L55,55 L40,55 L40,70 L25,70 L25,55 L40,40 L25,40 Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-1/2 right-10 w-16 h-16">
+                        <path fill="#ffffff"
+                            d="M25,25 L40,25 L40,40 L55,40 L55,25 L70,25 L70,40 L55,55 L70,55 L70,70 L55,70 L55,55 L40,55 L40,70 L25,70 L25,55 L40,40 L25,40 Z" />
                     </svg>
 
                     <!-- Icon anak melompat -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-40 left-1/3 w-20 h-20">
-                        <circle fill="#ffffff" cx="50" cy="20" r="10"/>
-                        <path fill="#ffffff" d="M45,30 L55,30 L60,50 L40,50 Z"/>
-                        <path fill="#ffffff" d="M40,50 L30,80 L40,80 Z"/>
-                        <path fill="#ffffff" d="M60,50 L70,80 L60,80 Z"/>
-                        <path fill="#ffffff" d="M40,40 L20,45 L20,35 Z"/>
-                        <path fill="#ffffff" d="M60,40 L80,45 L80,35 Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute bottom-40 left-1/3 w-20 h-20">
+                        <circle fill="#ffffff" cx="50" cy="20" r="10" />
+                        <path fill="#ffffff" d="M45,30 L55,30 L60,50 L40,50 Z" />
+                        <path fill="#ffffff" d="M40,50 L30,80 L40,80 Z" />
+                        <path fill="#ffffff" d="M60,50 L70,80 L60,80 Z" />
+                        <path fill="#ffffff" d="M40,40 L20,45 L20,35 Z" />
+                        <path fill="#ffffff" d="M60,40 L80,45 L80,35 Z" />
                     </svg>
 
                     <!-- Icon matahari -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-20 left-1/2 w-16 h-16">
-                        <circle fill="#ffffff" cx="50" cy="50" r="20"/>
-                        <path fill="#ffffff" d="M50,15 L50,5 M50,95 L50,85 M15,50 L5,50 M95,50 L85,50 M25,25 L18,18 M75,75 L82,82 M25,75 L18,82 M75,25 L82,18" stroke="#ffffff" stroke-width="3"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-20 left-1/2 w-16 h-16">
+                        <circle fill="#ffffff" cx="50" cy="50" r="20" />
+                        <path fill="#ffffff"
+                            d="M50,15 L50,5 M50,95 L50,85 M15,50 L5,50 M95,50 L85,50 M25,25 L18,18 M75,75 L82,82 M25,75 L18,82 M75,25 L82,18"
+                            stroke="#ffffff" stroke-width="3" />
                     </svg>
 
                     <!-- Icon bola -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-20 right-20 w-14 h-14">
-                        <circle fill="#ffffff" cx="50" cy="50" r="30"/>
-                        <path fill="none" stroke="#9000EF" stroke-width="2" d="M20,50 L80,50 M50,20 L50,80 M30,30 L70,70 M30,70 L70,30"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute bottom-20 right-20 w-14 h-14">
+                        <circle fill="#ffffff" cx="50" cy="50" r="30" />
+                        <path fill="none" stroke="#9000EF" stroke-width="2"
+                            d="M20,50 L80,50 M50,20 L50,80 M30,30 L70,70 M30,70 L70,30" />
                     </svg>
 
                     <!-- Icon pesawat kertas -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-36 left-36 w-18 h-18">
-                        <path fill="#ffffff" d="M10,40 L50,20 L90,40 L50,60 Z"/>
-                        <path fill="#ffffff" d="M50,60 L50,90 L40,75 L50,60 Z"/>
+                        <path fill="#ffffff" d="M10,40 L50,20 L90,40 L50,60 Z" />
+                        <path fill="#ffffff" d="M50,60 L50,90 L40,75 L50,60 Z" />
                     </svg>
 
                     <!-- Icon rumah -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-2/3 left-2/3 w-20 h-20">
-                        <path fill="#ffffff" d="M20,50 L50,20 L80,50 L80,90 L20,90 Z"/>
-                        <rect fill="#9000EF" x="45" y="60" width="10" height="30"/>
-                        <rect fill="#9000EF" x="30" y="70" width="10" height="10"/>
-                        <rect fill="#9000EF" x="60" y="70" width="10" height="10"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-2/3 left-2/3 w-20 h-20">
+                        <path fill="#ffffff" d="M20,50 L50,20 L80,50 L80,90 L20,90 Z" />
+                        <rect fill="#9000EF" x="45" y="60" width="10" height="30" />
+                        <rect fill="#9000EF" x="30" y="70" width="10" height="10" />
+                        <rect fill="#9000EF" x="60" y="70" width="10" height="10" />
                     </svg>
                 </div>
 
@@ -480,26 +500,27 @@
                 <!-- Container untuk gambar-gambar gallery -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
                     @forelse ($galleries as $gallery)
-                    <div class="relative overflow-hidden rounded-lg group">
-                        <img src="{{ asset('storage/' . $gallery->image) }}"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="{{ $gallery->title }}">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-image mr-2"></i> {{ $gallery->title }}</span>
+                        <div class="relative overflow-hidden rounded-lg group">
+                            <img src="{{ asset('storage/' . $gallery->image) }}"
+                                class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
+                                alt="{{ $gallery->title }}">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
+                                <span class="text-white font-medium"><i class="fas fa-image mr-2"></i>
+                                    {{ $gallery->title }}</span>
+                            </div>
+                            <div
+                                class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <i class="fas fa-search-plus text-purple-600"></i>
+                            </div>
                         </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-purple-600"></i>
-                        </div>
-                    </div>
                     @empty
-                    <div class="col-span-4 text-center py-12">
-                        <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
-                            <i class="fas fa-image text-4xl mb-3"></i>
-                            <p>Belum ada foto galeri yang tersedia.</p>
+                        <div class="col-span-4 text-center py-12">
+                            <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
+                                <i class="fas fa-image text-4xl mb-3"></i>
+                                <p>Belum ada foto galeri yang tersedia.</p>
+                            </div>
                         </div>
-                    </div>
                     @endforelse
                 </div>
 
@@ -550,8 +571,7 @@
                                 <div class="text-xs font-semibold text-purple-900 mb-2">
                                     {{ $blogItem->created_at->format('d M Y') }}
                                 </div>
-                                <h3
-                                    class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
                                     {{ $blogItem->title }}
                                 </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed mb-4">
@@ -686,7 +706,7 @@
         </section>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 // Ambil testimonial dari API
                 fetch('{{ route('api.testimonials') }}')
 
@@ -702,11 +722,11 @@
                             noData.className = 'col-span-3 text-center py-10';
                             noData.innerHTML = `
 
-                                                                                                    <div class="text-gray-500">
-                                                                                                        <i class="fas fa-comment-slash text-4xl mb-3"></i>
-                                                                                                        <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
-                                                                                                    </div>
-                                                                                                `;
+                                                                                                        <div class="text-gray-500">
+                                                                                                            <i class="fas fa-comment-slash text-4xl mb-3"></i>
+                                                                                                            <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
+                                                                                                        </div>
+                                                                                                    `;
 
                             container.appendChild(noData);
                             return;
@@ -737,10 +757,10 @@
                                     `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
                             } else {
                                 photoHtml = `
-                                                                                                        <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                                                                                                            <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
-                                                                                                        </div>
-                                                                                                    `;
+                                                                                                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                                                                                                <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
+                                                                                                            </div>
+                                                                                                        `;
 
                             }
 
@@ -750,24 +770,24 @@
                             testimonialCard.className =
                                 'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
                             testimonialCard.innerHTML = `
-                                                                                                    <div class="flex items-center mb-4">
-                                                                                                        <div class="text-yellow-400 flex">
-                                                                                                            ${starsHtml}
+                                                                                                        <div class="flex items-center mb-4">
+                                                                                                            <div class="text-yellow-400 flex">
+                                                                                                                ${starsHtml}
+                                                                                                            </div>
+                                                                                                            <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
                                                                                                         </div>
-                                                                                                        <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
-                                                                                                    </div>
-                                                                                                    <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
-                                                                                                    <div class="flex items-center">
-                                                                                                        ${photoHtml}
-                                                                                                        <div class="ml-3">
-                                                                                                            <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
-                                                                                                            <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
+                                                                                                        <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
+                                                                                                        <div class="flex items-center">
+                                                                                                            ${photoHtml}
+                                                                                                            <div class="ml-3">
+                                                                                                                <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
+                                                                                                                <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
+                                                                                                            </div>
+                                                                                                            <div class="ml-auto text-xs text-gray-400">
+                                                                                                                ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                                                                                            </div>
                                                                                                         </div>
-                                                                                                        <div class="ml-auto text-xs text-gray-400">
-                                                                                                            ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                `;
+                                                                                                    `;
 
 
                             container.appendChild(testimonialCard);
@@ -831,11 +851,3 @@
         });
     </script> --}}
 </body>
-
-
-
-
-
-
-
-

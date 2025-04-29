@@ -43,7 +43,7 @@
         @yield('content')
 
         <!-- Footer -->
-        <footer class="bg-[rgb(33,15,55)] text-white pt-16 pb-6">
+        {{-- <footer class="bg-[rgb(33,15,55)] text-white pt-16 pb-6">
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
@@ -133,10 +133,11 @@
                             </div>
                         </div>
                     </div>
-        </footer>
+        </footer> --}}
 
 
         @livewireScripts
+    </main>
 </body>
 
 </html>
