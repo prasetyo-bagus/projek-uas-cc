@@ -39,7 +39,7 @@
 <body class="bg-gray-100 text-gray-900 font-sans antialiased">
     @include('navbar.guestnavbar')
 
-    <main class="container mx-auto px-6 mt-10">
+    <main class="w-full mt-10">
         @yield('content')
 
         <!-- Footer -->
