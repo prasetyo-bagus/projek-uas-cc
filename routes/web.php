@@ -27,6 +27,16 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 /**
+ * Route untuk halaman About Us
+ */
+Route::get('/tentang-kami', [HomeController::class, 'aboutUs'])->name('about-us');
+
+/**
+ * Route untuk halaman Services
+ */
+Route::get('/layanan', [HomeController::class, 'services'])->name('services');
+
+/**
  * Route untuk halaman galeri
  */
 Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');

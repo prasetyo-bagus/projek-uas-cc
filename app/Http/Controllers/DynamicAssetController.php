@@ -47,6 +47,9 @@ class DynamicAssetController extends Controller
             'description' => 'nullable|string|max:255',
             'detail' => 'nullable|string',
             'is_active' => 'required|boolean',
+            'capacity' => 'nullable|string|max:255',
+            'duration' => 'nullable|string|max:255',
+            'price' => 'nullable|string|max:255',
         ]);
 
         // Menyimpan gambar dan mendapatkan path
@@ -59,6 +62,9 @@ class DynamicAssetController extends Controller
             'image' => $imagePath,
             'description' => $request->description,
             'detail' => $request->detail,
+            'capacity' => $request->capacity,
+            'duration' => $request->duration,
+            'price' => $request->price,
             'is_active' => $request->is_active,
         ]);
 
@@ -101,10 +107,13 @@ class DynamicAssetController extends Controller
             'description' => 'nullable|string|max:255',
             'detail' => 'nullable|string',
             'is_active' => 'required|boolean',
+            'capacity' => 'nullable|string|max:255',
+            'duration' => 'nullable|string|max:255',
+            'price' => 'nullable|string|max:255',
         ]);
 
         // Menyimpan data yang ada di request
-        $data = $request->only(['type', 'title', 'description', 'detail', 'is_active']);
+        $data = $request->only(['type', 'title', 'description', 'detail', 'capacity', 'duration', 'price', 'is_active']);
 
         // Jika ada gambar yang diupload, proses penggantian gambar
         if ($request->hasFile('image')) {

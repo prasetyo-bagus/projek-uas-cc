@@ -3,7 +3,7 @@
 <body class="bg-gray-50">
     @section('content')
         <!-- Hero Section -->
-        <section class="py-20 bg-blue-700 relative overflow-hidden">
+        <section class="py-20 bg-purple-800 relative overflow-hidden">
             <div class="absolute inset-0 opacity-20">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
                     class="absolute w-full h-full">
@@ -21,44 +21,37 @@
         <!-- Packets Grid -->
         <section class="py-16 bg-gray-50">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Pilihan Paket Wisata</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">Kami menawarkan berbagai paket wisata edukatif yang dirancang untuk berbagai kebutuhan dan preferensi pengunjung.</p>
+                </div>
+                
                 @if($packets->count() > 0)
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         @foreach($packets as $packet)
                             <div
-                                class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group">
-                                <div class="relative overflow-hidden">
-                                    <img src="{{ asset('storage/' . $packet->image) }}" alt="{{ $packet->title }}"
-                                        class="w-full h-60 object-cover transform group-hover:scale-110 transition-all duration-500">
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                    </div>
+                                class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+                                <div class="relative h-56 overflow-hidden">
+                                    <img src="{{ asset('storage/' . $packet->image) }}" class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500" alt="{{ $packet->title }}">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                                 </div>
                                 <div class="p-6">
-                                    <div class="flex justify-between items-center mb-3">
-                                        <span
-                                            class="bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                            <i class="fas fa-ticket-alt text-blue-600 mr-1"></i> Paket Wisata
-                                        </span>
-                                    </div>
-                                    <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-700 transition-colors">
-                                        {{ $packet->title }}
-                                    </h3>
-                                    <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
-
-                                    @if($packet->detail)
-                                        <div class="p-4 bg-gray-50 rounded-lg mt-4 text-sm text-gray-700">
-                                            <h4 class="font-semibold mb-2 text-blue-700">Detail Paket:</h4>
-                                            <div class="prose max-w-none">
-                                                {!! $packet->detail !!}
-                                            </div>
+                                    <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $packet->title }}</h3>
+                                    <p class="text-gray-600 mb-4">{{ $packet->detail }}</p>
+                                    
+                                    <div class="space-y-2 mb-4">
+                                        <div class="flex items-center text-sm text-gray-600">
+                                            <i class="fas fa-users text-purple-600 mr-2"></i> 
+                                            {{ $packet->capacity ?: 'Kapasitas sesuai paket' }}
                                         </div>
-                                    @endif
-
-                                    <div class="mt-6 flex justify-end">
-                                        <a href="#"
-                                            class="inline-flex items-center py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-                                            <i class="fas fa-shopping-cart mr-2"></i> Pesan Paket
-                                        </a>
+                                        <div class="flex items-center text-sm text-gray-600">
+                                            <i class="fas fa-clock text-purple-600 mr-2"></i> 
+                                            {{ $packet->duration ?: 'Durasi bervariasi' }}
+                                        </div>
+                                        <div class="flex items-center text-sm text-gray-600">
+                                            <i class="fas fa-tag text-purple-600 mr-2"></i> 
+                                            {{ $packet->price ?: 'Hubungi kami untuk info harga' }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -78,6 +71,21 @@
                         </div>
                     </div>
                 @endif
+                
+              
+                <!-- Call to Action -->
+                <div class="mt-20 text-center py-12 px-6 bg-purple-100 rounded-2xl">
+                    <h2 class="text-2xl font-bold text-purple-900 mb-4">Butuh Paket Wisata?</h2>
+                    <p class="text-purple-700 mb-8 max-w-2xl mx-auto">Kami dapat menyesuaikan paket wisata sesuai dengan kebutuhan spesifik Anda. Hubungi tim kami untuk mendiskusikan rencana kunjungan Anda.</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://wa.me/628993193158?text=Halo%2C%20saya%20mau%20tanya" class="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-colors">
+                            <i class="fab fa-whatsapp text-xl mr-2"></i> Whatsapp
+                        </a>
+                        <a href="https://www.traveloka.com/id-id/activities/indonesia/product/nusantara-edupark-madiun-5389237971312" class="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition-colors">
+                            <i class="fas fa-plane-departure text-xl mr-2"></i> Traveloka
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
     @endsection
