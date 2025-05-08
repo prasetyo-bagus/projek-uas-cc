@@ -52,21 +52,21 @@
 
     <div class="col-span-2">
         <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Detail Paket</label>
-            <textarea name="detail" rows="4"
+            <label class="block text-gray-700 font-medium mb-2">Harga Paket</label>
+            <input type="number" name="detail" rows="4"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Masukkan detail paket">{{ old('detail', $data->detail ?? '') }}</textarea>
+                placeholder="Masukkan detail paket">{{ old('detail', $data->detail ?? '') }}</input>
         </div>
     </div>
 
-    <div class="col-span-2">
+    {{-- <div class="col-span-2">
         <div class="mb-4">
             <label class="block text-gray-700 font-medium mb-2">Harga Paket</label>
             <input type="number" name="price" value="{{ old('price', $data->price ?? '') }}"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 placeholder="Masukkan harga paket">
         </div>
-    </div>
+    </div> --}}
 
     <div class="col-span-2">
         <div class="mb-4">
