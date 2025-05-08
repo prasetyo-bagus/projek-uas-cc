@@ -50,23 +50,47 @@
         </div>
     </div>
 
-    <div class="col-span-2">
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Harga Paket</label>
-            <input type="number" name="detail" rows="4"
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div>
+            <label class="block text-gray-700 font-medium mb-2">
+                <i class="fas fa-users text-purple-600 mr-1"></i>
+                Kapasitas
+            </label>
+            <input type="text" name="capacity" value="{{ old('capacity', $data->capacity ?? '') }}"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Masukkan detail paket">{{ old('detail', $data->detail ?? '') }}</input>
+                placeholder="contoh: 25-100 siswa per grup">
+        </div>
+        
+        <div>
+            <label class="block text-gray-700 font-medium mb-2">
+                <i class="fas fa-clock text-purple-600 mr-1"></i>
+                Durasi
+            </label>
+            <input type="text" name="duration" value="{{ old('duration', $data->duration ?? '') }}"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                placeholder="contoh: 3-6 jam">
+        </div>
+        
+        <div>
+            <label class="block text-gray-700 font-medium mb-2">
+                <i class="fas fa-tag text-purple-600 mr-1"></i>
+                Harga
+            </label>
+            <input type="text" name="price" value="{{ old('price', $data->price ?? '') }}"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                placeholder="contoh: Mulai dari Rp 50.000/siswa">
         </div>
     </div>
 
-    {{-- <div class="col-span-2">
+    <div class="col-span-2">
         <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Harga Paket</label>
-            <input type="number" name="price" value="{{ old('price', $data->price ?? '') }}"
+            <label class="block text-gray-700 font-medium mb-2">Detail Paket</label>
+            <textarea name="detail" rows="4"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Masukkan harga paket">
+                placeholder="Masukkan informasi detail tentang paket">{{ old('detail', $data->detail ?? '') }}</textarea>
+            <p class="text-xs text-gray-500 mt-1">Masukkan detail lengkap tentang paket wisata ini</p>
         </div>
-    </div> --}}
+    </div>
 
     <div class="col-span-2">
         <div class="mb-4">

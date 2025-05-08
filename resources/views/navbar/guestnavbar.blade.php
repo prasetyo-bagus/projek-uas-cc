@@ -29,7 +29,20 @@
                         <i class="fas fa-home mr-1"></i> Beranda
                     </a>
                 </li>
+                <a href="{{ route('services') }}"
+                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('services') ? 'text-purple-700 font-bold' : '' }}">
+                        <i class="fas fa-concierge-bell mr-1"></i> Layanan
+                    </a>
+                </li>
                 <li>
+                    <a href="{{ route('about-us') }}"
+                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('about-us') ? 'text-purple-700 font-bold' : '' }}">
+                        <i class="fas fa-info-circle mr-1"></i> Tentang Kami
+                    </a>
+                </li>
+                <li>
+                  
+                <!-- <li>
                     <a href="{{ route('blogs.index') }}"
                         class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('blogs.*') ? 'text-purple-700 font-bold' : '' }}">
                         <i class="fas fa-newspaper mr-1"></i> Blog
@@ -52,7 +65,7 @@
                         class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('facilities') ? 'text-purple-700 font-bold' : '' }}">
                         <i class="fas fa-building mr-1"></i> Fasilitas
                     </a>
-                </li>
+                </li> -->
                 <!-- <li>
                     <a href="{{ route('homepage') }}"
                         class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0">

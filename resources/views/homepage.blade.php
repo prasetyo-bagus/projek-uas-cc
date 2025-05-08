@@ -153,6 +153,11 @@
         <!-- PACKET -->
         <!-- Popular Tours Section with Animated Effects -->
         <section class="py-16 bg-gray-50 relative overflow-hidden">
+            <!-- Background Elements -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-gray-50 opacity-50"></div>
+            <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full opacity-30 transform -translate-y-1/2 translate-x-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-green-200 rounded-full opacity-30 transform translate-y-1/2 -translate-x-1/2"></div>
+            
             <!-- Decorative Background Elements -->
             <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
                 <i class="fas fa-leaf absolute text-green-500 text-6xl" style="top: 10%; left: 5%;"></i>
@@ -167,14 +172,16 @@
                 <div class="flex justify-between items-center mb-10">
                     <div>
                         <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
-                            <i class="fas fa-star text-yellow-400 mr-2 animate-pulse-slow"></i>
-                            Paket Wisata Favorit
+                            <span class="relative z-10">Paket Wisata</span>
+                            <svg class="absolute -bottom-2 left-0 w-full h-3 text-yellow-300 z-0" viewBox="0 0 200 8">
+                                <path d="M0 4C40 0 60 8 100 4C140 0 160 8 200 4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+                            </svg>
                         </h2>
-                        <p class="text-gray-600 mt-2">Pilihan paket wisata edukatif yang paling diminati</p>
+                        <p class="text-gray-600 mt-2">Pilihan paket wisata edukatif</p>
                     </div>
                     <a href="{{ route('packets') }}"
-                        class="text-green-600 hover:text-green-700 font-semibold transition-all flex items-center group">
-                        Lihat Semua <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
+                        class="text-purple-700 hover:text-purple-900 font-semibold transition-all flex items-center group bg-white py-2 px-4 rounded-lg shadow-sm hover:shadow-md">
+                        Lihat Semua <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
 
@@ -182,32 +189,40 @@
                     @forelse ($packets as $packet)
                         <div
                             class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
-                            <div class="relative overflow-hidden">
+                            <div class="relative h-56 overflow-hidden">
                                 <img src="{{ asset('storage/' . $packet->image) }}"
-                                    class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     alt="{{ $packet->title }}">
                                 <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                    <p class="text-white px-4 pb-4 font-medium">
-                                        <i class="fas fa-camera mr-2"></i> Paket Wisata
-                                    </p>
+                                    class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                                    <div class="w-full flex justify-between items-center px-4 pb-3">
+                                        <p class="text-white font-medium">
+                                            <i class="fas fa-camera mr-2"></i> Paket Wisata
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="p-6">
-                                <div class="flex justify-between items-center mb-3">
-                                    <span
-                                        class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                        <i class="fas fa-crown text-yellow-500 mr-1"></i> Bestseller
-                                    </span>
+                                <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $packet->title }}</h3>
+                                <p class="text-gray-600 mb-4">{{ $packet->detail ?? $packet->description }}</p>
+                                
+                                <div class="space-y-2 mb-4">
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <i class="fas fa-users text-purple-600 mr-2"></i> 
+                                        {{ $packet->capacity ?: 'Kapasitas sesuai paket' }}
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <i class="fas fa-clock text-purple-600 mr-2"></i> 
+                                        {{ $packet->duration ?: 'Durasi bervariasi' }}
+                                    </div>
+                                    <div class="flex items-center text-sm text-gray-600">
+                                        <i class="fas fa-tag text-purple-600 mr-2"></i> 
+                                        {{ $packet->price ?: 'Hubungi kami untuk info harga' }}
+                                    </div>
                                 </div>
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $packet->title }}</h3>
-                                <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
-                                <div class="flex justify-between items-center">
-                                    <p class="text-green-600 font-bold flex items-center">
-                                        <i class="fas fa-tag mr-1"></i> Rp. {{ $packet->detail ?? 'Hubungi kami' }}
-                                    </p>
-                                    <a href="#"
-                                        class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
+                                
+                                <div class="flex justify-end">
+                                    <a href="#" class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors">
                                         <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                     </a>
                                 </div>
@@ -222,6 +237,7 @@
                         </div>
                     @endforelse
                 </div>
+
             </div>
         </section>
 
