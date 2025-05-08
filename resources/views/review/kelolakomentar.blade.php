@@ -177,27 +177,84 @@
                                                 </button>
                                             </form>
 
-                                            <!-- Tombol Hapus -->
-                                            <form action="{{ route('testimonials.destroy', $testimonial) }}" method="POST"
-                                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus testimonial ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-gray-600 hover:text-gray-900">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                                                    <!-- Tombol Hapus (dengan modal) -->
+                                                    <button type="button" class="text-gray-600 hover:text-gray-900"
+                                                        onclick="openDeleteModal('{{ route('testimonials.destroy', $testimonial) }}')">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
 
-                <div class="px-6 py-4">
-                    {{ $testimonials->links() }}
+                        <div class="px-6 py-4">
+                            {{ $testimonials->links() }}
+                        </div>
+                @endif
+            </div>
+        </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div id="confirm-delete-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
+        <div id="modal-box"
+            class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md mx-auto transform scale-95 opacity-0 transition-all duration-300">
+            <!-- Header Icon -->
+            <div class="text-center mb-4">
+                <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-3">
+                    <i class="fa-solid fa-trash-alt text-purple-600"></i>
                 </div>
-            @endif
+                <h2 class="text-2xl font-bold text-gray-800">Konfirmasi Hapus</h2>
+            </div>
+
+            <!-- Body -->
+            <p class="text-center text-gray-600 mb-6">
+                Apakah Anda yakin ingin menghapus testimonial ini?
+                <br>
+                <span class="text-sm text-gray-400">Tindakan ini tidak dapat dibatalkan.</span>
+            </p>
+
+            <!-- Footer Buttons -->
+            <form id="confirm-delete-form" method="POST">
+                @csrf
+                @method('DELETE')
+                <div class="flex flex-col sm:flex-row justify-center sm:space-x-4 space-y-3 sm:space-y-0">
+                    <button type="button" onclick="closeDeleteModal()"
+                        class="w-full sm:w-1/2 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg font-medium transition">Batal</button>
+                    <button type="submit"
+                        class="w-full sm:w-1/2 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition">Hapus</button>
+                </div>
+            </form>
         </div>
     </div>
+
+    <script>
+        function openDeleteModal(action) {
+            const modal = document.getElementById('confirm-delete-modal');
+            const box = document.getElementById('modal-box');
+
+            document.getElementById('confirm-delete-form').action = action;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('confirm-delete-modal');
+            const box = document.getElementById('modal-box');
+
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
 @endsection
