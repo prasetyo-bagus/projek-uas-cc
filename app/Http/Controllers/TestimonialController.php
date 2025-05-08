@@ -86,4 +86,73 @@ class TestimonialController extends Controller
         
         return view('review.testimonipage', compact('testimonials', 'rating'));
     }
+
+    public function exportToCSV(Request $request)
+    {
+        $query = Testimonial::orderBy('created_at', 'desc');
+        
+        // Filter berdasarkan status jika parameter status ada
+        if ($request->has('status') && in_array($request->status, ['pending', 'approved', 'rejected'])) {
+            $query->where('status', $request->status);
+        }
+        
+        $testimonials = $query->get();
+        
+        $filename = 'testimonials';
+        if ($request->has('status')) {
+            $filename .= '-' . $request->status;
+        }
+        $filename .= '-' . date('Y-m-d');
+        
+        // Format berdasarkan parameter
+        $format = $request->get('format', 'csv');
+        if ($format === 'excel') {
+            $filename .= '.xls';
+            $headers = [
+                'Content-Type' => 'application/vnd.ms-excel',
+                'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            ];
+        } else {
+            $filename .= '.csv';
+            $headers = [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            ];
+        }
+        
+        $callback = function() use ($testimonials, $format) {
+            $file = fopen('php://output', 'w');
+            
+            // Gunakan tab sebagai pemisah untuk format Excel
+            $delimiter = $format === 'excel' ? "\t" : ',';
+            
+            // Header
+            fputcsv($file, [
+                'No',
+                'Nama',
+                'Kota',
+                'Pesan',
+                'Rating',
+                'Status',
+                'Tanggal'
+            ], $delimiter);
+            
+            // Data
+            foreach($testimonials as $index => $testimonial) {
+                fputcsv($file, [
+                    $index + 1,
+                    $testimonial->nama,
+                    $testimonial->kota ?? 'Tidak disebutkan',
+                    $testimonial->pesan,
+                    $testimonial->rating,
+                    ucfirst($testimonial->status),
+                    $testimonial->created_at->format('d M Y H:i')
+                ], $delimiter);
+            }
+            
+            fclose($file);
+        };
+        
+        return response()->stream($callback, 200, $headers);
+    }
 }

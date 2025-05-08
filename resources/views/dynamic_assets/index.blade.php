@@ -14,12 +14,26 @@
         </div>
 
         @if (session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded">
+            <div id="success-alert" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded"
+                role="alert">
                 <div class="flex items-center">
                     <i class="fa-solid fa-circle-check mr-2 text-green-500"></i>
                     <p>{{ session('success') }}</p>
                 </div>
             </div>
+            <script>
+                // Membuat alert hilang setelah 5 detik
+                setTimeout(function() {
+                    const alert = document.getElementById('success-alert');
+                    if (alert) {
+                        alert.style.transition = 'opacity 1s';
+                        alert.style.opacity = '0';
+                        setTimeout(function() {
+                            alert.style.display = 'none';
+                        }, 1000);
+                    }
+                }, 5000);
+            </script>
         @endif
 
         <!-- Filter dan Pencarian -->
@@ -89,9 +103,9 @@
                                             ? 'bg-purple-100 text-purple-800'
                                             : ($asset->type == 'FACILITY'
                                                 ? 'bg-red-100 text-red-800'
-                                                :   ($asset->type == 'PACKET'
-                                                ? 'bg-orange-100 text-orange-800'
-                                                : 'bg-green-100 text-green-800'))) }}">
+                                                : ($asset->type == 'PACKET'
+                                                    ? 'bg-orange-100 text-orange-800'
+                                                    : 'bg-green-100 text-green-800'))) }}">
                                     {{ $asset->type }}
                                 </span>
                             </td>

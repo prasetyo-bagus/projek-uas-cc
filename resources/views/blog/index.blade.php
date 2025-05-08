@@ -17,6 +17,42 @@
                 </a>
             </div>
 
+            <!-- Filter dan Pencarian -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-6 flex flex-wrap gap-4 items-center">
+                <div>
+                    <label class="text-sm text-gray-600 mr-2">Filter:</label>
+                    <select id="category-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
+                        <option value="">Semua Kategori</option>
+                        <option value="BERITA">Berita</option>
+                        <option value="ACARA">Acara</option>
+                        <option value="PROMO">Promo</option>
+                        <option value="KULINER">Kuliner</option>
+                        <option value="DESTINASI">Destinasi</option>
+                        <option value="PANDUAN_WISATA">Panduan Wisata</option>
+                        <option value="FASILITAS">Fasilitas</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="status-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
+                        <option value="">Semua Status</option>
+                        <option value="PUBLISH">Publish</option>
+                        <option value="DRAF">Draft</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="featured-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
+                        <option value="">Semua</option>
+                        <option value="1">Unggulan</option>
+                        <option value="0">Reguler</option>
+                    </select>
+                </div>
+                <div class="relative flex-grow md:max-w-xs">
+                    <input type="text" id="search-input" placeholder="Cari blog..."
+                        class="border border-gray-300 rounded pl-9 pr-3 py-1 w-full text-sm">
+                    <i class="fas fa-search text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                </div>
+            </div>
+
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-200 rounded-lg">
                     <thead>
@@ -24,15 +60,19 @@
                             <th class="py-3 px-4 border">No</th>
                             <th class="py-3 px-4 border">Gambar</th>
                             <th class="py-3 px-4 border">Judul</th>
+                            <th class="py-3 px-4 border">Kategori</th>
                             <th class="py-3 px-4 border hidden sm:table-cell">URL</th>
                             <th class="py-3 px-4 border">Unggulan</th>
                             <th class="py-3 px-4 border">Status</th>
                             <th class="py-3 px-4 border">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="blogs-table-body">
                         @forelse($allBlogs as $index => $blog)
-                            <tr class="border hover:bg-gray-50">
+                            <tr class="border hover:bg-gray-50 blog-row" 
+                                data-category="{{ $blog->category }}" 
+                                data-status="{{ $blog->status }}" 
+                                data-featured="{{ $blog->is_featured ? '1' : '0' }}">
                                 <td class="py-4 px-6 border text-center">{{ $loop->iteration }}</td>
                                 <td class="py-2 px-2 border w-24">
                                     <div class="flex justify-center">
@@ -44,10 +84,29 @@
                                 </td>
                                 <td class="py-2 px-4 border font-semibold text-purple-600">
                                     <a href="{{ route('blog.show', $blog->url) }}" class="block hover:text-purple-800">
-                                        <span class="sm:hidden">{{ \Illuminate\Support\Str::limit($blog->title, 20, '...') }}</span>
+                                        <span
+                                            class="sm:hidden">{{ \Illuminate\Support\Str::limit($blog->title, 20, '...') }}</span>
                                         <span
                                             class="hidden sm:inline">{{ \Illuminate\Support\Str::limit($blog->title, 80, '...') }}</span>
                                     </a>
+                                </td>
+                                <td class="py-2 px-4 border">
+                                    @php
+                                        $categoryColor = match ($blog->category) {
+                                            'BERITA' => 'bg-blue-100 text-blue-800',
+                                            'ACARA' => 'bg-green-100 text-green-800',
+                                            'PROMO' => 'bg-red-100 text-red-800',
+                                            'KULINER' => 'bg-yellow-100 text-yellow-800',
+                                            'DESTINASI' => 'bg-purple-100 text-purple-800',
+                                            'PANDUAN_WISATA' => 'bg-teal-100 text-teal-800',
+                                            'FASILITAS' => 'bg-orange-100 text-orange-800',
+                                            default => 'bg-gray-100 text-gray-800'
+                                        };
+                                        $categoryName = ucwords(str_replace('_', ' ', strtolower($blog->category ?? 'Lainnya')));
+                                    @endphp
+                                    <span class="px-2 py-1 text-xs rounded-full {{ $categoryColor }}">
+                                        {{ $categoryName }}
+                                    </span>
                                 </td>
                                 <td class="py-2 px-2 border hidden sm:table-cell">
                                     <code class="text-xs bg-gray-100 px-1 py-1 rounded">
@@ -71,14 +130,14 @@
                                 <td class="py-2 px-4 border text-center">
                                     <a href="{{ route('blogs.edit', $blog->id) }}"
                                         class="text-yellow-500 hover:text-yellow-600 px-2">
-                                        <i class="fas fa-edit"></i> Edit
+                                        <i class="fas fa-edit"></i> 
                                     </a>
                                     <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" class="inline"
                                         onsubmit="return confirm('Yakin ingin menghapus?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-600 px-2">
-                                            <i class="fas fa-trash"></i> Hapus
+                                            <i class="fas fa-trash"></i> 
                                         </button>
                                     </form>
                                 </td>
@@ -96,6 +155,47 @@
                 {{ $blogReguler->links() }}
             </div>
         </div>
+
+        <script>
+            // Filter dan pencarian
+            document.addEventListener('DOMContentLoaded', function() {
+                const categoryFilter = document.getElementById('category-filter');
+                const statusFilter = document.getElementById('status-filter');
+                const featuredFilter = document.getElementById('featured-filter');
+                const searchInput = document.getElementById('search-input');
+                const blogRows = document.querySelectorAll('.blog-row');
+
+                function filterBlogs() {
+                    const categoryValue = categoryFilter.value;
+                    const statusValue = statusFilter.value;
+                    const featuredValue = featuredFilter.value;
+                    const searchValue = searchInput.value.toLowerCase();
+
+                    blogRows.forEach(row => {
+                        const rowCategory = row.getAttribute('data-category');
+                        const rowStatus = row.getAttribute('data-status');
+                        const rowFeatured = row.getAttribute('data-featured');
+                        const rowText = row.textContent.toLowerCase();
+
+                        const categoryMatch = !categoryValue || rowCategory === categoryValue;
+                        const statusMatch = !statusValue || rowStatus === statusValue;
+                        const featuredMatch = !featuredValue || rowFeatured === featuredValue;
+                        const searchMatch = !searchValue || rowText.includes(searchValue);
+
+                        if (categoryMatch && statusMatch && featuredMatch && searchMatch) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+
+                categoryFilter.addEventListener('change', filterBlogs);
+                statusFilter.addEventListener('change', filterBlogs);
+                featuredFilter.addEventListener('change', filterBlogs);
+                searchInput.addEventListener('input', filterBlogs);
+            });
+        </script>
     @else
         <!-- Hero Section -->
         <section class="py-20 bg-red-700 relative overflow-hidden">
