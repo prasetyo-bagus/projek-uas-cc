@@ -46,7 +46,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", function() {
                 const swiper = new Swiper(".heroSwiper", {
                     loop: true,
                     autoplay: {
@@ -118,7 +118,6 @@
                         <p class="text-gray-600">Pelajari teknik bertani modern dan tradisional dengan pengalaman langsung
                             di lahan pertanian kami.</p>
                         <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-arrow-circle-right text-green-500"></i>
                         </div>
                     </div>
 
@@ -132,7 +131,6 @@
                         <p class="text-gray-600">Berinteraksi dengan beragam hewan ternak dan pelajari cara merawat mereka
                             dengan baik.</p>
                         <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-arrow-circle-right text-orange-500"></i>
                         </div>
                     </div>
 
@@ -146,7 +144,6 @@
                         <p class="text-gray-600">Jelajahi aneka tanaman perkebunan dan pelajari proses panen hingga
                             pengolahan hasil perkebunan.</p>
                         <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-arrow-circle-right text-blue-500"></i>
                         </div>
                     </div>
                 </div>
@@ -207,7 +204,7 @@
                                 <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
                                 <div class="flex justify-between items-center">
                                     <p class="text-green-600 font-bold flex items-center">
-                                        <i class="fas fa-tag mr-1"></i> {{ $packet->detail ?? 'Hubungi kami' }}
+                                        <i class="fas fa-tag mr-1"></i> Rp. {{ $packet->detail ?? 'Hubungi kami' }}
                                     </p>
                                     <a href="#"
                                         class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
@@ -342,8 +339,10 @@
                     </svg>
 
                     <!-- Icon mainan kubus -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-60 left-20 w-20 h-20">
-                        <rect fill="#ffffff" x="20" y="20" width="60" height="60" rx="10" ry="10" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-60 left-20 w-20 h-20">
+                        <rect fill="#ffffff" x="20" y="20" width="60" height="60" rx="10"
+                            ry="10" />
                         <circle fill="#9000EF" cx="35" cy="35" r="5" />
                         <circle fill="#9000EF" cx="65" cy="35" r="5" />
                         <circle fill="#9000EF" cx="35" cy="65" r="5" />
@@ -362,8 +361,8 @@
                     </svg>
 
                     <!-- Icon pensil -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/3 left-10 w-24 h-24"
-                        transform="rotate(30)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-1/3 left-10 w-24 h-24" transform="rotate(30)">
                         <path fill="#ffffff" d="M20,80 L30,20 L70,20 L80,80 Z" />
                         <path fill="#9000EF" d="M30,20 L70,20 L70,10 L30,10 Z" />
                     </svg>
@@ -390,7 +389,8 @@
                     <!-- Icon robot mainan -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
                         class="absolute bottom-32 right-1/3 w-24 h-24">
-                        <rect fill="#ffffff" x="30" y="20" width="40" height="30" rx="5" ry="5" />
+                        <rect fill="#ffffff" x="30" y="20" width="40" height="30" rx="5"
+                            ry="5" />
                         <rect fill="#ffffff" x="35" y="50" width="30" height="30" />
                         <rect fill="#ffffff" x="25" y="60" width="10" height="20" />
                         <rect fill="#ffffff" x="65" y="60" width="10" height="20" />
@@ -435,7 +435,8 @@
                     </svg>
 
                     <!-- Icon pesawat kertas -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-36 left-36 w-18 h-18">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                        class="absolute top-36 left-36 w-18 h-18">
                         <path fill="#ffffff" d="M10,40 L50,20 L90,40 L50,60 Z" />
                         <path fill="#ffffff" d="M50,60 L50,90 L40,75 L50,60 Z" />
                     </svg>
@@ -452,8 +453,8 @@
 
                 <!-- Gelombang sederhana di bagian atas -->
                 <div class="absolute top-0 left-0 w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full"
-                        style="height: 60px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none"
+                        class="w-full" style="height: 60px;">
                         <path fill="#ffffff"
                             d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,21.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
                         </path>
@@ -571,7 +572,8 @@
                                 <div class="text-xs font-semibold text-purple-900 mb-2">
                                     {{ $blogItem->created_at->format('d M Y') }}
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                <h3
+                                    class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
                                     {{ $blogItem->title }}
                                 </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed mb-4">
@@ -706,7 +708,7 @@
         </section>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function() {
                 // Ambil testimonial dari API
                 fetch('{{ route('api.testimonials') }}')
 

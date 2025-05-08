@@ -3,18 +3,59 @@
 @section('content')
     <div class="container mx-auto px-4 py-6">
         <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-            <div class="p-6 border-b border-gray-200">
-                <h1 class="text-2xl font-bold text-gray-800">Kelola Testimonial</h1>
-                <p class="text-gray-600 mt-1">Mengelola testimonial dari pengunjung Nusantara Edupark</p>
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Kelola Testimonial</h1>
+                    <p class="text-gray-600 mt-1">Mengelola testimonial dari pengunjung Nusantara Edupark</p>
+                </div>
+                <div class="relative group">
+                    <button
+                        class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded inline-flex items-center transition duration-150 ease-in-out">
+                        <i class="fas fa-download mr-2"></i>
+                        Download
+                        <i class="fas fa-chevron-down ml-2"></i>
+                    </button>
+                    <div
+                        class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden group-hover:block">
+                        <div class="py-1">
+                            <span
+                                class="px-4 py-2 text-xs font-semibold text-gray-600 uppercase tracking-wider block bg-gray-100">CSV
+                                Format</span>
+                            <a href="{{ route('testimonials.export') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Semua Testimonial</a>
+                            <a href="{{ route('testimonials.export', ['status' => 'approved']) }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Disetujui</a>
+                            <a href="{{ route('testimonials.export', ['status' => 'pending']) }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Pending</a>
+                            <a href="{{ route('testimonials.export', ['status' => 'rejected']) }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Ditolak</a>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
-            @if(session('success'))
-                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 mx-6" role="alert">
+            @if (session('success'))
+                <div id="success-alert" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 mx-6"
+                    role="alert">
                     <p>{{ session('success') }}</p>
                 </div>
+                <script>
+                    // Membuat alert hilang setelah 5 detik
+                    setTimeout(function() {
+                        const alert = document.getElementById('success-alert');
+                        if (alert) {
+                            alert.style.transition = 'opacity 1s';
+                            alert.style.opacity = '0';
+                            setTimeout(function() {
+                                alert.style.display = 'none';
+                            }, 1000);
+                        }
+                    }, 5000);
+                </script>
             @endif
 
-            @if($testimonials->isEmpty())
+            @if ($testimonials->isEmpty())
                 <div class="p-6 text-center">
                     <div class="flex flex-col items-center justify-center py-12">
                         <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,17 +72,17 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No
-                                </th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    No</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto
-                                </th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Foto</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama
-                                </th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Nama</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pesan
-                                </th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Pesan</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Rating</th>
@@ -52,81 +93,89 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Tanggal</th>
                                 <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi
-                                </th>
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($testimonials as $index => $testimonial)
-                                        <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm text-gray-900">{{ $loop->iteration }}</div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                @if($testimonial->foto)
-                                                    <img src="{{ asset('storage/' . $testimonial->foto) }}" alt="{{ $testimonial->nama }}"
-                                                        class="h-10 w-10 rounded-full object-cover">
-                                                @else
-                                                    <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
-                                                        <span
-                                                            class="text-lg font-medium text-gray-600">{{ substr($testimonial->nama, 0, 1) }}</span>
-                                                    </div>
-                                                @endif
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm font-medium text-gray-900">{{ $testimonial->nama }}</div>
-                                                <div class="text-sm text-gray-500">{{ $testimonial->kota ?? 'Tidak disebutkan' }}</div>
-                                            </td>
-                                            <td class="px-6 py-4">
-                                                <div class="text-sm text-gray-900 max-w-xs truncate">{{ $testimonial->pesan }}</div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-yellow-500 flex">
-                                                    @for($i = 1; $i <= 5; $i++)
-                                                        @if($i <= $testimonial->rating)
-                                                            <i class="fas fa-star"></i>
-                                                        @else
-                                                            <i class="far fa-star"></i>
-                                                        @endif
-                                                    @endfor
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                            @foreach ($testimonials as $index => $testimonial)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ $loop->iteration }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if ($testimonial->foto)
+                                            <img src="{{ asset('storage/' . $testimonial->foto) }}"
+                                                alt="{{ $testimonial->nama }}" class="h-10 w-10 rounded-full object-cover">
+                                        @else
+                                            <div
+                                                class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
                                                 <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                                                                        {{ $testimonial->status === 'approved' ? 'bg-green-100 text-green-800' :
-                                ($testimonial->status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
-                                                    {{ ucfirst($testimonial->status) }}
-                                                </span>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {{ $testimonial->created_at->format('d M Y H:i') }}
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                                <div class="flex space-x-2">
-                                                    <!-- Tombol Setujui -->
-                                                    <form action="{{ route('testimonials.update.status', $testimonial) }}" method="POST">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <input type="hidden" name="status" value="approved">
-                                                        <button type="submit"
-                                                            class="text-green-600 hover:text-green-900 {{ $testimonial->status === 'approved' ? 'opacity-50 cursor-not-allowed' : '' }}"
-                                                            {{ $testimonial->status === 'approved' ? 'disabled' : '' }}>
-                                                            <i class="fas fa-check-circle"></i>
-                                                        </button>
-                                                    </form>
+                                                    class="text-lg font-medium text-gray-600">{{ substr($testimonial->nama, 0, 1) }}</span>
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">{{ $testimonial->nama }}</div>
+                                        <div class="text-sm text-gray-500">{{ $testimonial->kota ?? 'Tidak disebutkan' }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900 max-w-xs truncate">{{ $testimonial->pesan }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-yellow-500 flex">
+                                            @for ($i = 1; $i <= 5; $i++)
+                                                @if ($i <= $testimonial->rating)
+                                                    <i class="fas fa-star"></i>
+                                                @else
+                                                    <i class="far fa-star"></i>
+                                                @endif
+                                            @endfor
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                                {{ $testimonial->status === 'approved'
+                                    ? 'bg-green-100 text-green-800'
+                                    : ($testimonial->status === 'rejected'
+                                        ? 'bg-red-100 text-red-800'
+                                        : 'bg-yellow-100 text-yellow-800') }}">
+                                            {{ ucfirst($testimonial->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $testimonial->created_at->format('d M Y') }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                        <div class="flex space-x-2">
+                                            <!-- Tombol Setujui -->
+                                            <form action="{{ route('testimonials.update.status', $testimonial) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="approved">
+                                                <button type="submit"
+                                                    class="text-green-600 hover:text-green-900 {{ $testimonial->status === 'approved' ? 'opacity-50 cursor-not-allowed' : '' }}"
+                                                    {{ $testimonial->status === 'approved' ? 'disabled' : '' }}>
+                                                    <i class="fas fa-check-circle"></i>
+                                                </button>
+                                            </form>
 
-                                                    <!-- Tombol Tolak -->
-                                                    <form action="{{ route('testimonials.update.status', $testimonial) }}" method="POST">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <input type="hidden" name="status" value="rejected">
-                                                        <button type="submit"
-                                                            class="text-red-600 hover:text-red-900 {{ $testimonial->status === 'rejected' ? 'opacity-50 cursor-not-allowed' : '' }}"
-                                                            {{ $testimonial->status === 'rejected' ? 'disabled' : '' }}>
-                                                            <i class="fas fa-times-circle"></i>
-                                                        </button>
-                                                    </form>
+                                            <!-- Tombol Tolak -->
+                                            <form action="{{ route('testimonials.update.status', $testimonial) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="rejected">
+                                                <button type="submit"
+                                                    class="text-red-600 hover:text-red-900 {{ $testimonial->status === 'rejected' ? 'opacity-50 cursor-not-allowed' : '' }}"
+                                                    {{ $testimonial->status === 'rejected' ? 'disabled' : '' }}>
+                                                    <i class="fas fa-times-circle"></i>
+                                                </button>
+                                            </form>
 
                                                     <!-- Tombol Hapus (dengan modal) -->
                                                     <button type="button" class="text-gray-600 hover:text-gray-900"
@@ -141,12 +190,12 @@
                     </table>
                 </div>
 
-                <div class="px-6 py-4">
-                    {{ $testimonials->links() }}
-                </div>
-            @endif
+                        <div class="px-6 py-4">
+                            {{ $testimonials->links() }}
+                        </div>
+                @endif
+            </div>
         </div>
-    </div>
 
     <!-- Modal Konfirmasi Hapus -->
     <div id="confirm-delete-modal"
