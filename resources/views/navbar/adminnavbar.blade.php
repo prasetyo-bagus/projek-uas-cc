@@ -144,7 +144,7 @@
         </button>
         <span class="font-bold text-lg text-white">NUSANTARA EDUPARK</span>
         <div class="p-2">
-            <img src="{{ asset('storage/logonep.png') }}" alt="Logo" class="w-12 h-12 object-cover">
+            <img src="{{ asset('storage/logoNusantaraEdupark.jpg') }}" alt="Logo" class="w-12 h-12 object-cover">
         </div>
     </header>
 
@@ -243,9 +243,9 @@
                     <span>Profile</span>
                 </a>
 
-                <form action="{{ route('logout') }}" method="POST" class="px-6 py-3 flex items-center w-full text-left sidebar-hover group">
+                <form action="{{ route('logout') }}" method="POST" class="px-6 py-3">
                     @csrf
-                    <button type="submit" >
+                    <button type="submit" class="flex items-center w-full text-left sidebar-hover group">
                         <span class="sidebar-icon"><i
                                 class="fa-solid fa-right-from-bracket text-primary-400 group-hover:text-red-400 transition-colors"></i></span>
                         <span class="group-hover:text-red-400 transition-colors">Logout</span>
