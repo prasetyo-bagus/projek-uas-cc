@@ -87,7 +87,11 @@
                                         ? 'bg-blue-100 text-blue-800'
                                         : ($asset->type == 'GALERY'
                                             ? 'bg-purple-100 text-purple-800'
-                                            : 'bg-green-100 text-green-800') }}">
+                                            : ($asset->type == 'FACILITY'
+                                                ? 'bg-red-100 text-red-800'
+                                                :   ($asset->type == 'PACKET'
+                                                ? 'bg-orange-100 text-orange-800'
+                                                : 'bg-green-100 text-green-800'))) }}">
                                     {{ $asset->type }}
                                 </span>
                             </td>

@@ -51,8 +51,8 @@
                                 </td>
                                 <td class="py-2 px-2 border hidden sm:table-cell">
                                     <code class="text-xs bg-gray-100 px-1 py-1 rounded">
-                                                                                                    https://officialnusantaraedupark/blogs/{{ $blog->url }}
-                                                                                    </code>
+                                        https://officialnusantaraedupark/blogs/{{ $blog->url }}
+                                    </code>
                                 </td>
                                 <td class="py-2 px-4 border text-center">
                                     @if ($blog->is_featured)
@@ -97,57 +97,71 @@
             </div>
         </div>
     @else
+        <!-- Hero Section -->
+        <section class="py-20 bg-red-700 relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
+                    class="absolute w-full h-full">
+                    <path fill="#fff"
+                        d="M0,128L48,133.3C96,139,192,149,288,149.3C384,149,480,139,576,144C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                    </path>
+                </svg>
+            </div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">BERITA & ARTIKEL NUSANTARA EDUPARK</h1>
+                <p class="text-xl text-white/80 mb-0">Informasi terbaru dan artikel menarik seputar Nusantara Edupark</p>
+            </div>
+        </section>
+
         <div class="bg-gray-100 min-h-screen p-6">
             <div class="container mx-auto max-w-5xl">
-                <h1 class="text-center text-xl font-bold mb-6">BERITA & ARTIKEL NUSANTARA EDUPARK</h1>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($allBlogs as $blog)
-                            <div class="relative bg-white shadow-md border border-gray-200 rounded-lg h-full flex flex-col">
-                                <a href="{{ route('blog.show', $blog->url) }}" class="hover:shadow-lg h-full flex flex-col">
-                                    <div class="w-full h-72 overflow-hidden">
-                                        <img src="{{ asset('storage/' . $blog->picture) }}" alt="{{ $blog->title }}">
-                                    </div>
+                        <div class="relative bg-white shadow-md border border-gray-200 rounded-lg h-full flex flex-col">
+                            <a href="{{ route('blog.show', $blog->url) }}" class="hover:shadow-lg h-full flex flex-col">
+                                <div class="w-full h-72 overflow-hidden">
+                                    <img src="{{ asset('storage/' . $blog->picture) }}" alt="{{ $blog->title }}">
+                                </div>
 
-                                    @php
-                                        $positionStyle = $blog->is_featured ? 'top-10' : 'top-2';
-                                        $categoryColor = match ($blog->category) {
-                                            'BERITA' => 'bg-blue-500',
-                                            'ACARA' => 'bg-green-500',
-                                            'PROMO' => 'bg-red-500',
-                                            'KULINER' => 'bg-yellow-500',
-                                            'DESTINASI' => 'bg-purple-500',
-                                            'PANDUAN_WISATA' => 'bg-teal-500',
-                                            'FASILITAS' => 'bg-orange-500',
-                                        };
-                                    @endphp
+                                @php
+                                    $positionStyle = $blog->is_featured ? 'top-10' : 'top-2';
+                                    $categoryColor = match ($blog->category) {
+                                        'BERITA' => 'bg-blue-500',
+                                        'ACARA' => 'bg-green-500',
+                                        'PROMO' => 'bg-red-500',
+                                        'KULINER' => 'bg-yellow-500',
+                                        'DESTINASI' => 'bg-purple-500',
+                                        'PANDUAN_WISATA' => 'bg-teal-500',
+                                        'FASILITAS' => 'bg-orange-500',
+                                    };
+                                @endphp
 
-                                    @if ($blog->is_featured)
-                                        <span class="absolute top-2 left-2 bg-purple-500 text-white text-xs px-2 py-1 rounded">
-                                            Berita Utama
-                                        </span>
-                                    @endif
+                                @if ($blog->is_featured)
+                                    <span class="absolute top-2 left-2 bg-purple-500 text-white text-xs px-2 py-1 rounded">
+                                        Berita Utama
+                                    </span>
+                                @endif
 
-                                    @if ($blog->category)
-                                        <span
-                                            class="absolute {{ $positionStyle }} left-2 {{ $categoryColor }} text-white text-xs px-2 py-1 rounded">
-                                            <p>{{ ucwords(str_replace('_', ' ', strtolower($blog->category))) }}</p>
-                                        </span>
-                                    @endif
+                                @if ($blog->category)
+                                    <span
+                                        class="absolute {{ $positionStyle }} left-2 {{ $categoryColor }} text-white text-xs px-2 py-1 rounded">
+                                        <p>{{ ucwords(str_replace('_', ' ', strtolower($blog->category))) }}</p>
+                                    </span>
+                                @endif
 
-                                    <div class="p-4 flex flex-col flex-grow">
-                                        <h2 class="font-semibold text-gray-800 hover:text-yellow-500 min-h-[80px]">
-                                            {{ $blog->title }}
-                                        </h2>
-                                        <p class="text-gray-600 text-sm mt-2">
-                                            {{ Str::limit(strip_tags($blog->body), 100) }}
-                                        </p>
-                                        <span class="mt-auto text-purple-700 hover:text-purple-500">
-                                            Baca Selengkapnya
-                                        </span>
-                                    </div>
-                                </a>
-                            </div>
+                                <div class="p-4 flex flex-col flex-grow">
+                                    <h2 class="font-semibold text-gray-800 hover:text-yellow-500 min-h-[80px]">
+                                        {{ $blog->title }}
+                                    </h2>
+                                    <p class="text-gray-600 text-sm mt-2">
+                                        {{ Str::limit(strip_tags($blog->body), 100) }}
+                                    </p>
+                                    <span class="mt-auto text-purple-700 hover:text-purple-500">
+                                        Baca Selengkapnya
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
 
