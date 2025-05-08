@@ -16,6 +16,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -35,13 +37,13 @@
 </head>
 
 <body class="bg-gray-100 text-gray-900 font-sans antialiased">
-    @include('livewire.layout.navigation')
+    @include('navbar.guestnavbar')
 
-    <main class="container mx-auto px-6 mt-10">
+    <main class="w-full mt-10">
         @yield('content')
 
         <!-- Footer -->
-        <footer class="bg-[rgb(33,15,55)] text-white pt-16 pb-6">
+        {{-- <footer class="bg-[rgb(33,15,55)] text-white pt-16 pb-6">
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
@@ -117,36 +119,26 @@
                                 <span class="text-gray-400">09:00 - 16:00</span>
                             </li>
                         </ul>
-                        {{-- <div class="mt-6">
-                            <h4 class="text-lg font-semibold mb-2">Newsletter</h4>
-                            <div class="flex">
-                                <input type="email" placeholder="Email Anda"
-                                    class="bg-gray-700 text-white px-4 py-2 rounded-l-md w-full focus:outline-none">
-                                <button
-                                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-r-md transition-all">Langganan</button>
+                        <div class="border-t border-gray-700 mt-10 pt-6">
+                            <div class="flex flex-col md:flex-row justify-between items-center">
+                                <p class="text-gray-400 text-sm">© 2025 Nusantara Edupark. Hak Cipta Dilindungi.</p>
+                                <div class="flex space-x-4 mt-4 md:mt-0">
+                                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">Kebijakan
+                                        Privasi</a>
+                                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">Syarat
+                                        &
+                                        Ketentuan</a>
+                                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">FAQ</a>
+                                </div>
                             </div>
-                            <p class="text-gray-400 text-sm mt-2">Dapatkan info terbaru dan promo menarik</p>
                         </div>
                     </div>
-                </div> --}}
-                <div class="border-t border-gray-700 mt-10 pt-6">
-                    <div class="flex flex-col md:flex-row justify-between items-center">
-                        <p class="text-gray-400 text-sm">© 2025 Nusantara Edupark. Hak Cipta Dilindungi.</p>
-                        <div class="flex space-x-4 mt-4 md:mt-0">
-                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">Kebijakan
-                                Privasi</a>
-                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">Syarat
-                                &
-                                Ketentuan</a>
-                            <a href="#" class="text-gray-400 hover:text-white text-sm transition-all">FAQ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        </footer> --}}
 
 
         @livewireScripts
+    </main>
+    @extends('navbar.guestfooter')
 </body>
 
 </html>

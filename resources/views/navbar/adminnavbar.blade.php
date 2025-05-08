@@ -129,14 +129,16 @@
 
     <!-- Mobile header -->
 
-    <header class="md:hidden bg-gradient-to-r from-primary-900 to-primary-900 text-white p-4 flex items-center justify-between sticky top-0 z-30 shadow-lg">
-        <button id="sidebarToggle" class="text-white p-2 focus:outline-none hover:bg-primary-700 rounded-lg transition-all">
+    <header
+        class="md:hidden bg-gradient-to-r from-primary-900 to-primary-900 text-white p-4 flex items-center justify-between sticky top-0 z-30 shadow-lg">
+        <button id="sidebarToggle"
+            class="text-white p-2 focus:outline-none hover:bg-primary-700 rounded-lg transition-all">
 
             <i class="fa-solid fa-bars"></i>
         </button>
         <span class="font-bold text-lg text-white">NUSANTARA EDUPARK</span>
         <div class="p-2">
-            <img src="{{ asset('storage/logoNusantaraEdupark.jpg') }}" alt="Logo" class="w-12 h-12 object-cover">
+            <img src="{{ asset('storage/logonep.png') }}" alt="Logo" class="w-12 h-12 object-cover">
         </div>
     </header>
 
@@ -149,7 +151,8 @@
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-3">
                         <div class="rounded-lg">
-                            <img src="{{ asset('storage/logoNusantaraEdupark.jpg') }}" alt="Logo" class="w-13 h-13 object-cover">
+                            <img src="{{ asset('storage/logoNusantaraEdupark.jpg') }}" alt="Logo"
+                                class="w-13 h-13 object-cover">
                         </div>
                         <span class="font-bold text-xl text-white">NUSANTARA EDUPARK</span>
                     </div>
@@ -169,7 +172,8 @@
                 <div class="flex items-center space-x-4">
                     <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-400">
                         @if(auth()->user()->photo_path)
-                            <img src="{{ asset('storage/' . auth()->user()->photo_path) }}" alt="Profile Photo" class="w-full h-full object-cover">
+                            <img src="{{ asset('storage/' . auth()->user()->photo_path) }}" alt="Profile Photo"
+                                class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full bg-primary-600 flex items-center justify-center">
                                 <i class="fa-solid fa-user text-white text-xl"></i>
@@ -215,6 +219,16 @@
                     <span>Testimonial</span>
                 </a>
 
+                @auth
+                    @if (auth()->user()->role === 'SUPER_ADMIN')
+                        <a href="{{ route('users.index') }}"
+                            class="px-6 py-3 flex items-center sidebar-hover {{ request()->is('register*') ? 'active' : '' }}">
+                            <span class="sidebar-icon"><i class="fa-solid fa-user-plus text-primary-400"></i></span><span>Kelola
+                                Admin</span>
+                        </a>
+                    @endif
+                @endauth
+
                 <p class="px-6 py-2 mt-6 text-xs uppercase tracking-wider text-gray-400 font-semibold">Akun</p>
 
                 <a href="{{ route('profile.edit') }}"
@@ -223,9 +237,9 @@
                     <span>Profile</span>
                 </a>
 
-                <form action="{{ route('logout') }}" method="POST" class="px-6 py-3">
+                <form action="{{ route('logout') }}" method="POST" class="px-6 py-3 flex items-center w-full text-left sidebar-hover group">
                     @csrf
-                    <button type="submit" class="flex items-center w-full text-left sidebar-hover group">
+                    <button type="submit" >
                         <span class="sidebar-icon"><i
                                 class="fa-solid fa-right-from-bracket text-primary-400 group-hover:text-red-400 transition-colors"></i></span>
                         <span class="group-hover:text-red-400 transition-colors">Logout</span>
