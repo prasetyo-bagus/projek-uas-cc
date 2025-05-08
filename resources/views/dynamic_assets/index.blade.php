@@ -246,6 +246,7 @@
             });
         });
     </script>
+    
     <script>
         function openDeleteModal(action) {
             const modal = document.getElementById('confirm-delete-modal');
@@ -271,4 +272,5 @@
             }, 300);
         }
     </script>
+
 @endsection

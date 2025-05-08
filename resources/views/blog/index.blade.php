@@ -335,4 +335,5 @@
             }, 300);
         }
     </script>
+
 @endsection

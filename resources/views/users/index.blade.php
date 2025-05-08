@@ -163,3 +163,5 @@
         }, 300);
     }
 </script>
+
+@endsection
