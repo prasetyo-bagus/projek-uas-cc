@@ -102,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Routes untuk admin testimonial
     Route::get('/admin/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
+    Route::get('/admin/testimonials/export', [TestimonialController::class, 'exportToCSV'])->name('testimonials.export');
     Route::patch('/admin/testimonials/{testimonial}/status', [TestimonialController::class, 'updateStatus'])->name('testimonials.update.status');
     Route::delete('/admin/testimonials/{testimonial}', [TestimonialController::class, 'destroy'])->name('testimonials.destroy');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
