@@ -204,7 +204,7 @@
                                 <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
                                 <div class="flex justify-between items-center">
                                     <p class="text-green-600 font-bold flex items-center">
-                                        <i class="fas fa-tag mr-1"></i> {{ $packet->detail ?? 'Hubungi kami' }}
+                                        <i class="fas fa-tag mr-1"></i> Rp. {{ $packet->detail ?? 'Hubungi kami' }}
                                     </p>
                                     <a href="#"
                                         class="text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors flex items-center">
