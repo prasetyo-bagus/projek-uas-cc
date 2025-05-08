@@ -23,12 +23,12 @@
             </div>
             <script>
                 // Membuat alert hilang setelah 5 detik
-                setTimeout(function() {
+                setTimeout(function () {
                     const alert = document.getElementById('success-alert');
                     if (alert) {
                         alert.style.transition = 'opacity 1s';
                         alert.style.opacity = '0';
-                        setTimeout(function() {
+                        setTimeout(function () {
                             alert.style.display = 'none';
                         }, 1000);
                     }
@@ -89,70 +89,68 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200" id="assets-table-body">
                     @forelse($assets as $asset)
-                        <tr class="asset-row" data-type="{{ $asset->type }}"
-                            data-status="{{ $asset->is_active ? 'active' : 'inactive' }}">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <img src="{{ asset('storage/' . $asset->image) }}" alt="{{ $asset->title }}"
-                                    class="h-12 w-16 object-cover rounded">
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="px-2 py-1 text-xs rounded {{ $asset->type == 'BANNER'
-                                        ? 'bg-blue-100 text-blue-800'
-                                        : ($asset->type == 'GALERY'
-                                            ? 'bg-purple-100 text-purple-800'
-                                            : ($asset->type == 'FACILITY'
-                                                ? 'bg-red-100 text-red-800'
-                                                : ($asset->type == 'PACKET'
-                                                    ? 'bg-orange-100 text-orange-800'
-                                                    : 'bg-green-100 text-green-800'))) }}">
-                                    {{ $asset->type }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">{{ $asset->title ?: 'Tanpa judul' }}</div>
-                                <div class="text-xs text-gray-500 truncate max-w-xs">{{ $asset->description ?: '-' }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $asset->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                    <span
-                                        class="w-2 h-2 mr-1 rounded-full {{ $asset->is_active ? 'bg-green-500' : 'bg-red-500' }}"></span>
-                                    {{ $asset->is_active ? 'Aktif' : 'Nonaktif' }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                <div>{{ $asset->created_at->format('d M Y') }}</div>
-                                <div class="text-xs text-gray-400">{{ $asset->created_at->format('H:i') }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex justify-center gap-5">
-                                    <form action="{{ route('dynamic-assets.toggle-status', $asset->id) }}" method="POST"
-                                        class="inline">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submit"
-                                            class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 rounded-md p-1.5 transition-colors">
-                                            <i
-                                                class="fa-solid {{ $asset->is_active ? 'fa-toggle-on' : 'fa-toggle-off' }}"></i>
-                                        </button>
-                                    </form>
-                                    <a href="{{ route('dynamic-assets.edit', $asset->id) }}"
-                                        class="text-amber-600 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 rounded-md p-1.5 transition-colors">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <form action="{{ route('dynamic-assets.destroy', $asset->id) }}" method="POST"
-                                        class="inline delete-form">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 rounded-md p-1.5 transition-colors">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                                <tr class="asset-row" data-type="{{ $asset->type }}"
+                                    data-status="{{ $asset->is_active ? 'active' : 'inactive' }}">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <img src="{{ asset('storage/' . $asset->image) }}" alt="{{ $asset->title }}"
+                                            class="h-12 w-16 object-cover rounded">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 py-1 text-xs rounded {{ $asset->type == 'BANNER'
+                        ? 'bg-blue-100 text-blue-800'
+                        : ($asset->type == 'GALERY'
+                            ? 'bg-purple-100 text-purple-800'
+                            : ($asset->type == 'FACILITY'
+                                ? 'bg-red-100 text-red-800'
+                                : ($asset->type == 'PACKET'
+                                    ? 'bg-orange-100 text-orange-800'
+                                    : 'bg-green-100 text-green-800'))) }}">
+                                            {{ $asset->type }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">{{ $asset->title ?: 'Tanpa judul' }}</div>
+                                        <div class="text-xs text-gray-500 truncate max-w-xs">{{ $asset->description ?: '-' }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $asset->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                            <span
+                                                class="w-2 h-2 mr-1 rounded-full {{ $asset->is_active ? 'bg-green-500' : 'bg-red-500' }}"></span>
+                                            {{ $asset->is_active ? 'Aktif' : 'Nonaktif' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <div>{{ $asset->created_at->format('d M Y') }}</div>
+                                        <div class="text-xs text-gray-400">{{ $asset->created_at->format('H:i') }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="flex justify-center gap-5">
+                                            <form action="{{ route('dynamic-assets.toggle-status', $asset->id) }}" method="POST"
+                                                class="inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit"
+                                                    class="text-indigo-600 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 rounded-md p-1.5 transition-colors">
+                                                    <i class="fa-solid {{ $asset->is_active ? 'fa-toggle-on' : 'fa-toggle-off' }}"></i>
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('dynamic-assets.edit', $asset->id) }}"
+                                                class="text-amber-600 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 rounded-md p-1.5 transition-colors">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+                                            <form action="{{ route('dynamic-assets.destroy', $asset->id) }}" method="POST"
+                                                class="inline delete-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 rounded-md p-1.5 transition-colors">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
                     @empty
                         <tr>
                             <td colspan="6" class="px-6 py-10 text-center text-gray-500">
@@ -171,7 +169,7 @@
 
     <script>
         // Filter dan pencarian
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const typeFilter = document.getElementById('type-filter');
             const statusFilter = document.getElementById('status-filter');
             const searchInput = document.getElementById('search-input');
@@ -205,11 +203,11 @@
 
             // Konfirmasi penghapusan
             document.querySelectorAll('.delete-form').forEach(form => {
-                form.addEventListener('submit', function(e) {
+                form.addEventListener('submit', function (e) {
                     e.preventDefault();
                     if (confirm(
-                            'Apakah Anda yakin ingin menghapus aset ini? Tindakan ini tidak dapat dibatalkan.'
-                        )) {
+                        'Apakah Anda yakin ingin menghapus aset ini? Tindakan ini tidak dapat dibatalkan.'
+                    )) {
                         this.submit();
                     }
                 });

@@ -69,10 +69,8 @@
                     </thead>
                     <tbody id="blogs-table-body">
                         @forelse($allBlogs as $index => $blog)
-                            <tr class="border hover:bg-gray-50 blog-row" 
-                                data-category="{{ $blog->category }}" 
-                                data-status="{{ $blog->status }}" 
-                                data-featured="{{ $blog->is_featured ? '1' : '0' }}">
+                            <tr class="border hover:bg-gray-50 blog-row" data-category="{{ $blog->category }}"
+                                data-status="{{ $blog->status }}" data-featured="{{ $blog->is_featured ? '1' : '0' }}">
                                 <td class="py-4 px-6 border text-center">{{ $loop->iteration }}</td>
                                 <td class="py-2 px-2 border w-24">
                                     <div class="flex justify-center">
@@ -84,8 +82,7 @@
                                 </td>
                                 <td class="py-2 px-4 border font-semibold text-purple-600">
                                     <a href="{{ route('blog.show', $blog->url) }}" class="block hover:text-purple-800">
-                                        <span
-                                            class="sm:hidden">{{ \Illuminate\Support\Str::limit($blog->title, 20, '...') }}</span>
+                                        <span class="sm:hidden">{{ \Illuminate\Support\Str::limit($blog->title, 20, '...') }}</span>
                                         <span
                                             class="hidden sm:inline">{{ \Illuminate\Support\Str::limit($blog->title, 80, '...') }}</span>
                                     </a>
@@ -110,8 +107,8 @@
                                 </td>
                                 <td class="py-2 px-2 border hidden sm:table-cell">
                                     <code class="text-xs bg-gray-100 px-1 py-1 rounded">
-                                        https://officialnusantaraedupark/blogs/{{ $blog->url }}
-                                    </code>
+                                                                https://officialnusantaraedupark/blogs/{{ $blog->url }}
+                                                            </code>
                                 </td>
                                 <td class="py-2 px-4 border text-center">
                                     @if ($blog->is_featured)
@@ -130,14 +127,14 @@
                                 <td class="py-2 px-4 border text-center">
                                     <a href="{{ route('blogs.edit', $blog->id) }}"
                                         class="text-yellow-500 hover:text-yellow-600 px-2">
-                                        <i class="fas fa-edit"></i> 
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" class="inline"
                                         onsubmit="return confirm('Yakin ingin menghapus?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-600 px-2">
-                                            <i class="fas fa-trash"></i> 
+                                            <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -158,7 +155,7 @@
 
         <script>
             // Filter dan pencarian
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 const categoryFilter = document.getElementById('category-filter');
                 const statusFilter = document.getElementById('status-filter');
                 const featuredFilter = document.getElementById('featured-filter');

@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        // return view('users.create');
+        return view('users.create');
     }
 
     /**
@@ -67,33 +67,45 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $validated = $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
-        'role' => ['required', Rule::in(['SUPER_ADMIN', 'ADMIN'])],
-        'status' => ['required', Rule::in(['AKTIF', 'TIDAK_AKTIF'])],
-        'password' => ['nullable', 'confirmed', 'min:6'],
-    ]);
-
-    // Proteksi perubahan role SUPER_ADMIN
-    if ($user->role === 'SUPER_ADMIN' && $validated['role'] !== 'SUPER_ADMIN') {
-        $superAdminCount = User::where('role', 'SUPER_ADMIN')->count();
-        if ($superAdminCount <= 1) {
-            return redirect()->back()->with('error', 'Minimal harus ada satu SUPER_ADMIN. Tidak bisa mengubah role.');
+        $isEditingSelf = auth()->id() === $user->id && $user->role === 'SUPER_ADMIN';
+    
+        $rules = [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
+            'password' => ['nullable', 'confirmed', 'min:6'],
+        ];
+    
+        if (!$isEditingSelf) {
+            // Hanya jika bukan superadmin yang edit dirinya sendiri
+            $rules['role'] = ['required', Rule::in(['SUPER_ADMIN', 'ADMIN'])];
+            $rules['status'] = ['required', Rule::in(['AKTIF', 'TIDAK_AKTIF'])];
         }
-    }
-
-    // Cek password baru
-    if ($request->filled('password')) {
-        $validated['password'] = Hash::make($request->password);
-    } else {
-        unset($validated['password']);
-    }
-
-    // Update user
-    $user->update($validated);
-
-    return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
+    
+        $validated = $request->validate($rules);
+    
+        // Jika mengedit diri sendiri, hapus role/status dari data validasi
+        if ($isEditingSelf) {
+            unset($validated['role'], $validated['status']);
+        }
+    
+        // Proteksi: jangan biarkan mengubah role SUPER_ADMIN terakhir
+        if ($user->role === 'SUPER_ADMIN' && isset($validated['role']) && $validated['role'] !== 'SUPER_ADMIN') {
+            $superAdminCount = User::where('role', 'SUPER_ADMIN')->count();
+            if ($superAdminCount <= 1) {
+                return redirect()->back()->with('error', 'Minimal harus ada satu SUPER ADMIN. Tidak bisa mengubah role.');
+            }
+        }
+    
+        // Password hash jika diisi
+        if ($request->filled('password')) {
+            $validated['password'] = Hash::make($request->password);
+        } else {
+            unset($validated['password']);
+        }
+    
+        $user->update($validated);
+    
+        return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
     }
 
     /**
@@ -121,12 +133,4 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
     }
-
-    // public function toggleStatus(User $user)
-    // {
-    //     $user->status = $user->status === 'AKTIF' ? 'TIDAK_AKTIF' : 'AKTIF';
-    //     $user->save();
-
-    //     return redirect()->back()->with('success', 'Status updated');
-    // }
 }
