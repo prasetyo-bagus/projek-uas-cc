@@ -51,8 +51,8 @@
                                 </td>
                                 <td class="py-2 px-2 border hidden sm:table-cell">
                                     <code class="text-xs bg-gray-100 px-1 py-1 rounded">
-                                                                                                                                                                            https://officialnusantaraedupark/blogs/{{ $blog->url }}
-                                                                                                                                                            </code>
+                                                                                                                                                                                        https://officialnusantaraedupark/blogs/{{ $blog->url }}
+                                                                                                                                                                        </code>
                                 </td>
                                 <td class="py-2 px-4 border text-center">
                                     @if ($blog->is_featured)
@@ -80,7 +80,7 @@
                                         <button type="button"
                                             onclick="openDeleteModal('{{ route('blogs.destroy', $blog->id) }}', '{{ $blog->title }}')"
                                             class="text-red-500 hover:text-red-600 px-2">
-                                            <i class="fas fa-trash"></i> Hapus
+                                            <i class="fas fa-trash-alt"></i> Hapus
                                         </button>
                                     </form>
                                 </td>
@@ -169,7 +169,7 @@
             <!-- Header Icon -->
             <div class="text-center mb-4">
                 <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-3">
-                    <i class="fa-solid fa-trash text-purple-600"></i>
+                    <i class="fa-solid fa-trash-alt text-purple-600"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800">Konfirmasi Hapus</h2>
             </div>

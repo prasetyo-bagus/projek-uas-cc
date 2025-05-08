@@ -45,15 +45,6 @@
         });
     </script>
     <style>
-        body {
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        body.loaded {
-            opacity: 1;
-        }
-
         .glass-effect {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);

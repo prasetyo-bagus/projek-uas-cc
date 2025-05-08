@@ -121,15 +121,11 @@
                                                 class="text-amber-600 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 rounded-md p-1.5 transition-colors">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </a>
-                                            <form class="inline"
-                                                onsubmit="event.preventDefault(); openDeleteModal('{{ route('dynamic-assets.destroy', $asset->id) }}')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 rounded-md p-1.5 transition-colors">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                            </form>
+                                            <button type="button"
+                                                onclick="openDeleteModal('{{ route('dynamic-assets.destroy', $asset->id) }}')"
+                                                class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 rounded-md p-1.5 transition-colors">
+                                                <i class="fa-solid fa-trash-alt"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -155,22 +151,19 @@
         <div id="modal-box"
             class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md mx-auto transform scale-95 opacity-0 transition-all duration-300">
 
-            <!-- Header Icon -->
             <div class="text-center mb-4">
                 <div class="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-3">
-                    <i class="fa-solid fa-trash text-purple-600"></i>
+                    <i class="fa-solid fa-trash-alt text-purple-600"></i>
                 </div>
                 <h2 class="text-2xl font-bold text-gray-800">Konfirmasi Hapus</h2>
             </div>
 
-            <!-- Body -->
             <p class="text-center text-gray-600 mb-6">
                 Apakah Anda yakin ingin menghapus aset ini?
                 <br>
                 <span class="text-sm text-gray-400">Tindakan ini tidak dapat dibatalkan.</span>
             </p>
 
-            <!-- Footer Buttons -->
             <form id="confirm-delete-form" method="POST">
                 @csrf
                 @method('DELETE')
@@ -188,47 +181,57 @@
         </div>
     </div>
 
-@endsection
+    <script>
+        // Filter dan pencarian
+        document.addEventListener('DOMContentLoaded', function () {
+            const typeFilter = document.getElementById('type-filter');
+            const statusFilter = document.getElementById('status-filter');
+            const searchInput = document.getElementById('search-input');
+            const assetRows = document.querySelectorAll('.asset-row');
 
-<script>
-    // Filter dan pencarian
-    document.addEventListener('DOMContentLoaded', function () {
-        const typeFilter = document.getElementById('type-filter');
-        const statusFilter = document.getElementById('status-filter');
-        const searchInput = document.getElementById('search-input');
-        const assetRows = document.querySelectorAll('.asset-row');
+            function filterAssets() {
+                const typeValue = typeFilter.value;
+                const statusValue = statusFilter.value;
+                const searchValue = searchInput.value.toLowerCase();
 
-        function filterAssets() {
-            const typeValue = typeFilter.value;
-            const statusValue = statusFilter.value;
-            const searchValue = searchInput.value.toLowerCase();
+                assetRows.forEach(row => {
+                    const rowType = row.getAttribute('data-type');
+                    const rowStatus = row.getAttribute('data-status');
+                    const rowText = row.textContent.toLowerCase();
 
-            assetRows.forEach(row => {
-                const rowType = row.getAttribute('data-type');
-                const rowStatus = row.getAttribute('data-status');
-                const rowText = row.textContent.toLowerCase();
+                    const typeMatch = !typeValue || rowType === typeValue;
+                    const statusMatch = !statusValue || rowStatus === statusValue;
+                    const searchMatch = !searchValue || rowText.includes(searchValue);
 
-                const typeMatch = !typeValue || rowType === typeValue;
-                const statusMatch = !statusValue || rowStatus === statusValue;
-                const searchMatch = !searchValue || rowText.includes(searchValue);
+                    if (typeMatch && statusMatch && searchMatch) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
 
-                if (typeMatch && statusMatch && searchMatch) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+            typeFilter.addEventListener('change', filterAssets);
+            statusFilter.addEventListener('change', filterAssets);
+            searchInput.addEventListener('input', filterAssets);
+
+            // Konfirmasi penghapusan
+            document.querySelectorAll('.delete-form').forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    if (confirm(
+                        'Apakah Anda yakin ingin menghapus aset ini? Tindakan ini tidak dapat dibatalkan.'
+                    )) {
+                        this.submit();
+                    }
+                });
             });
-        }
-
-        typeFilter.addEventListener('change', filterAssets);
-        statusFilter.addEventListener('change', filterAssets);
-        searchInput.addEventListener('input', filterAssets);
-
-
+        });
+    </script>
+    <script>
         function openDeleteModal(action) {
             const modal = document.getElementById('confirm-delete-modal');
             const box = document.getElementById('modal-box');
-
             document.getElementById('confirm-delete-form').action = action;
 
             modal.classList.remove('hidden');
@@ -249,4 +252,5 @@
                 modal.classList.add('hidden');
             }, 300);
         }
-</script>
+    </script>
+@endsection
