@@ -65,7 +65,8 @@
                             </span>
                         </td>
                         <td class="py-3 px-4 border text-center">
-                            <button onclick="document.getElementById('modal-{{ $user->id }}').classList.remove('hidden')"
+                            <button
+                                onclick="document.getElementById('modal-{{ $user->id }}').classList.remove('hidden')"
                                 class="text-yellow-500 hover:text-yellow-600 px-2 text-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
@@ -134,34 +135,33 @@
         </div>
     </div>
 
-@endsection
 
-<script>
-    function openDeleteModal(action, userName) {
-        const modal = document.getElementById('confirm-delete-modal');
-        const box = document.getElementById('modal-box');
+    <script>
+        function openDeleteModal(action, userName) {
+            const modal = document.getElementById('confirm-delete-modal');
+            const box = document.getElementById('modal-box');
 
-        document.getElementById('confirm-delete-form').action = action;
-        document.getElementById('confirm-user-name').textContent = userName;
+            document.getElementById('confirm-delete-form').action = action;
+            document.getElementById('confirm-user-name').textContent = userName;
 
-        modal.classList.remove('hidden');
-        setTimeout(() => {
-            box.classList.remove('scale-95', 'opacity-0');
-            box.classList.add('scale-100', 'opacity-100');
-        }, 10);
-    }
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
 
-    function closeDeleteModal() {
-        const modal = document.getElementById('confirm-delete-modal');
-        const box = document.getElementById('modal-box');
+        function closeDeleteModal() {
+            const modal = document.getElementById('confirm-delete-modal');
+            const box = document.getElementById('modal-box');
 
-        box.classList.remove('scale-100', 'opacity-100');
-        box.classList.add('scale-95', 'opacity-0');
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
 
-        setTimeout(() => {
-            modal.classList.add('hidden');
-        }, 300);
-    }
-</script>
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
 
 @endsection
