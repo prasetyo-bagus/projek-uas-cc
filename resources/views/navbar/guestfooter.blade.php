@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="bg-[rgb(33,15,55)] text-white pt-12 pb-6 mt-16">
+<footer class="bg-[rgb(33,15,55)] text-white pt-12 pb-6">
     <div class="container mx-auto px-4 md:px-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             <!-- Company Info -->
@@ -11,13 +11,16 @@
                 <p class="text-gray-400 mb-4">Tempat wisata edukasi terbaik di bidang pertanian,
                     peternakan, dan perkebunan.</p>
                 <div class="flex space-x-4">
-                    <a href="https://www.facebook.com/p/Nusantara-Edupark-100070478678910/" class="text-gray-400 hover:text-white transition-all">
+                    <a href="https://www.facebook.com/p/Nusantara-Edupark-100070478678910/"
+                        class="text-gray-400 hover:text-white transition-all">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="https://www.instagram.com/nusantaraedupark/" class="text-gray-400 hover:text-white transition-all">
+                    <a href="https://www.instagram.com/nusantaraedupark/"
+                        class="text-gray-400 hover:text-white transition-all">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.youtube.com/@nusantaraedupark6539" class="text-gray-400 hover:text-white transition-all">
+                    <a href="https://www.youtube.com/@nusantaraedupark6539"
+                        class="text-gray-400 hover:text-white transition-all">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -27,8 +30,10 @@
             <div class="mb-8 md:mb-0">
                 <h4 class="text-lg font-semibold mb-4">Tautan Cepat</h4>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('homepage') }}" class="text-gray-400 hover:text-white transition-all">Beranda</a></li>
-                    <li><a href="{{ route('about-us') }}" class="text-gray-400 hover:text-white transition-all">Tentang Kami</a></li>
+                    <li><a href="{{ route('homepage') }}"
+                            class="text-gray-400 hover:text-white transition-all">Beranda</a></li>
+                    <li><a href="{{ route('about-us') }}" class="text-gray-400 hover:text-white transition-all">Tentang
+                            Kami</a></li>
                 </ul>
             </div>
 
@@ -38,7 +43,8 @@
                 <ul class="space-y-3">
                     <li class="flex items-start">
                         <i class="fas fa-map-marker-alt text-green-400 mt-1 mr-3"></i>
-                        <span class="text-gray-400">Jl. Raya Dungus, Kelurahan Munggut, Mojopurno, Kec. Wungu, Kabupaten Madiun, Jawa Timur 63181</span>
+                        <span class="text-gray-400">Jl. Raya Dungus, Kelurahan Munggut, Mojopurno, Kec. Wungu, Kabupaten
+                            Madiun, Jawa Timur 63181</span>
                     </li>
                     <li class="flex items-center">
                         <i class="fas fa-phone-alt text-green-400 mr-3"></i>
@@ -71,7 +77,7 @@
         <div class="border-t border-gray-700 mt-10 pt-6">
             <div class="flex flex-col sm:flex-row justify-between items-center">
                 <p class="text-gray-400 text-sm mb-4 sm:mb-0">© 2025 Nusantara Edupark. Hak Cipta Dilindungi.</p>
-                
+
             </div>
         </div>
     </div>

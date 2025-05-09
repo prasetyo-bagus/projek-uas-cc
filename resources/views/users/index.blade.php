@@ -65,8 +65,7 @@
                             </span>
                         </td>
                         <td class="py-3 px-4 border text-center">
-                            <button
-                                onclick="document.getElementById('modal-{{ $user->id }}').classList.remove('hidden')"
+                            <button onclick="document.getElementById('modal-{{ $user->id }}').classList.remove('hidden')"
                                 class="text-yellow-500 hover:text-yellow-600 px-2 text-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </button>

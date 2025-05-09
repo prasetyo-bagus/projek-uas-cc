@@ -19,8 +19,10 @@
             <div class="text-center max-w-4xl mx-auto">
                 <h1 class="text-4xl md:text-5xl font-bold mb-6">Layanan Kami</h1>
                 <p class="text-xl md:text-2xl text-gray-200">Berbagai layanan edukasi dan rekreasi untuk pengalaman wisata
+
                     berkesan</p>
             </div>
+        </div>
         </div>
     </section> --}}
 
