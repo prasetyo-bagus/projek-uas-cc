@@ -134,6 +134,7 @@
         </div>
     </div>
 
+
     <script>
         function openDeleteModal(action, userName) {
             const modal = document.getElementById('confirm-delete-modal');
