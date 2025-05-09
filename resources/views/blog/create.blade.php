@@ -4,8 +4,8 @@
     <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-5xl mx-auto">
         <div class="flex items-center justify-between mb-8">
             <div>
-                <h1 class="text-2xl font-bold text-gray-800">Tambah Blog</h1>
-                <p class="text-gray-500 mt-1">Buat konten blog baru untuk Nusantara Edupark</p>
+                <h1 class="text-2xl font-bold text-gray-800">Tambah Berita</h1>
+                <p class="text-gray-500 mt-1">Buat konten berita baru untuk Nusantara Edupark</p>
             </div>
             <a href="{{ route('blogs.index') }}"
                 class="flex items-center text-primary-600 hover:text-primary-800 transition-colors">
@@ -16,14 +16,14 @@
         <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class=" grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-6">
                     <div>
-                        <label class="block text-gray-700 font-medium mb-2">Judul Blog</label>
+                        <label class="block text-gray-700 font-medium mb-2">Judul Berita</label>
                         <input type="text" name="title" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                             placeholder="Masukkan judul blog yang menarik">
-                        <p class="mt-1 text-xs text-gray-500">Judul blog harus jelas dan menarik perhatian pembaca</p>
+                        <p class="mt-1 text-xs text-gray-500">Judul berita harus jelas dan menarik perhatian pembaca</p>
                     </div>
 
                     <div>
@@ -137,7 +137,7 @@
             const preview = document.getElementById('preview');
             const placeholder = document.getElementById('placeholder');
             const previewImg = preview.querySelector('img');
-            const removeButton = document.getElementById('removeImage');
+            // const removeButton = document.getElementById('removeImage');
             const dropzone = document.getElementById('dropzone');
 
             // Fungsi untuk menampilkan preview gambar
@@ -198,7 +198,7 @@
             $('#summernote').summernote({
                 placeholder: 'Isi konten blog di sini...',
                 tabsize: 2,
-                height: 800,
+                height: 500,
                 callbacks: {
                     onImageUpload: function (files) {
                         uploadImage(files[0]);
