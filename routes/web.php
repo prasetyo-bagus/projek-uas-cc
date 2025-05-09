@@ -122,7 +122,8 @@ Route::middleware(['auth'])->group(function () {
 /**
  * Route untuk menampilkan daftar blog (tanpa autentikasi)
  */
-Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+// Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+Route::get('/news', [BlogController::class, 'index'])->name('blogs.index');
 
 /**
  * Route untuk menampilkan detail blog

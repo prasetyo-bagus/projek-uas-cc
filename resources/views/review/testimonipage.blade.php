@@ -11,8 +11,8 @@
 
             <!-- Form Testimonial -->
             <!-- <div class="max-w-4xl mx-auto mb-20">
-                @include('review.formkomentar')
-            </div> -->
+                        @include('review.formkomentar')
+                    </div> -->
 
             <!-- Filter Rating -->
             <div class="max-w-7xl mx-auto mb-10">
@@ -63,7 +63,8 @@
                                 </path>
                             </svg>
                             <p class="mt-4 text-lg text-gray-500">Belum ada testimonial dari pengunjung
-                                {{ request('rating') ? 'dengan rating ' . request('rating') . ' bintang' : '' }}.</p>
+                                {{ request('rating') ? 'dengan rating ' . request('rating') . ' bintang' : '' }}.
+                            </p>
                             <p class="mt-2 text-gray-500">
                                 @if(request('rating'))
                                     <a href="{{ route('testimonials.all') }}" class="text-purple-600 hover:text-purple-800">Lihat

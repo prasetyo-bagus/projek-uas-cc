@@ -242,10 +242,10 @@
                     <span>Dashboard</span>
                 </a>
 
-                <a href="{{ route('blogs.store') }}"
+                <a href="{{ route('blogs.index') }}"
                     class="px-6 py-3 flex items-center sidebar-hover {{ request()->routeIs('blogs.*') ? 'active' : '' }}">
                     <span class="sidebar-icon"><i class="fa-solid fa-newspaper text-primary-400"></i></span>
-                    <span>Blog</span>
+                    <span>Berita</span>
                 </a>
 
                 <a href="{{ route('dynamic-assets.index') }}"

@@ -7,13 +7,14 @@
     @endphp
 
     @auth
-        <div class="bg-white shadow-md rounded-lg p-6 w-full">
-            <h2 class="text-2xl font-bold mb-4">Daftar Blog</h2>
-
-            <div class="mb-4">
+        <div class="bg-white shadow-lg rounded-xl p-8 w-full mx-auto">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Kelola Berita</h2>
+                </div>
                 <a href="{{ route('blogs.create') }}"
-                    class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 inline-flex items-center">
-                    <i class="fas fa-plus mr-2"></i> Tambah Blog
+                    class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center">
+                    <i class="fa-solid fa-plus mr-2"></i> Tambah Berita
                 </a>
             </div>
 
@@ -123,21 +124,24 @@
                                         <span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">Draft</span>
                                     @endif
                                 </td>
-                                <td class="py-2 px-4 border text-center">
-                                    <a href="{{ route('blogs.edit', $blog->id) }}"
-                                        class="text-yellow-500 hover:text-yellow-600 px-2">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" class="inline"
-                                        onsubmit="return confirm('Yakin ingin menghapus?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button"
-                                            onclick="openDeleteModal('{{ route('blogs.destroy', $blog->id) }}', '{{ $blog->title }}')"
-                                            class="text-red-500 hover:text-red-600 px-2">
-                                            <i class="fas fa-trash-alt"></i> Hapus
-                                        </button>
-                                    </form>
+                                {{-- <td class="py-4 px-4 flex justify-center gap-5"> --}}
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-center gap-5">
+                                        <a href="{{ route('blogs.edit', $blog->id) }}"
+                                            class="text-amber-600 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 rounded-md p-1.5 transition-colors">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" class="inline"
+                                            onsubmit="return confirm('Yakin ingin menghapus?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button"
+                                                onclick="openDeleteModal('{{ route('blogs.destroy', $blog->id) }}', '{{ $blog->title }}')"
+                                                class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 rounded-md p-1.5 transition-colors">
+                                                <i class="fa-solid fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

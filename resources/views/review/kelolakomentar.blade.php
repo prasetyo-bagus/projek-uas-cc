@@ -1,8 +1,8 @@
 @extends('navbar.adminnavbar')
 
 @section('content')
-    <div class="container mx-auto px-4 py-6">
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-white shadow-lg rounded-xl w-full mx-auto">
+        <div class=" shadow-lg rounded-lg overflow-hidden">
             <div class="p-6 border-b border-gray-200 flex justify-between items-center">
                 <div>
                     <h1 class="text-2xl font-bold text-gray-800">Kelola Testimonial</h1>
