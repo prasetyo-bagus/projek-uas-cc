@@ -26,7 +26,8 @@
                     <a href="{{ route('homepage') }}"
                         class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('homepage') ? 'text-purple-700 font-bold' : '' }}"
                         aria-current="page">
-                        <i class="fas fa-home mr-1"></i> Beranda
+                        {{-- <i class="fas fa-home mr-1"></i> Beranda --}}
+                        <i class="fas fa-home text-sm mr-1"></i> Beranda
                     </a>
                 </li>
                 <a href="{{ route('services') }}"
