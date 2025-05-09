@@ -33,13 +33,31 @@
         .transition-all {
             transition: all 0.3s ease;
         }
+
+        .prose table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .prose th,
+        .prose td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .prose th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body class="bg-gray-100 text-gray-900 font-sans antialiased">
     @include('navbar.guestnavbar')
 
-    <main class="w-full mt-10">
+    <main class="w-full">
         @yield('content')
 
         <!-- Footer -->

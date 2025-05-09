@@ -1,44 +1,34 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('layouts.guest')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Blog</title>
+@section('content')
+    <div class="bg-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <article class="space-y-8">
+                <header>
+                    <h1 class="text-4xl font-extrabold text-gray-900">{{ $blog->title }}</h1>
 
-    <style>
-        .attachment__caption {
-            display: none;
-        }
+                    {{-- Kategori --}}
+                    <p class="mt-2 text-sm text-gray-600 italic">
+                        Kategori: {{ ucfirst(str_replace('_', ' ', strtolower($blog->category))) }}
+                    </p>
 
-        .attachment a {
-            pointer-events: none;
-            text-decoration: none;
-        }
-    </style>
+                    <p class="mt-1 text-sm text-gray-500">
+                        Ditulis oleh <span class="font-medium text-gray-700">{{ $blog->user->name ?? 'Admin' }}</span>
+                        • {{ $blog->created_at->translatedFormat('d F Y') }}
+                    </p>
+                </header>
 
-    @vite('resources/css/app.css')
+                <div class="prose prose-lg max-w-none text-gray-800">
+                    {!! str_replace('<img', '<img class="mx-auto block"', $blog->body) !!}
+                </div>
 
-</head>
-
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-
-    <div class="w-full max-w-[800px] min-h-screen bg-white shadow-lg rounded-lg p-6 flex flex-col">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ $blog->title }}</h2>
-
-        <div class="prose prose-lg max-w-none" style="text-align: justify;">
-            {{-- {!! $blog->body !!} --}}
-            {!! str_replace('<img', '<img class="mx-auto block"', $blog->body) !!}
-        </div>
-
-        <div class="mt-auto">
-            <a href="{{ route('blogs.index') }}"
-                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition block text-center">
-                ← Kembali
-            </a>
+                <div class="pt-6">
+                    <a href="{{ route('blogs.index') }}"
+                        class="inline-block text-blue-600 hover:text-blue-800 font-medium transition">
+                        ← Kembali
+                    </a>
+                </div>
+            </article>
         </div>
     </div>
-
-</body>
-
-</html>
+@endsection

@@ -1,177 +1,222 @@
-<!DOCTYPE html>
-<html lang="id">
+@extends('navbar.adminnavbar')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Blog</title>
+@section('content')
+    {{-- <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-5xl mx-auto"> --}}
+        <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-5xl mx-auto min-h-[1500px]">
+            <!-- Judul, Form Fields, dan Summernote Editor di sini -->    
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">Edit Blog</h1>
+                <p class="text-gray-500 mt-1">Ubah konten blog untuk Nusantara Edupark</p>
+            </div>
+            <a href="{{ route('blogs.index') }}"
+                class="flex items-center text-primary-600 hover:text-primary-800 transition-colors">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Daftar
+            </a>
+        </div>
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
-
-<body class="bg-gray-100 flex justify-center items-center min-h-screen">
-    <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-2xl">
-        <h1 class="text-2xl font-bold text-center mb-6">Edit Blog</h1>
-
-        <form action="{{ route('blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data"
-            class="space-y-4">
+        <form action="{{ route('blogs.update', $blog->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
 
-            <div>
-                <label class="block text-gray-700">Judul:</label>
-                <input type="text" name="title" value="{{ old('title', $blog->title) }}" required
-                    class=" w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-            <div>
-                <label class="block text-gray-700">Slug:</label>
-                <input type="text" name="url" value="{{ old('url', $blog->url) }}" placeholder=" contoh:
-                    cara-reservasi-di-nusantara-edupark"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </div>
-
-            <div class="mb-4">
-                <label class="block">Kategori</label>
-                <select name="category" class="w-full border p-2 rounded">
-                    <option value="">Pilih Kategori</option>
-                    <option value="BERITA" {{ $blog->category == 'BERITA' ? 'selected' : '' }}>Berita</option>
-                    <option value="ACARA" {{ $blog->category == 'ACARA' ? 'selected' : '' }}>Acara</option>
-                    <option value="DESTINASI" {{ $blog->category == 'DESTINASI' ? 'selected' : '' }}>Destinasi</option>
-                    <option value="PANDUAN_WISATA" {{ $blog->category == 'PANDUAN_WISATA' ? 'selected' : '' }}>Panduan
-                        Wisata</option>
-                    <option value="KULINER" {{ $blog->category == 'KULINER' ? 'selected' : '' }}>Kuliner</option>
-                    <option value="PROMO" {{ $blog->category == 'PROMO' ? 'selected' : '' }}>Promo</option>
-                    <option value="FASILITAS" {{ $blog->category == 'FASILITAS' ? 'selected' : '' }}>Fasilitas</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="block text-gray-700">Gambar Utama:</label>
-                <input type="file" name="picture"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-
-                @if ($blog->picture)
-                    <div class="mt-2 text-center">
-                        <img src="{{ asset('storage/' . $blog->picture) }}" alt="Gambar Blog" width="300"
-                            class="w-40 rounded-lg mx-auto">
-                        <p>Gambar Lama</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Judul Blog</label>
+                        <input type="text" name="title" value="{{ old('title', $blog->title) }}" required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                        <p class="mt-1 text-xs text-gray-500">Judul blog harus jelas dan menarik perhatian pembaca</p>
                     </div>
-                @endif
-            </div>
 
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Slug URL</label>
+                        <input type="text" name="url" value="{{ old('url', $blog->url) }}"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                            placeholder="contoh: cara-reservasi-di-nusantara-edupark">
+                        <p class="mt-1 text-xs text-gray-500">Biarkan kosong untuk menghasilkan slug otomatis dari judul</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Kategori</label>
+                        <select name="category"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500">
+                            <option value="">Pilih Kategori</option>
+                            <option value="BERITA" {{ $blog->category == 'BERITA' ? 'selected' : '' }}>Berita</option>
+                            <option value="ACARA" {{ $blog->category == 'ACARA' ? 'selected' : '' }}>Acara</option>
+                            <option value="DESTINASI" {{ $blog->category == 'DESTINASI' ? 'selected' : '' }}>Destinasi</option>
+                            <option value="PANDUAN_WISATA" {{ $blog->category == 'PANDUAN_WISATA' ? 'selected' : '' }}>Panduan Wisata</option>
+                            <option value="KULINER" {{ $blog->category == 'KULINER' ? 'selected' : '' }}>Kuliner</option>
+                            <option value="PROMO" {{ $blog->category == 'PROMO' ? 'selected' : '' }}>Promo</option>
+                            <option value="FASILITAS" {{ $blog->category == 'FASILITAS' ? 'selected' : '' }}>Fasilitas</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-gray-50 p-4 rounded-lg">
+                        <input type="checkbox" name="is_featured" value="1" id="is_featured"
+                            class="w-5 h-5 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
+                            {{ old('is_featured', $blog->is_featured) ? 'checked' : '' }}>
+                        <div>
+                            <label for="is_featured" class="text-gray-700 font-medium">Tandai sebagai Berita Unggulan</label>
+                            <p class="text-xs text-gray-500 mt-0.5">Berita unggulan akan ditampilkan di halaman utama</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-2">Status Publikasi</label>
+                        <div class="flex space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="status" value="PUBLISH"
+                                    class="h-5 w-5 text-primary-600 focus:ring-primary-500"
+                                    {{ $blog->status == 'PUBLISH' ? 'checked' : '' }}>
+                                <span class="ml-2 flex items-center">
+                                    <i class="fa-solid fa-globe text-green-500 mr-1.5"></i>
+                                    <span>Publish</span>
+                                </span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="status" value="DRAF"
+                                    class="h-5 w-5 text-primary-600 focus:ring-primary-500"
+                                    {{ $blog->status == 'DRAF' ? 'checked' : '' }}>
+                                <span class="ml-2 flex items-center">
+                                    <i class="fa-solid fa-pencil text-yellow-500 mr-1.5"></i>
+                                    <span>Draft</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-gray-700 font-medium mb-2">Gambar Utama</label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center relative" id="dropzone">
+                        <input type="file" name="picture" id="imageInput"
+                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                        <div id="placeholder" class="{{ $blog->picture ? 'hidden' : '' }} flex flex-col items-center justify-center py-4">
+                            <i class="fa-solid fa-cloud-arrow-up text-gray-400 text-3xl mb-2"></i>
+                            <p class="text-gray-500">Klik atau seret gambar ke sini</p>
+                            <p class="text-xs text-gray-400 mt-1">JPG, PNG atau JPEG (Maks. 2MB)</p>
+                        </div>
+                        <div id="preview" class="{{ $blog->picture ? '' : 'hidden' }}">
+                            <img src="{{ $blog->picture ? asset('storage/' . $blog->picture) : '#' }}" alt="Preview" class="max-h-52 mx-auto rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div>
-                <label class="block text-gray-700">Isi Blog:</label>
-                <input id="body" type="hidden" name="body" value="{{ old('body', $blog->body) }}">
-                <trix-editor input="body" contenteditable="true"
-                    class="w-full min-h-[600px] px-8 py-8 border rounded-lg">
-                </trix-editor>
+                <label class="block text-gray-700 font-medium mb-2">Isi Blog</label>
+                <textarea id="summernote" class="hidden">{!! old('body', $blog->body) !!}</textarea>
+                <input type="hidden" name="body" id="body">
             </div>
 
-            <div class="flex items-center">
-                <input type="checkbox" name="is_featured" id="is_featured" value="1"
-                    class="w-6 h-6 text-blue-500 rounded border-gray-300 focus:ring-blue-500" {{ old('is_featured', $blog->is_featured ?? false) ? 'checked' : '' }}>
-                <label for="is_featured" class="ml-2 text-gray-700 text-lg font-medium">Tandai sebagai Berita
-                    Unggulan</label>
+            <div class="border-t border-gray-200 pt-6 mt-6">
+                <div class="flex justify-end space-x-3">
+                    <a href="{{ route('blogs.index') }}"
+                        class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        Batal
+                    </a>
+                    <button type="submit"
+                        class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center">
+                        <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Perubahan
+                    </button>
+                </div>
             </div>
-
-            <div>
-                <label class="block text-gray-700">Status:</label>
-                <select name="status"
-                    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="PUBLISH" {{ $blog->status == 'PUBLISH' ? 'selected' : '' }}>Publish</option>
-                    <option value="DRAF" {{ $blog->status == 'DRAF' ? 'selected' : '' }}>Draft</option>
-                </select>
-            </div>
-
-            <button type="submit"
-                class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Simpan</button>
         </form>
     </div>
-
+    
     <script>
-        document.addEventListener('trix-attachment-add', function (event) {
-            let attachment = event.attachment;
-            if (attachment.file) {
-                uploadAttachment(attachment);
-            }
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            setTimeout(() => {
-                document.querySelector("trix-editor").editor.loadHTML(document.querySelector("trix-editor").value);
-            }, 500);
-        });
-
-        function uploadAttachment(attachment) {
-            let file = attachment.file;
-            let formData = new FormData();
-            formData.append('file', file);
-
-            fetch("{{ route('trix.upload') }}", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.url) {
-                        attachment.setAttributes({
-                            url: data.url,
-                            href: data.url
-                        });
-
-                        // Tambahkan fitur ukuran gambar
-                        setTimeout(() => {
-                            let img = document.querySelector(`img[src="${data.url}"]`);
-                            if (img) {
-                                img.style.maxWidth = "100%";
-                                img.style.height = "auto";
-
-                                let toolbar = document.createElement("div");
-                                toolbar.innerHTML = `
-                                    <button onclick="resizeImage('${data.url}', 'small')" class="px-2 py-1 text-xs bg-blue-500 text-white rounded">Kecil</button>
-                                    <button onclick="resizeImage('${data.url}', 'medium')" class="px-2 py-1 text-xs bg-green-500 text-white rounded">Sedang</button>
-                                    <button onclick="resizeImage('${data.url}', 'large')" class="px-2 py-1 text-xs bg-red-500 text-white rounded">Besar</button>
-                                `;
-                                toolbar.style.display = "flex";
-                                toolbar.style.gap = "5px";
-                                toolbar.style.marginTop = "5px";
-                                img.insertAdjacentElement("afterend", toolbar);
-                            }
-                        }, 500);
-                    } else {
-                        attachment.remove();
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageInput = document.getElementById('imageInput');
+            const preview = document.getElementById('preview');
+            const placeholder = document.getElementById('placeholder');
+            const previewImg = preview.querySelector('img');
+            const dropzone = document.getElementById('dropzone');
+    
+            function showPreview(file) {
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImg.src = e.target.result;
+                        placeholder.classList.add('hidden');
+                        preview.classList.remove('hidden');
+                        dropzone.classList.add('border-primary-300', 'bg-primary-50');
+                        dropzone.classList.remove('border-gray-300');
                     }
-                })
-                .catch(error => {
-                    console.error("Upload error:", error);
-                    attachment.remove();
-                });
-        }
-
-        function resizeImage(url, size) {
-            let img = document.querySelector(`img[src="${url}"]`);
-            if (img) {
-                if (size === "small") {
-                    img.style.width = "100px";
-                } else if (size === "medium") {
-                    img.style.width = "300px";
-                } else if (size === "large") {
-                    img.style.width = "500px";
+                    reader.readAsDataURL(file);
                 }
             }
-        }
+    
+            imageInput.addEventListener('change', function () {
+                if (this.files && this.files[0]) {
+                    showPreview(this.files[0]);
+                }
+            });
+    
+            dropzone.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                dropzone.classList.add('border-primary-400', 'bg-primary-50');
+            });
+    
+            dropzone.addEventListener('dragleave', function (e) {
+                e.preventDefault();
+                if (!preview.classList.contains('hidden')) return;
+                dropzone.classList.remove('border-primary-400', 'bg-primary-50');
+            });
+    
+            dropzone.addEventListener('drop', function (e) {
+                e.preventDefault();
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    imageInput.files = e.dataTransfer.files;
+                    showPreview(e.dataTransfer.files[0]);
+                }
+            });
+    
+            // Inisialisasi Summernote
+            $('#summernote').summernote({
+                placeholder: 'Isi konten blog di sini...',
+                tabsize: 2,
+                height: 800,
+                callbacks: {
+                    onImageUpload: function (files) {
+                        uploadImage(files[0]);
+                    }
+                },
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link', 'picture', 'video']]
+                ]
+            });
+    
+            // Upload gambar Summernote
+            function uploadImage(file) {
+                const data = new FormData();
+                data.append("file", file);
+    
+                $.ajax({
+                    url: '/upload-image',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: data,
+                    type: "POST",
+                    success: function (response) {
+                        $('#summernote').summernote('insertImage', response.url);
+                    },
+                    error: function () {
+                        alert("Upload gambar gagal.");
+                    }
+                });
+            }
+    
+            // Simpan isi Summernote ke input hidden saat submit
+            document.querySelector('form').addEventListener('submit', function () {
+                const content = $('#summernote').summernote('code');
+                document.getElementById('body').value = content;
+            });
+        });
     </script>
-
-</body>
-
-</html>
+@endsection

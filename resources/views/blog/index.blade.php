@@ -215,10 +215,11 @@
             <div class="container mx-auto max-w-5xl">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach ($allBlogs as $blog)
-                        <div class="relative bg-white shadow-md border border-gray-200 rounded-lg h-full flex flex-col">
+                        <div class="relative bg-white shadow-md border border-gray-200 rounded-lg flex flex-col h-[400px]">
                             <a href="{{ route('blog.show', $blog->url) }}" class="hover:shadow-lg h-full flex flex-col">
-                                <div class="w-full h-72 overflow-hidden">
-                                    <img src="{{ asset('storage/' . $blog->picture) }}" alt="{{ $blog->title }}">
+                                <div class="w-full h-50 overflow-hidden">
+                                    <img src="{{ asset('storage/' . $blog->picture) }}" alt="{{ $blog->title }}"
+                                        class="object-cover w-full h-full">
                                 </div>
 
                                 @php
@@ -247,13 +248,10 @@
                                     </span>
                                 @endif
 
-                                <div class="p-4 flex flex-col flex-grow">
-                                    <h2 class="font-semibold text-gray-800 hover:text-yellow-500 min-h-[80px]">
-                                        {{ $blog->title }}
+                                <div class="p-2 flex flex-col flex-grow">
+                                    <h2 class="font-semibold text-gray-800 hover:text-yellow-500 min-h-[60px]">
+                                        {{ Str::words($blog->title, 10) }}
                                     </h2>
-                                    <p class="text-gray-600 text-sm mt-2">
-                                        {{ Str::limit(strip_tags($blog->body), 100) }}
-                                    </p>
                                     <span class="mt-auto text-purple-700 hover:text-purple-500">
                                         Baca Selengkapnya
                                     </span>

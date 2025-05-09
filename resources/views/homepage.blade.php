@@ -46,7 +46,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function () {
                 const swiper = new Swiper(".heroSwiper", {
                     loop: true,
                     autoplay: {
@@ -155,9 +155,13 @@
         <section class="py-16 bg-gray-50 relative overflow-hidden">
             <!-- Background Elements -->
             <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-gray-50 opacity-50"></div>
-            <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full opacity-30 transform -translate-y-1/2 translate-x-1/2"></div>
-            <div class="absolute bottom-0 left-0 w-48 h-48 bg-green-200 rounded-full opacity-30 transform translate-y-1/2 -translate-x-1/2"></div>
-            
+            <div
+                class="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full opacity-30 transform -translate-y-1/2 translate-x-1/2">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-48 h-48 bg-green-200 rounded-full opacity-30 transform translate-y-1/2 -translate-x-1/2">
+            </div>
+
             <!-- Decorative Background Elements -->
             <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
                 <i class="fas fa-leaf absolute text-green-500 text-6xl" style="top: 10%; left: 5%;"></i>
@@ -174,7 +178,8 @@
                         <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
                             <span class="relative z-10">Paket Wisata</span>
                             <svg class="absolute -bottom-2 left-0 w-full h-3 text-yellow-300 z-0" viewBox="0 0 200 8">
-                                <path d="M0 4C40 0 60 8 100 4C140 0 160 8 200 4" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"></path>
+                                <path d="M0 4C40 0 60 8 100 4C140 0 160 8 200 4" fill="none" stroke="currentColor"
+                                    stroke-width="4" stroke-linecap="round"></path>
                             </svg>
                         </h2>
                         <p class="text-gray-600 mt-2">Pilihan paket wisata edukatif</p>
@@ -205,24 +210,25 @@
                             <div class="p-6">
                                 <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $packet->title }}</h3>
                                 <p class="text-gray-600 mb-4">{{ $packet->detail ?? $packet->description }}</p>
-                                
+
                                 <div class="space-y-2 mb-4">
                                     <div class="flex items-center text-sm text-gray-600">
-                                        <i class="fas fa-users text-purple-600 mr-2"></i> 
+                                        <i class="fas fa-users text-purple-600 mr-2"></i>
                                         {{ $packet->capacity ?: 'Kapasitas sesuai paket' }}
                                     </div>
                                     <div class="flex items-center text-sm text-gray-600">
-                                        <i class="fas fa-clock text-purple-600 mr-2"></i> 
+                                        <i class="fas fa-clock text-purple-600 mr-2"></i>
                                         {{ $packet->duration ?: 'Durasi bervariasi' }}
                                     </div>
                                     <div class="flex items-center text-sm text-gray-600">
-                                        <i class="fas fa-tag text-purple-600 mr-2"></i> 
+                                        <i class="fas fa-tag text-purple-600 mr-2"></i>
                                         {{ $packet->price ?: 'Hubungi kami untuk info harga' }}
                                     </div>
                                 </div>
-                                
+
                                 <div class="flex justify-end">
-                                    <a href="#" class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                    <a href="#"
+                                        class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors">
                                         <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                     </a>
                                 </div>
@@ -355,10 +361,8 @@
                     </svg>
 
                     <!-- Icon mainan kubus -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
-                        class="absolute top-60 left-20 w-20 h-20">
-                        <rect fill="#ffffff" x="20" y="20" width="60" height="60" rx="10"
-                            ry="10" />
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-60 left-20 w-20 h-20">
+                        <rect fill="#ffffff" x="20" y="20" width="60" height="60" rx="10" ry="10" />
                         <circle fill="#9000EF" cx="35" cy="35" r="5" />
                         <circle fill="#9000EF" cx="65" cy="35" r="5" />
                         <circle fill="#9000EF" cx="35" cy="65" r="5" />
@@ -377,8 +381,8 @@
                     </svg>
 
                     <!-- Icon pensil -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
-                        class="absolute top-1/3 left-10 w-24 h-24" transform="rotate(30)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/3 left-10 w-24 h-24"
+                        transform="rotate(30)">
                         <path fill="#ffffff" d="M20,80 L30,20 L70,20 L80,80 Z" />
                         <path fill="#9000EF" d="M30,20 L70,20 L70,10 L30,10 Z" />
                     </svg>
@@ -405,8 +409,7 @@
                     <!-- Icon robot mainan -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
                         class="absolute bottom-32 right-1/3 w-24 h-24">
-                        <rect fill="#ffffff" x="30" y="20" width="40" height="30" rx="5"
-                            ry="5" />
+                        <rect fill="#ffffff" x="30" y="20" width="40" height="30" rx="5" ry="5" />
                         <rect fill="#ffffff" x="35" y="50" width="30" height="30" />
                         <rect fill="#ffffff" x="25" y="60" width="10" height="20" />
                         <rect fill="#ffffff" x="65" y="60" width="10" height="20" />
@@ -451,8 +454,7 @@
                     </svg>
 
                     <!-- Icon pesawat kertas -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
-                        class="absolute top-36 left-36 w-18 h-18">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-36 left-36 w-18 h-18">
                         <path fill="#ffffff" d="M10,40 L50,20 L90,40 L50,60 Z" />
                         <path fill="#ffffff" d="M50,60 L50,90 L40,75 L50,60 Z" />
                     </svg>
@@ -469,8 +471,8 @@
 
                 <!-- Gelombang sederhana di bagian atas -->
                 <div class="absolute top-0 left-0 w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none"
-                        class="w-full" style="height: 60px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full"
+                        style="height: 60px;">
                         <path fill="#ffffff"
                             d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,21.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
                         </path>
@@ -557,12 +559,12 @@
                     <div>
                         <h2
                             class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-900">
-                            Blog Unggulan</h2>
-                        <p class="text-gray-600 mt-3 text-lg">Artikel terbaru seputar edukasi</p>
+                            Berita Unggulan</h2>
+                        <p class="text-gray-600 mt-3 text-lg">Berita Unggulan di Nusantara Edupark</p>
                     </div>
-                    <a href="#"
+                    <a href="/news"
                         class="group flex items-center mt-4 md:mt-0 text-purple-900 font-semibold hover:text-purple-900 transition-all duration-300">
-                        Semua Artikel
+                        Semua Berita
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -588,9 +590,8 @@
                                 <div class="text-xs font-semibold text-purple-900 mb-2">
                                     {{ $blogItem->created_at->format('d M Y') }}
                                 </div>
-                                <h3
-                                    class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
-                                    {{ $blogItem->title }}
+                                <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                                    {{ Str::words($blogItem->title, 12) }}
                                 </h3>
                                 <p class="text-gray-600 text-sm leading-relaxed mb-4">
                                     {{ Str::limit($blogItem->content, 120) }}
@@ -724,7 +725,7 @@
         </section>
 
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('DOMContentLoaded', function () {
                 // Ambil testimonial dari API
                 fetch('{{ route('api.testimonials') }}')
 
@@ -740,11 +741,11 @@
                             noData.className = 'col-span-3 text-center py-10';
                             noData.innerHTML = `
 
-                                                                                                            <div class="text-gray-500">
-                                                                                                                <i class="fas fa-comment-slash text-4xl mb-3"></i>
-                                                                                                                <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
-                                                                                                            </div>
-                                                                                                        `;
+                                                                                                                                                        <div class="text-gray-500">
+                                                                                                                                                            <i class="fas fa-comment-slash text-4xl mb-3"></i>
+                                                                                                                                                            <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
+                                                                                                                                                        </div>
+                                                                                                                                                    `;
 
                             container.appendChild(noData);
                             return;
@@ -775,10 +776,10 @@
                                     `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
                             } else {
                                 photoHtml = `
-                                                                                                                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                                                                                                                    <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
-                                                                                                                </div>
-                                                                                                            `;
+                                                                                                                                                            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                                                                                                                                                <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
+                                                                                                                                                            </div>
+                                                                                                                                                        `;
 
                             }
 
@@ -788,24 +789,24 @@
                             testimonialCard.className =
                                 'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
                             testimonialCard.innerHTML = `
-                                                                                                            <div class="flex items-center mb-4">
-                                                                                                                <div class="text-yellow-400 flex">
-                                                                                                                    ${starsHtml}
-                                                                                                                </div>
-                                                                                                                <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
-                                                                                                            </div>
-                                                                                                            <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
-                                                                                                            <div class="flex items-center">
-                                                                                                                ${photoHtml}
-                                                                                                                <div class="ml-3">
-                                                                                                                    <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
-                                                                                                                    <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
-                                                                                                                </div>
-                                                                                                                <div class="ml-auto text-xs text-gray-400">
-                                                                                                                    ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        `;
+                                                                                                                                                        <div class="flex items-center mb-4">
+                                                                                                                                                            <div class="text-yellow-400 flex">
+                                                                                                                                                                ${starsHtml}
+                                                                                                                                                            </div>
+                                                                                                                                                            <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
+                                                                                                                                                        </div>
+                                                                                                                                                        <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
+                                                                                                                                                        <div class="flex items-center">
+                                                                                                                                                            ${photoHtml}
+                                                                                                                                                            <div class="ml-3">
+                                                                                                                                                                <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
+                                                                                                                                                                <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
+                                                                                                                                                            </div>
+                                                                                                                                                            <div class="ml-auto text-xs text-gray-400">
+                                                                                                                                                                ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                                                                                                                                            </div>
+                                                                                                                                                        </div>
+                                                                                                                                                    `;
 
 
                             container.appendChild(testimonialCard);
