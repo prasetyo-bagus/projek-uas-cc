@@ -547,8 +547,8 @@
                 <div>
                     <h2
                         class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-900">
-                        Berita Unggulan</h2>
-                    <p class="text-gray-600 mt-3 text-lg">Berita Unggulan di Nusantara Edupark</p>
+                        Berita Pilihan</h2>
+                    <p class="text-gray-600 mt-3 text-lg">Berita Pilihan di Nusantara Edupark</p>
                 </div>
                 <a href="/news"
                     class="group flex items-center mt-4 md:mt-0 text-purple-900 font-semibold hover:text-purple-900 transition-all duration-300">

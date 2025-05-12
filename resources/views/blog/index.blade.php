@@ -43,7 +43,7 @@
                 <div>
                     <select id="featured-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
                         <option value="">Semua</option>
-                        <option value="1">Unggulan</option>
+                        <option value="1">Pilihan</option>
                         <option value="0">Reguler</option>
                     </select>
                 </div>
@@ -63,7 +63,7 @@
                             <th class="py-3 px-4 border">Judul</th>
                             <th class="py-3 px-4 border">Kategori</th>
                             <th class="py-3 px-4 border hidden sm:table-cell">URL</th>
-                            <th class="py-3 px-4 border">Unggulan</th>
+                            <th class="py-3 px-4 border">Pilihan</th>
                             <th class="py-3 px-4 border">Status</th>
                             <th class="py-3 px-4 border">Aksi</th>
                         </tr>
