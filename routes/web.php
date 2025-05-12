@@ -13,6 +13,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\DynamicAssetController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -171,3 +172,6 @@ Route::post('/logout', function () {
 
 Route::resource('users', UserController::class);
 Route::patch('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggleStatus');
+
+
+Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('upload.image');

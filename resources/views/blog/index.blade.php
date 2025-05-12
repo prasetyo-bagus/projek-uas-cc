@@ -241,8 +241,7 @@
 
                                 @if ($blog->is_featured)
                                     <span class="absolute top-2 left-2 bg-purple-500 text-white text-xs px-2 py-1 rounded">
-                                        Berita Utama
-                                    </span>
+                                    </span>`
                                 @endif
 
                                 @if ($blog->category)
