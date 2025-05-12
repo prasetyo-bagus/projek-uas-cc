@@ -216,8 +216,8 @@
             processData: false,
             data: data,
             type: "POST",
-            success: function (url) {
-                $('#summernote').summernote('insertImage', url);
+            success: function (response) {
+                $('#summernote').summernote('insertImage', response.url);
             },
             error: function (xhr, status, error) {
                 alert('Upload gambar gagal: ' + error);
