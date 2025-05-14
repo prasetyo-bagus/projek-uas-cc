@@ -192,7 +192,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($packets as $packet)
                     <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
+                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative">
                         <div class="relative h-56 overflow-hidden">
                             <img src="{{ asset('storage/' . $packet->image) }}"
                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -206,9 +206,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-6">
+                        <div class="p-6 pb-12">
                             <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $packet->title }}</h3>
-                            <p class="text-gray-600 mb-4">{{ $packet->detail ?? $packet->description }}</p>
+                            <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
 
                             <div class="space-y-2 mb-4">
                                 <div class="flex items-center text-sm text-gray-600">
@@ -225,8 +225,8 @@
                                 </div>
                             </div>
 
-                            <div class="flex justify-end">
-                                <a href="#"
+                            <div class="absolute bottom-4 right-6">
+                                <a href="{{ route('packets') }}#contact-packet"
                                     class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors">
                                     <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                 </a>
@@ -291,16 +291,16 @@
                         </div>
                         <div class="p-6">
                             <div class="flex justify-between items-center mb-3">
-                                <span
+                                <!-- <span
                                     class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
                                     <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
-                                </span>
+                                </span> -->
                             </div>
                             <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
                             <p class="text-gray-600 mb-4">{{ $facility->description }}</p>
                             @if ($facility->detail)
                                 <div class="flex justify-end">
-                                    <a href="#"
+                                    <a href="javascript:void(0)" onclick="openDetailModal('{{ $facility->title }}', '{{ addslashes($facility->description) }}', '{{ addslashes($facility->detail) }}', '{{ asset('storage/' . $facility->image) }}')"
                                         class="text-blue-600 hover:text-blue-800 font-medium transition-colors flex items-center">
                                         <i class="fas fa-info-circle mr-1"></i> Detail
                                     </a>
@@ -320,142 +320,83 @@
         </div>
     </section>
 
+    <!-- Modal Detail Fasilitas -->
+    <div id="facility-detail-modal"
+        class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
+        <div id="facility-modal-box"
+            class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-3xl mx-auto transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto">
+            
+            <div class="flex justify-between items-start mb-4">
+                <h2 id="facility-title" class="text-2xl font-bold text-gray-800"></h2>
+                <button onclick="closeDetailModal()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                <div class="overflow-hidden rounded-lg">
+                    <img id="facility-image" src="" alt="Gambar Fasilitas" class="w-full h-auto object-cover rounded-lg hover:scale-105 transition-transform duration-500">
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-2">Deskripsi:</h3>
+                        <p id="facility-description" class="text-gray-600"></p>
+                    </div>
+                    
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h3 class="font-semibold mb-2 text-purple-700">Detail Fasilitas:</h3>
+                        <div id="facility-detail" class="prose max-w-none text-gray-700"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeDetailModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openDetailModal(title, description, detail, imageUrl) {
+            const modal = document.getElementById('facility-detail-modal');
+            const box = document.getElementById('facility-modal-box');
+            
+            document.getElementById('facility-title').textContent = title;
+            document.getElementById('facility-description').textContent = description;
+            document.getElementById('facility-detail').innerHTML = detail;
+            document.getElementById('facility-image').src = imageUrl;
+            document.getElementById('facility-image').alt = title;
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+        
+        function closeDetailModal() {
+            const modal = document.getElementById('facility-detail-modal');
+            const box = document.getElementById('facility-modal-box');
+            
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
 
     <!-- Gallery Section with Fun Interactive Elements -->
     <section class="py-16 relative overflow-hidden">
-        <!-- Background dengan bentuk gelombang dan icon anak-anak -->
+        <!-- Background dengan bentuk gelombang -->
         <div class="absolute inset-0">
             <!-- Warna dasar sesuai permintaan: rgb(144, 0, 239) -->
             <div class="absolute inset-0" style="background-color: rgb(144, 0, 239);"></div>
 
-            <!-- Icon anak-anak yang transparan di background (lebih banyak dan ramai) -->
-            <div class="absolute inset-0 opacity-10">
-                <!-- Icon anak bermain 1 -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-10 left-1/4 w-24 h-24">
-                    <path fill="#ffffff"
-                        d="M50,10 C55,10 59,14 59,19 C59,24 55,28 50,28 C45,28 41,24 41,19 C41,14 45,10 50,10 Z" />
-                    <path fill="#ffffff" d="M40,30 L60,30 L65,50 L60,70 L40,70 L35,50 Z" />
-                    <path fill="#ffffff" d="M35,45 L25,60 L30,65 L40,50 Z" />
-                    <path fill="#ffffff" d="M65,45 L75,60 L70,65 L60,50 Z" />
-                    <path fill="#ffffff" d="M40,70 L35,90 L45,90 L48,70 Z" />
-                    <path fill="#ffffff" d="M60,70 L65,90 L55,90 L52,70 Z" />
-                </svg>
-
-                <!-- Icon anak membaca -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-40 right-1/4 w-28 h-28">
-                    <path fill="#ffffff"
-                        d="M30,30 C35,25 45,25 50,30 C55,25 65,25 70,30 C75,35 75,65 70,70 C65,75 55,75 50,70 C45,75 35,75 30,70 C25,65 25,35 30,30 Z" />
-                    <circle fill="#ffffff" cx="50" cy="20" r="10" />
-                    <path fill="#ffffff" d="M45,15 C45,15 47,20 50,20 C53,20 55,15 55,15" />
-                </svg>
-
-                <!-- Icon balon -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-40 left-1/5 w-16 h-16">
-                    <path fill="#ffffff"
-                        d="M50,10 C65,10 75,25 75,40 C75,55 65,70 50,70 C35,70 25,55 25,40 C25,25 35,10 50,10 Z" />
-                    <path fill="#ffffff" d="M50,70 L45,90 L55,90 L50,70 Z" />
-                </svg>
-
-                <!-- Icon mainan kubus -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-60 left-20 w-20 h-20">
-                    <rect fill="#ffffff" x="20" y="20" width="60" height="60" rx="10" ry="10" />
-                    <circle fill="#9000EF" cx="35" cy="35" r="5" />
-                    <circle fill="#9000EF" cx="65" cy="35" r="5" />
-                    <circle fill="#9000EF" cx="35" cy="65" r="5" />
-                    <circle fill="#9000EF" cx="65" cy="65" r="5" />
-                </svg>
-
-                <!-- TAMBAHAN IKON -->
-
-                <!-- Icon anak bermain 2 -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-24 left-2/3 w-20 h-20">
-                    <circle fill="#ffffff" cx="50" cy="20" r="15" />
-                    <path fill="#ffffff" d="M35,40 L65,40 L70,80 L30,80 Z" />
-                    <path fill="#ffffff" d="M30,50 L20,70 L30,70 Z" />
-                    <path fill="#ffffff" d="M70,50 L80,70 L70,70 Z" />
-                </svg>
-
-                <!-- Icon pensil -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/3 left-10 w-24 h-24"
-                    transform="rotate(30)">
-                    <path fill="#ffffff" d="M20,80 L30,20 L70,20 L80,80 Z" />
-                    <path fill="#9000EF" d="M30,20 L70,20 L70,10 L30,10 Z" />
-                </svg>
-
-                <!-- Icon buku -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-60 right-20 w-28 h-28">
-                    <path fill="#ffffff" d="M20,20 L80,20 L80,80 L20,80 Z" />
-                    <path fill="#9000EF" d="M50,20 L50,80 L52,80 L52,20 Z" />
-                    <path fill="#ffffff" d="M30,35 L45,35 L45,40 L30,40 Z" />
-                    <path fill="#ffffff" d="M55,35 L70,35 L70,40 L55,40 Z" />
-                    <path fill="#ffffff" d="M30,50 L45,50 L45,55 L30,55 Z" />
-                    <path fill="#ffffff" d="M55,50 L70,50 L70,55 L55,55 Z" />
-                    <path fill="#ffffff" d="M30,65 L45,65 L45,70 L30,70 Z" />
-                    <path fill="#ffffff" d="M55,65 L70,65 L70,70 L55,70 Z" />
-                </svg>
-
-                <!-- Icon bintang -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-10 right-20 w-12 h-12">
-                    <path fill="#ffffff" d="M50,10 L61,35 L90,35 L65,50 L75,80 L50,65 L25,80 L35,50 L10,35 L39,35 Z" />
-                </svg>
-
-                <!-- Icon robot mainan -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
-                    class="absolute bottom-32 right-1/3 w-24 h-24">
-                    <rect fill="#ffffff" x="30" y="20" width="40" height="30" rx="5" ry="5" />
-                    <rect fill="#ffffff" x="35" y="50" width="30" height="30" />
-                    <rect fill="#ffffff" x="25" y="60" width="10" height="20" />
-                    <rect fill="#ffffff" x="65" y="60" width="10" height="20" />
-                    <circle fill="#9000EF" cx="40" cy="30" r="5" />
-                    <circle fill="#9000EF" cx="60" cy="30" r="5" />
-                    <rect fill="#9000EF" x="40" y="40" width="20" height="5" />
-                </svg>
-
-                <!-- Icon puzzle -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-1/2 right-10 w-16 h-16">
-                    <path fill="#ffffff"
-                        d="M25,25 L40,25 L40,40 L55,40 L55,25 L70,25 L70,40 L55,55 L70,55 L70,70 L55,70 L55,55 L40,55 L40,70 L25,70 L25,55 L40,40 L25,40 Z" />
-                </svg>
-
-                <!-- Icon anak melompat -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-40 left-1/3 w-20 h-20">
-                    <circle fill="#ffffff" cx="50" cy="20" r="10" />
-                    <path fill="#ffffff" d="M45,30 L55,30 L60,50 L40,50 Z" />
-                    <path fill="#ffffff" d="M40,50 L30,80 L40,80 Z" />
-                    <path fill="#ffffff" d="M60,50 L70,80 L60,80 Z" />
-                    <path fill="#ffffff" d="M40,40 L20,45 L20,35 Z" />
-                    <path fill="#ffffff" d="M60,40 L80,45 L80,35 Z" />
-                </svg>
-
-                <!-- Icon matahari -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-20 left-1/2 w-16 h-16">
-                    <circle fill="#ffffff" cx="50" cy="50" r="20" />
-                    <path fill="#ffffff"
-                        d="M50,15 L50,5 M50,95 L50,85 M15,50 L5,50 M95,50 L85,50 M25,25 L18,18 M75,75 L82,82 M25,75 L18,82 M75,25 L82,18"
-                        stroke="#ffffff" stroke-width="3" />
-                </svg>
-
-                <!-- Icon bola -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute bottom-20 right-20 w-14 h-14">
-                    <circle fill="#ffffff" cx="50" cy="50" r="30" />
-                    <path fill="none" stroke="#9000EF" stroke-width="2"
-                        d="M20,50 L80,50 M50,20 L50,80 M30,30 L70,70 M30,70 L70,30" />
-                </svg>
-
-                <!-- Icon pesawat kertas -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-36 left-36 w-18 h-18">
-                    <path fill="#ffffff" d="M10,40 L50,20 L90,40 L50,60 Z" />
-                    <path fill="#ffffff" d="M50,60 L50,90 L40,75 L50,60 Z" />
-                </svg>
-
-                <!-- Icon rumah -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="absolute top-2/3 left-2/3 w-20 h-20">
-                    <path fill="#ffffff" d="M20,50 L50,20 L80,50 L80,90 L20,90 Z" />
-                    <rect fill="#9000EF" x="45" y="60" width="10" height="30" />
-                    <rect fill="#9000EF" x="30" y="70" width="10" height="10" />
-                    <rect fill="#9000EF" x="60" y="70" width="10" height="10" />
-                </svg>
-            </div>
+            <!-- Icon anak-anak yang transparan di background (dihapus untuk mengurangi beban) -->
 
             <!-- Gelombang sederhana di bagian atas -->
             <div class="absolute top-0 left-0 w-full">
@@ -506,8 +447,8 @@
 
             <!-- Container untuk gambar-gambar gallery -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-                @forelse ($galleries as $gallery)
-                    <div class="relative overflow-hidden rounded-lg group">
+                @forelse ($galleries->take(8) as $gallery)
+                    <div class="relative overflow-hidden rounded-lg group cursor-pointer" onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')">
                         <img src="{{ asset('storage/' . $gallery->image) }}"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
                             alt="{{ $gallery->title }}">
@@ -516,10 +457,7 @@
                             <span class="text-white font-medium"><i class="fas fa-image mr-2"></i>
                                 {{ $gallery->title }}</span>
                         </div>
-                        <div
-                            class="absolute top-2 right-2 bg-white rounded-full h-8 w-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <i class="fas fa-search-plus text-purple-600"></i>
-                        </div>
+                        
                     </div>
                 @empty
                     <div class="col-span-4 text-center py-12">
@@ -539,6 +477,76 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal Galeri -->
+    <div id="gallery-modal"
+        class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
+        <div id="gallery-modal-box"
+            class="bg-transparent w-full max-w-5xl mx-auto transform scale-95 opacity-0 transition-all duration-300">
+            
+            <div class="relative">
+                <button onclick="closeGalleryModal()" class="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+                
+                <div class="flex flex-col">
+                    <!-- Gambar -->
+                    <div class="overflow-hidden rounded-lg bg-black flex items-center justify-center">
+                        <img id="gallery-image" src="" alt="" class="max-h-[70vh] max-w-full object-contain">
+                    </div>
+                    
+                    <!-- Caption -->
+                    <div class="bg-white p-4 rounded-b-lg">
+                        <h3 id="gallery-title" class="text-xl font-bold text-gray-800 mb-2"></h3>
+                        <p id="gallery-description" class="text-gray-600"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openGalleryModal(imageUrl, title, description) {
+            const modal = document.getElementById('gallery-modal');
+            const box = document.getElementById('gallery-modal-box');
+            
+            document.getElementById('gallery-image').src = imageUrl;
+            document.getElementById('gallery-image').alt = title;
+            document.getElementById('gallery-title').textContent = title;
+            document.getElementById('gallery-description').textContent = description || 'Tidak ada deskripsi';
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.remove('scale-95', 'opacity-0');
+                box.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            
+            // Mencegah scrolling pada body ketika modal terbuka
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeGalleryModal() {
+            const modal = document.getElementById('gallery-modal');
+            const box = document.getElementById('gallery-modal-box');
+            
+            box.classList.remove('scale-100', 'opacity-100');
+            box.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                // Mengaktifkan kembali scrolling pada body
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+        
+        // Menambahkan keyboard listener untuk menutup dengan tombol ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeGalleryModal();
+                closeDetailModal();
+            }
+        });
+    </script>
 
     <!-- Blog Section -->
     <section class="py-20 bg-gray-50">

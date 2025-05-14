@@ -47,6 +47,7 @@
                     <option value="FACILITY">Fasilitas</option>
                     <option value="PACKET">Packet</option>
                     <option value="SPONSOR">Sponsor</option>
+                    <option value="LAYANAN">Layanan</option>
                 </select>
             </div>
             <div>
@@ -104,7 +105,9 @@
                                 ? 'bg-red-100 text-red-800'
                                 : ($asset->type == 'PACKET'
                                     ? 'bg-orange-100 text-orange-800'
-                                    : 'bg-green-100 text-green-800'))) }}">
+                                    : ($asset->type == 'LAYANAN'
+                                        ? 'bg-teal-100 text-teal-800'
+                                        : 'bg-green-100 text-green-800')))) }}">
                                             {{ $asset->type }}
                                         </span>
                                     </td>

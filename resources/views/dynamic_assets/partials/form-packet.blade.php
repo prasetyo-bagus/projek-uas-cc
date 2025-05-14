@@ -3,7 +3,7 @@
     enctype="multipart/form-data" class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
 
     @csrf
-    @if(isset($data))
+    @if (isset($data))
         @method('PUT')
     @endif
 
@@ -31,8 +31,8 @@
                     <p class="text-xs text-gray-400 mt-1">JPG, PNG atau JPEG</p>
                 </div>
                 <div id="preview" class="{{ isset($data) && $data->image ? '' : 'hidden' }}">
-                    <img src="{{ isset($data) && $data->image ? asset('storage/' . $data->image) : '#' }}" alt="Preview"
-                        class="max-h-52 mx-auto rounded-lg">
+                    <img src="{{ isset($data) && $data->image ? asset('storage/' . $data->image) : '#' }}"
+                        alt="Preview" class="max-h-52 mx-auto rounded-lg">
                     <button type="button" id="removeImage" class="mt-2 text-red-500 text-sm hover:text-red-700">
                         <i class="fa-solid fa-xmark mr-1"></i> Hapus Gambar
                     </button>
@@ -60,7 +60,7 @@
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 placeholder="contoh: 25-100 siswa per grup">
         </div>
-        
+
         <div>
             <label class="block text-gray-700 font-medium mb-2">
                 <i class="fas fa-clock text-purple-600 mr-1"></i>
@@ -70,7 +70,7 @@
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 placeholder="contoh: 3-6 jam">
         </div>
-        
+
         <div>
             <label class="block text-gray-700 font-medium mb-2">
                 <i class="fas fa-tag text-purple-600 mr-1"></i>
@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    <div class="col-span-2">
+     <div class="col-span-2">
         <div class="mb-4">
             <label class="block text-gray-700 font-medium mb-2">Detail Paket</label>
             <textarea name="detail" rows="4"
@@ -90,7 +90,7 @@
                 placeholder="Masukkan informasi detail tentang paket">{{ old('detail', $data->detail ?? '') }}</textarea>
             <p class="text-xs text-gray-500 mt-1">Masukkan detail lengkap tentang paket wisata ini</p>
         </div>
-    </div>
+    </div> 
 
     <div class="col-span-2">
         <div class="mb-4">
@@ -124,7 +124,7 @@
 </form>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         // Preview gambar
         const imageInput = document.getElementById('imageInput');
         const preview = document.getElementById('preview');
@@ -137,7 +137,7 @@
         function showPreview(file) {
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     previewImg.src = e.target.result;
                     placeholder.classList.add('hidden');
                     preview.classList.remove('hidden');
@@ -149,14 +149,14 @@
         }
 
         // Event untuk memilih file
-        imageInput.addEventListener('change', function () {
+        imageInput.addEventListener('change', function() {
             if (this.files && this.files[0]) {
                 showPreview(this.files[0]);
             }
         });
 
         // Event untuk menghapus gambar
-        removeButton.addEventListener('click', function () {
+        removeButton.addEventListener('click', function() {
             imageInput.value = '';
             placeholder.classList.remove('hidden');
             preview.classList.add('hidden');
@@ -165,18 +165,18 @@
         });
 
         // Drag & drop functionality
-        dropzone.addEventListener('dragover', function (e) {
+        dropzone.addEventListener('dragover', function(e) {
             e.preventDefault();
             dropzone.classList.add('border-primary-400', 'bg-primary-50');
         });
 
-        dropzone.addEventListener('dragleave', function (e) {
+        dropzone.addEventListener('dragleave', function(e) {
             e.preventDefault();
             if (!preview.classList.contains('hidden')) return;
             dropzone.classList.remove('border-primary-400', 'bg-primary-50');
         });
 
-        dropzone.addEventListener('drop', function (e) {
+        dropzone.addEventListener('drop', function(e) {
             e.preventDefault();
             if (e.dataTransfer.files && e.dataTransfer.files[0]) {
                 imageInput.files = e.dataTransfer.files;

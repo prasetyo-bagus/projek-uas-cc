@@ -74,7 +74,7 @@
                 
               
                 <!-- Call to Action -->
-                <div class="mt-20 text-center py-12 px-6 bg-purple-100 rounded-2xl">
+                <div id="contact-packet" class="mt-20 text-center py-12 px-6 bg-purple-100 rounded-2xl">
                     <h2 class="text-2xl font-bold text-purple-900 mb-4">Butuh Paket Wisata?</h2>
                     <p class="text-purple-700 mb-8 max-w-2xl mx-auto">Kami dapat menyesuaikan paket wisata sesuai dengan kebutuhan spesifik Anda. Hubungi tim kami untuk mendiskusikan rencana kunjungan Anda.</p>
                     <div class="flex justify-center space-x-4">

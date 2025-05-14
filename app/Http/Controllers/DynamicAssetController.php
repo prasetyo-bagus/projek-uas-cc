@@ -26,7 +26,7 @@ class DynamicAssetController extends Controller
         $type = strtoupper($request->query('type', 'BANNER')); // Default ke BANNER
 
         // Validasi jika tipe tidak valid
-        if (!in_array($type, ['BANNER', 'GALERY', 'FACILITY', 'PACKET', 'SPONSOR'])) {
+        if (!in_array($type, ['BANNER', 'GALERY', 'FACILITY', 'PACKET', 'SPONSOR', 'LAYANAN'])) {
             abort(404); // Tampilkan error 404 jika tipe tidak valid
         }
         
@@ -39,34 +39,76 @@ class DynamicAssetController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi data request
-        $request->validate([
-            'type' => 'required|in:BANNER,GALERY,FACILITY,PACKET,SPONSOR',
+        // Validasi dasar untuk semua tipe
+        $baseValidation = [
+            'type' => 'required|in:BANNER,GALERY,FACILITY,PACKET,SPONSOR,LAYANAN',
             'title' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'description' => 'nullable|string|max:255',
             'detail' => 'nullable|string',
             'is_active' => 'required|boolean',
-            'capacity' => 'nullable|string|max:255',
-            'duration' => 'nullable|string|max:255',
-            'price' => 'nullable|string|max:255',
-        ]);
+        ];
+        
+        // Validasi tambahan berdasarkan tipe
+        if ($request->type === 'PACKET') {
+            $baseValidation = array_merge($baseValidation, [
+                'capacity' => 'nullable|string|max:255',
+                'duration' => 'nullable|string|max:255',
+                'price' => 'nullable|string|max:255',
+            ]);
+        } elseif ($request->type === 'LAYANAN') {
+            $baseValidation = array_merge($baseValidation, [
+                'category' => 'required|string|in:Pertanian,Peternakan,Perkebunan',
+                'icon' => 'required|string|max:50',
+                'item_titles' => 'required|array',
+                'item_titles.*' => 'required|string|max:255',
+                'item_descriptions' => 'required|array',
+                'item_descriptions.*' => 'required|string',
+            ]);
+        }
+        
+        // Validasi data request
+        $validated = $request->validate($baseValidation);
 
         // Menyimpan gambar dan mendapatkan path
         $imagePath = $request->file('image')->store('dynamic_assets/' . date('Y/m'), 'public');
 
-        // Membuat entitas baru di database
-        DynamicAsset::create([
+        // Data dasar untuk semua tipe
+        $data = [
             'type' => $request->type,
             'title' => $request->title,
             'image' => $imagePath,
             'description' => $request->description,
             'detail' => $request->detail,
-            'capacity' => $request->capacity,
-            'duration' => $request->duration,
-            'price' => $request->price,
             'is_active' => $request->is_active,
-        ]);
+        ];
+        
+        // Tambahkan data spesifik berdasarkan tipe
+        if ($request->type === 'PACKET') {
+            $data = array_merge($data, [
+                'capacity' => $request->capacity,
+                'duration' => $request->duration,
+                'price' => $request->price,
+            ]);
+        } elseif ($request->type === 'LAYANAN') {
+            // Buat array service_items dari data form
+            $serviceItems = [];
+            for ($i = 0; $i < count($request->item_titles); $i++) {
+                $serviceItems[] = [
+                    'title' => $request->item_titles[$i],
+                    'description' => $request->item_descriptions[$i]
+                ];
+            }
+            
+            $data = array_merge($data, [
+                'category' => $request->category,
+                'icon' => $request->icon,
+                'service_items' => json_encode($serviceItems),
+            ]);
+        }
+
+        // Membuat entitas baru di database
+        DynamicAsset::create($data);
 
         // Redirect setelah sukses
         return redirect()->route('dynamic-assets.index')->with('success', 'Data berhasil ditambahkan.');
@@ -99,21 +141,59 @@ class DynamicAssetController extends Controller
      */
     public function update(Request $request, DynamicAsset $dynamicAsset)
     {
-        // Validasi data yang akan diupdate
-        $request->validate([
-            'type' => 'required|in:BANNER,GALERY,FACILITY,PACKET,SPONSOR',
+        // Validasi dasar untuk semua tipe
+        $baseValidation = [
+            'type' => 'required|in:BANNER,GALERY,FACILITY,PACKET,SPONSOR,LAYANAN',
             'title' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'description' => 'nullable|string|max:255',
             'detail' => 'nullable|string',
             'is_active' => 'required|boolean',
-            'capacity' => 'nullable|string|max:255',
-            'duration' => 'nullable|string|max:255',
-            'price' => 'nullable|string|max:255',
-        ]);
+        ];
+        
+        // Validasi tambahan berdasarkan tipe
+        if ($request->type === 'PACKET') {
+            $baseValidation = array_merge($baseValidation, [
+                'capacity' => 'nullable|string|max:255',
+                'duration' => 'nullable|string|max:255',
+                'price' => 'nullable|string|max:255',
+            ]);
+        } elseif ($request->type === 'LAYANAN') {
+            $baseValidation = array_merge($baseValidation, [
+                'category' => 'required|string|in:Pertanian,Peternakan,Perkebunan',
+                'icon' => 'required|string|max:50',
+                'item_titles' => 'required|array',
+                'item_titles.*' => 'required|string|max:255',
+                'item_descriptions' => 'required|array',
+                'item_descriptions.*' => 'required|string',
+            ]);
+        }
+        
+        // Validasi data yang akan diupdate
+        $validated = $request->validate($baseValidation);
 
-        // Menyimpan data yang ada di request
-        $data = $request->only(['type', 'title', 'description', 'detail', 'capacity', 'duration', 'price', 'is_active']);
+        // Menyimpan data dasar yang ada di request
+        $data = $request->only(['type', 'title', 'description', 'detail', 'is_active']);
+        
+        // Tambahkan data spesifik berdasarkan tipe
+        if ($request->type === 'PACKET') {
+            $data = array_merge($data, $request->only(['capacity', 'duration', 'price']));
+        } elseif ($request->type === 'LAYANAN') {
+            // Buat array service_items dari data form
+            $serviceItems = [];
+            for ($i = 0; $i < count($request->item_titles); $i++) {
+                $serviceItems[] = [
+                    'title' => $request->item_titles[$i],
+                    'description' => $request->item_descriptions[$i]
+                ];
+            }
+            
+            $data = array_merge($data, [
+                'category' => $request->category,
+                'icon' => $request->icon,
+                'service_items' => json_encode($serviceItems),
+            ]);
+        }
 
         // Jika ada gambar yang diupload, proses penggantian gambar
         if ($request->hasFile('image')) {

@@ -59,6 +59,16 @@
                     <p class="text-xs text-gray-500 text-center mt-1">Harga Paket Wisata</p>
                 </a>
 
+                <a href="{{ route('dynamic-assets.create', ['type' => 'LAYANAN']) }}"
+                    class="flex flex-col items-center p-6 rounded-xl border-2 transition-all {{ $type == 'LAYANAN' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50/50' }}">
+                    <div
+                        class="w-16 h-16 flex items-center justify-center rounded-full {{ $type == 'LAYANAN' ? 'bg-primary-100 text-primary-600' : 'bg-gray-100 text-gray-500' }} mb-3">
+                        <i class="fa-solid fa-hand-holding-seedling text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold {{ $type == 'LAYANAN' ? 'text-primary-700' : 'text-gray-700' }}">Layanan</h3>
+                    <p class="text-xs text-gray-500 text-center mt-1">Layanan edukatif & wisata</p>
+                </a>
+
                 <a href="{{ route('dynamic-assets.create', ['type' => 'SPONSOR']) }}"
                     class="flex flex-col items-center p-6 rounded-xl border-2 transition-all {{ $type == 'SPONSOR' ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-primary-300 hover:bg-primary-50/50' }}">
                     <div
