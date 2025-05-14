@@ -32,6 +32,8 @@
                 <ul class="space-y-2">
                     <li><a href="{{ route('homepage') }}"
                             class="text-gray-400 hover:text-white transition-all">Beranda</a></li>
+                    <li><a href="{{ route('services') }}"
+                            class="text-gray-400 hover:text-white transition-all">Layanan</a></li>
                     <li><a href="{{ route('about-us') }}" class="text-gray-400 hover:text-white transition-all">Tentang
                             Kami</a></li>
                 </ul>
