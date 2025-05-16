@@ -54,7 +54,8 @@ class DynamicAssetController extends Controller
             $baseValidation = array_merge($baseValidation, [
                 'capacity' => 'nullable|string|max:255',
                 'duration' => 'nullable|string|max:255',
-                'price' => 'nullable|string|max:255',
+                'weekday_price' => 'nullable|string|max:255',
+                'weekend_price' => 'nullable|string|max:255',
             ]);
         } elseif ($request->type === 'LAYANAN') {
             $baseValidation = array_merge($baseValidation, [
@@ -88,7 +89,8 @@ class DynamicAssetController extends Controller
             $data = array_merge($data, [
                 'capacity' => $request->capacity,
                 'duration' => $request->duration,
-                'price' => $request->price,
+                'weekday_price' => $request->weekday_price,
+                'weekend_price' => $request->weekend_price,
             ]);
         } elseif ($request->type === 'LAYANAN') {
             // Buat array service_items dari data form
@@ -156,7 +158,8 @@ class DynamicAssetController extends Controller
             $baseValidation = array_merge($baseValidation, [
                 'capacity' => 'nullable|string|max:255',
                 'duration' => 'nullable|string|max:255',
-                'price' => 'nullable|string|max:255',
+                'weekday_price' => 'nullable|string|max:255',
+                'weekend_price' => 'nullable|string|max:255',
             ]);
         } elseif ($request->type === 'LAYANAN') {
             $baseValidation = array_merge($baseValidation, [
@@ -177,7 +180,7 @@ class DynamicAssetController extends Controller
         
         // Tambahkan data spesifik berdasarkan tipe
         if ($request->type === 'PACKET') {
-            $data = array_merge($data, $request->only(['capacity', 'duration', 'price']));
+            $data = array_merge($data, $request->only(['capacity', 'duration', 'weekday_price', 'weekend_price']));
         } elseif ($request->type === 'LAYANAN') {
             // Buat array service_items dari data form
             $serviceItems = [];

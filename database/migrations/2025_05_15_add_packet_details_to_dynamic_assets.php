@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('dynamic_assets', function (Blueprint $table) {
-            $table->string('weekday_price')->nullable()->after('duration');
-            $table->string('weekend_price')->nullable()->after('duration');
+            $table->string('weekday_price')->nullable()->after('description');
+            $table->string('weekend_price')->nullable()->after('weekday_price');
         });
     }
 
