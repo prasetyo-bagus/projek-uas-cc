@@ -50,35 +50,24 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <div>
-            <label class="block text-gray-700 font-medium mb-2">
-                <i class="fas fa-users text-purple-600 mr-1"></i>
-                Kapasitas
-            </label>
-            <input type="text" name="capacity" value="{{ old('capacity', $data->capacity ?? '') }}"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="contoh: 25-100 siswa per grup">
-        </div>
-
-        <div>
-            <label class="block text-gray-700 font-medium mb-2">
-                <i class="fas fa-clock text-purple-600 mr-1"></i>
-                Durasi
-            </label>
-            <input type="text" name="duration" value="{{ old('duration', $data->duration ?? '') }}"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="contoh: 3-6 jam">
-        </div>
-
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
             <label class="block text-gray-700 font-medium mb-2">
                 <i class="fas fa-tag text-purple-600 mr-1"></i>
-                Harga
+                Harga Weekday
             </label>
-            <input type="text" name="price" value="{{ old('price', $data->price ?? '') }}"
+            <input type="text" name="weekday_price" value="{{ old('weekday_price', $data->weekday_price ?? '') }}"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="contoh: Mulai dari Rp 50.000/siswa">
+                placeholder="Rp 50.000">
+        </div>
+        <div>
+            <label class="block text-gray-700 font-medium mb-2">
+                <i class="fas fa-tag text-purple-600 mr-1"></i>
+                Harga Weekend
+            </label>
+            <input type="text" name="weekend_price" value="{{ old('weekend_price', $data->weekend_price ?? '') }}"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                placeholder="Rp 75.000">
         </div>
     </div>
 
