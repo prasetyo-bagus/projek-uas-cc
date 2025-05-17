@@ -191,45 +191,130 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($packets as $packet)
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative">
-                        <div class="relative h-56 overflow-hidden">
-                            <img src="{{ asset('storage/' . $packet->image) }}"
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                alt="{{ $packet->title }}">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative">
+                        <div class="relative h-[500px] overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center bg-gray-100">
+                                <img src="{{ asset('storage/' . $packet->image) }}"
+                                    class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110"
+                                    alt="{{ $packet->title }}">
+                            </div>
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
                                 <div class="w-full flex justify-between items-center px-4 pb-3">
                                     <p class="text-white font-medium">
-                                        <i class="fas fa-camera mr-2"></i> Paket Wisata
+                                        <i class="fas fa-camera mr-2"></i> Paket Wisata Edukasi
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-6 pb-12">
+                        <div class="p-4">
                             <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $packet->title }}</h3>
                             <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
+                            <div class="price-container bg-white rounded-lg">                                
+                                <div class="space-y-2">
+                                    <!-- Weekday Price -->
+                                    <div class="flex items-center p-3 bg-purple-50 rounded-md transition-all hover:bg-purple-100 mb-2">
+                                        <div class="bg-purple-600 text-white p-2 rounded-full mr-3">
+                                            <i class="fas fa-calendar-week"></i>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="text-sm font-medium text-gray-600">Weekday</div>
+                                            <div class="text-lg font-bold text-purple-700">{{ $packet->weekday_price ?: 'Hubungi kami untuk info harga'}}</div>
+                                        </div>
+                                    </div>
 
-                            <div class="space-y-2 mb-4">
-                                <div class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-users text-purple-600 mr-2"></i>
-                                    {{ $packet->capacity ?: 'Kapasitas sesuai paket' }}
-                                </div>
-                                <div class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-clock text-purple-600 mr-2"></i>
-                                    {{ $packet->duration ?: 'Durasi bervariasi' }}
-                                </div>
-                                <div class="flex items-center text-sm text-gray-600">
-                                    <i class="fas fa-tag text-purple-600 mr-2"></i>
-                                    {{ $packet->price ?: 'Hubungi kami untuk info harga' }}
-                                </div>
-                            </div>
+                                    <!-- Weekend Price -->
+                                    <div class="flex items-center p-3 bg-indigo-50 rounded-md transition-all hover:bg-indigo-100">
+                                        <div class="bg-indigo-600 text-white p-2 rounded-full mr-3">
+                                            <i class="fas fa-calendar-week"></i>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="text-sm font-medium text-gray-600">Weekend</div>
+                                            <div class="text-lg font-bold text-indigo-700">{{ $packet->weekend_price ?: 'Hubungi kami untuk info harga'}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-wrap gap-2 pt-2">
+                                        <a href="{{ route('packets') }}#contact-packet"
+                                            class="bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                            <i class="fas fa-ticket-alt mr-1"></i> Pesan
+                                        </a>
+                                        <!-- Button to open modal -->
+                                        <button onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
+                                            class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                            <i class="fas fa-info-circle mr-1"></i> Selengkapnya
+                                        </button>
+                                    </div>
+                                    
+                                    <dialog id="detailModal-{{ $packet->id }}"
+                                        class="rounded-xl w-500 max-w-4xl sm:mx-auto mx-2 my-6 sm:my-16 p-0 overflow-hidden backdrop:bg-black/50"
+                                        onclick="handleOutsideClick(event, this)">
+                                        <div class="bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh] flex flex-col">
+                                            <!-- Header -->
+                                            <div class="p-4 sm:p-6 border-b border-gray-200">
+                                                <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-1">
+                                                    <i class="fas fa-map-marker-alt mr-2 text-purple-600"></i> {{ $packet->title }}
+                                                </h4>
+                                                <p class="text-gray-600 text-sm">{{ $packet->description }}</p>
+                                            </div>
 
-                            <div class="absolute bottom-4 right-6">
-                                <a href="{{ route('packets') }}#contact-packet"
-                                    class="inline-block bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors">
-                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan
-                                </a>
+                                            <!-- Body -->
+                                            <div class="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
+                                                <div class="rich-content text-sm text-gray-700 leading-relaxed prose prose-sm sm:prose">
+                                                    {!! $packet->detail !!}
+                                                </div>
+
+                                                <!-- Harga -->
+                                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                    <div class="flex items-center p-4 bg-purple-50 rounded-md shadow-sm">
+                                                        <div class="bg-purple-600 text-white p-2 rounded-full mr-3">
+                                                            <i class="fas fa-calendar-week"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="text-sm text-gray-600">Harga Weekday</div>
+                                                            <div class="text-lg font-bold text-purple-700">
+                                                                {{ $packet->weekday_price ?: 'Hubungi kami' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex items-center p-4 bg-indigo-50 rounded-md shadow-sm">
+                                                        <div class="bg-indigo-600 text-white p-2 rounded-full mr-3">
+                                                            <i class="fas fa-umbrella-beach"></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="text-sm text-gray-600">Harga Weekend</div>
+                                                            <div class="text-lg font-bold text-indigo-700">
+                                                                {{ $packet->weekend_price ?: 'Hubungi kami' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Footer -->
+                                            <div class="px-4 sm:px-6 py-4 bg-gray-50 flex flex-col sm:flex-row justify-end gap-3 border-t">
+                                                <button onclick="document.getElementById('detailModal-{{ $packet->id }}').close()"
+                                                    class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-md transition w-full sm:w-auto">
+                                                    Tutup
+                                                </button>
+                                                <a href="{{ route('packets') }}#contact-packet"
+                                                    class="bg-purple-700 hover:bg-purple-800 text-white py-2 px-4 rounded-md transition font-medium w-full sm:w-auto text-center">
+                                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan Sekarang
+                                                </a>
+                                                <a href="https://wa.me/6281939114933?text=Halo%2C%20saya%20mau%20tanya"
+                                                    class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition w-full sm:w-auto"
+                                                    target="_blank" rel="noopener noreferrer">
+                                                    <i class="fab fa-whatsapp text-xl mr-2"></i> Whatsapp
+                                                </a>
+
+                                                <a href="https://www.traveloka.com/id-id/activities/indonesia/product/nusantara-edupark-madiun-5389237971312"
+                                                    class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition w-full sm:w-auto"
+                                                    target="_blank" rel="noopener noreferrer">
+                                                    <i class="fas fa-plane-departure text-xl mr-2"></i> Traveloka
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </dialog>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -719,6 +804,21 @@
         </div>
     </section>
 
+     <script>
+        function handleOutsideClick(event, dialog) {
+            // Tutup hanya jika klik terjadi di luar konten modal
+            const rect = dialog.querySelector('div').getBoundingClientRect();
+            if (
+                event.clientX < rect.left ||
+                event.clientX > rect.right ||
+                event.clientY < rect.top ||
+                event.clientY > rect.bottom
+            ) {
+                dialog.close();
+            }
+        }
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Ambil testimonial dari API
@@ -863,4 +963,5 @@
             speed: 1000,
         });
     </script> --}}
+    
 @endsection

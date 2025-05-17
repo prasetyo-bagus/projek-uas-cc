@@ -11,16 +11,25 @@
 
     <div class="col-span-2">
         <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Nama Paket</label>
+            <label class="block text-gray-700 font-medium mb-2">Nama Paket Edukasi</label>
             <input type="text" name="title" value="{{ old('title', $data->title ?? '') }}"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Masukkan nama paket">
+                placeholder="Contoh: Paket Edukasi SD-SMP">
         </div>
     </div>
+    
+    <div class="col-span-2">
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-medium mb-2">Keterangan Paket Edukasi</label>
+                    <input type="text" name="description" value="{{ old('description', $data->description ?? '') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                        placeholder="Contoh: Paket Edukasi Basic">
+                </div>
+            </div>
 
     <div class="col-span-2">
         <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Gambar Paket</label>
+            <label class="block text-gray-700 font-medium mb-2">Gambar Paket Edukasi</label>
             <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center relative" id="dropzone">
                 <input type="file" name="image" id="imageInput" {{ isset($data) ? '' : 'required' }}
                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
@@ -38,19 +47,12 @@
                     </button>
                 </div>
             </div>
+            
         </div>
     </div>
 
-    <div class="col-span-2">
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2">Keterangan Singkat</label>
-            <input type="text" name="description" value="{{ old('description', $data->description ?? '') }}"
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Masukkan keterangan singkat paket">
-        </div>
-    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div>
             <label class="block text-gray-700 font-medium mb-2">
                 <i class="fas fa-tag text-purple-600 mr-1"></i>
@@ -58,7 +60,7 @@
             </label>
             <input type="text" name="weekday_price" value="{{ old('weekday_price', $data->weekday_price ?? '') }}"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Rp 50.000">
+                placeholder="Rp 50.000" required>
         </div>
         <div>
             <label class="block text-gray-700 font-medium mb-2">
@@ -67,19 +69,19 @@
             </label>
             <input type="text" name="weekend_price" value="{{ old('weekend_price', $data->weekend_price ?? '') }}"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Rp 75.000">
+                placeholder="Rp 50.000" required>
         </div>
     </div>
 
-     <div class="col-span-2">
+    <div class="col-span-2">
         <div class="mb-4">
             <label class="block text-gray-700 font-medium mb-2">Detail Paket</label>
-            <textarea name="detail" rows="4"
+            <textarea id="detail" name="detail" rows="4"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                 placeholder="Masukkan informasi detail tentang paket">{{ old('detail', $data->detail ?? '') }}</textarea>
             <p class="text-xs text-gray-500 mt-1">Masukkan detail lengkap tentang paket wisata ini</p>
         </div>
-    </div> 
+    </div>
 
     <div class="col-span-2">
         <div class="mb-4">
@@ -173,4 +175,49 @@
             }
         });
     });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#detail').summernote({
+            placeholder: 'Isi semua detail paket edukasi ',
+            tabsize: 2,
+            height: 300,
+            callbacks: {
+                onImageUpload: function (files) {
+                    uploadImage(files[0]);
+                }
+            },
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link', 'picture', 'video']]
+            ]
+        });
+    });
+
+    function uploadImage(file) {
+        var data = new FormData();
+        data.append("file", file);
+
+        $.ajax({
+            url: '/upload-image',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: data,
+            type: "POST",
+            success: function (response) {
+                $('#detail').summernote('insertImage', response.url);
+            },
+            error: function (xhr, status, error) {
+                alert('Upload gambar gagal: ' + error);
+            }
+        });
+    }
 </script>

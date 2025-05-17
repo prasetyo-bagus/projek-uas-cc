@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('dynamic_assets', function (Blueprint $table) {
-            $table->string('weekday_price')->nullable()->after('description');
+            // $table->string('capacity')->nullable()->after('detail');
+            // $table->string('duration')->nullable()->after('capacity');
+            // $table->string('price')->nullable()->after('duration');
+            $table->string('weekday_price')->nullable()->after('detail');
             $table->string('weekend_price')->nullable()->after('weekday_price');
         });
     }
@@ -23,7 +26,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('dynamic_assets', function (Blueprint $table) {
-            $table->dropColumn([ 'weekday_price', 'weekend_price']);
+            // $table->dropColumn(['capacity', 'duration', 'price']);
+            $table->dropColumn(['weekday_price', 'weekend_price']);
         });
     }
 }; 

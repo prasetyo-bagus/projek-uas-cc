@@ -19,37 +19,45 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
+        .rich-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+        }
+
+        .rich-content ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+        }
+
+        .rich-content li {
+            margin-bottom: 0.25rem;
+        }
         body {
             font-family: 'Poppins', sans-serif;
         }
 
-        .hero-section {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1530521954074-e64f6810b32d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
+        dialog::backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         .transition-all {
             transition: all 0.3s ease;
         }
-
-        .prose table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
+        
+        .rich-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            padding-left: 1rem;
         }
 
-        .prose th,
-        .prose td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: left;
+        .rich-content ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            padding-left: 1rem;
         }
 
-        .prose th {
-            background-color: #f9f9f9;
-            font-weight: bold;
+        .rich-content li {
+            margin-bottom: 0.25rem;
         }
     </style>
 </head>

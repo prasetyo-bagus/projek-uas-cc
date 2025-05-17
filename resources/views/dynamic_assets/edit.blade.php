@@ -5,7 +5,17 @@
     <div class="flex justify-between items-center mb-6">
         <div>
             <h2 class="text-2xl font-bold text-gray-800">Edit Aset Dinamis</h2>
-            <p class="text-gray-500 mt-1">Perbarui informasi {{ strtolower($dynamicAsset->type == 'BANNER' ? 'Banner' : ($dynamicAsset->type == 'GALERY' ? 'Galeri' : 'Fasilitas')) }}</p>
+            <p class="text-gray-500 mt-1">
+                Perbarui informasi {{
+                    strtolower(
+                        $dynamicAsset->type == 'BANNER' ? 'Banner' :
+                        ($dynamicAsset->type == 'GALERY' ? 'Galeri' :
+                        ($dynamicAsset->type == 'FACILITY' ? 'Fasilitas' :
+                        ($dynamicAsset->type == 'PACKET' ? 'Paket' :
+                        ($dynamicAsset->type == 'SPONSOR' ? 'Sponsor' : 'Tidak diketahui'))))
+                    )
+                }}
+            </p>
         </div>
         <a href="{{ route('dynamic-assets.index') }}" class="text-primary-600 hover:text-primary-800 flex items-center">
             <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Daftar
@@ -27,13 +37,50 @@
     @endif
 
     <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-        <div class="flex items-center mb-6">
+        {{-- <div class="flex items-center mb-6">
             <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
                 <i class="fa-solid {{ $dynamicAsset->type == 'BANNER' ? 'fa-image' : ($dynamicAsset->type == 'GALERY' ? 'fa-images' : 'fa-building') }} text-lg"></i>
             </div>
             <div>
                 <h3 class="text-xl font-semibold text-gray-800">Edit {{ $dynamicAsset->type == 'BANNER' ? 'Banner' : ($dynamicAsset->type == 'GALERY' ? 'Galeri' : 'Fasilitas') }}</h3>
                 <p class="text-sm text-gray-500">Silakan perbarui informasi {{ strtolower($dynamicAsset->type == 'BANNER' ? 'Banner' : ($dynamicAsset->type == 'GALERY' ? 'Galeri' : 'Fasilitas')) }}</p>
+            </div>
+        </div> --}}
+
+        <div class="flex items-center mb-6">
+            <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
+                <i class="fa-solid 
+                    {{ $dynamicAsset->type == 'BANNER' ? 'fa-image' : 
+                        ($dynamicAsset->type == 'GALERY' ? 'fa-images' : 
+                        ($dynamicAsset->type == 'FACILITY' ? 'fa-building' : 
+                        ($dynamicAsset->type == 'PACKET' ? 'fa-box' : 
+                        ($dynamicAsset->type == 'LAYANAN' ? 'fa-box' : 
+                        ($dynamicAsset->type == 'SPONSOR' ? 'fa-handshake' : 'fa-circle-question')))))
+                    }} text-lg"></i>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800">Edit
+                    {{
+                        $dynamicAsset->type == 'BANNER'   ? 'Banner'   :
+                        ($dynamicAsset->type == 'GALERY'  ? 'Galeri'   :
+                        ($dynamicAsset->type == 'FACILITY'? 'Fasilitas':
+                        ($dynamicAsset->type == 'PACKET'  ? 'Paket'    :
+                        ($dynamicAsset->type == 'LAYANAN' ? 'Layanan'  :
+                        ($dynamicAsset->type == 'SPONSOR' ? 'Sponsor'  :
+                        'Tidak diketahui')))))
+                    }}
+                </h3>
+                <p class="text-gray-500 mt-1 capitalize"> Silakan perbarui informasi
+                    {{
+                        $dynamicAsset->type == 'BANNER'   ? 'Banner'   :
+                        ($dynamicAsset->type == 'GALERY'  ? 'Galeri'   :
+                        ($dynamicAsset->type == 'FACILITY'? 'Fasilitas':
+                        ($dynamicAsset->type == 'PACKET'  ? 'Paket'    :
+                        ($dynamicAsset->type == 'LAYANAN' ? 'Layanan'  :
+                        ($dynamicAsset->type == 'SPONSOR' ? 'Sponsor'  :
+                        'Tidak diketahui')))))
+                    }}
+                </p>
             </div>
         </div>
         
@@ -76,7 +123,7 @@
                         </div>
                     </div>
 
-                    <div class="col-span-2">
+                    {{-- <div class="col-span-2">
                         <div class="mb-4">
                             <label class="block text-gray-700 font-medium mb-2">Deskripsi Singkat</label>
                             <textarea name="description" rows="3" 
@@ -93,7 +140,7 @@
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
                                 placeholder="Masukkan detail tambahan jika diperlukan">{{ old('detail', $dynamicAsset->detail) }}</textarea>
                         </div>
-                    </div>
+                    </div> --}}
                 @elseif($dynamicAsset->type == 'GALERY')
                     <div class="mb-4">
                         <label class="block font-medium">Judul Galeri</label>
@@ -115,6 +162,102 @@
                         <input type="text" name="description" value="{{ old('description', $dynamicAsset->description) }}"
                             class="w-full border rounded p-2">
                     </div>
+                
+                @elseif ($dynamicAsset->type == 'PACKET')
+                    <div class="mb-4">
+                        <label class="block font-medium">Nama Paket</label>
+                        <input type="text" name="title" value="{{ old('title', $dynamicAsset->title) }}"
+                            class="w-full border rounded p-2">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-2">Gambar Paket</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center relative" id="dropzone">
+                            <input type="file" name="image" id="imageInput"
+                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            <div id="placeholder"
+                                class="flex flex-col items-center justify-center py-4 {{ $dynamicAsset->image ? 'hidden' : '' }}">
+                                <i class="fa-solid fa-cloud-arrow-up text-gray-400 text-3xl mb-2"></i>
+                                <p class="text-gray-500">Klik atau seret gambar ke sini</p>
+                                <p class="text-xs text-gray-400 mt-1">JPG, PNG atau JPEG</p>
+                            </div>
+                            <div id="preview" class="{{ $dynamicAsset->image ? '' : 'hidden' }}">
+                                <img src="{{ $dynamicAsset->image ? asset('storage/' . $dynamicAsset->image) : '#' }}"
+                                    alt="Preview" class="max-h-52 mx-auto rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">
+                                <i class="fas fa-tag text-purple-600 mr-1"></i>
+                                Harga Weekday
+                            </label>
+                            <input type="text" name="weekday_price" value="{{ old('weekday_price', $dynamicAsset->weekday_price ?? '') }}"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                placeholder="Rp 50.000" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">
+                                <i class="fas fa-tag text-purple-600 mr-1"></i>
+                                Harga Weekend
+                            </label>
+                            <input type="text" name="weekend_price" value="{{ old('weekend_price', $dynamicAsset->weekend_price ?? '') }}"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                placeholder="Rp 50.000" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-2">Detail Paket</label>
+                        <textarea id="detail" name="detail" rows="4"
+                            class="w-full border rounded p-2">{{ old('detail', $dynamicAsset->detail) }}</textarea>
+                    </div>
+                
+                
+                @elseif ($dynamicAsset->type == 'SPONSOR')
+                 <!-- Nama Sponsor -->
+                    <div class="mb-4">
+                        <label class="block font-medium">Nama Sponsor / Partner</label>
+                        <input type="text" name="title" value="{{ old('title', $dynamicAsset->title) }}"
+                            class="w-full border rounded p-2">
+                    </div>
+
+                    <!-- Logo -->
+                    <div class="mb-4">
+                        <label class="block font-medium mb-2">Logo Sponsor</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center relative">
+                            <input type="file" name="image" id="imageInput" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" accept="image/*">
+                            <div id="placeholder" class="{{ $dynamicAsset->image ? 'hidden' : '' }}">
+                                <i class="fa-solid fa-cloud-arrow-up text-gray-400 text-3xl mb-2"></i>
+                                <p class="text-gray-500">Klik atau seret gambar ke sini</p>
+                                <p class="text-sm text-gray-400 mt-1">PNG, JPG, JPEG (Maks. 2MB)</p>
+                            </div>
+                            <div id="preview" class="{{ $dynamicAsset->image ? '' : 'hidden' }}">
+                                <img src="{{ $dynamicAsset->image ? asset('storage/' . $dynamicAsset->image) : '#' }}" alt="Preview" class="max-h-48 mx-auto rounded-lg">
+                                <button type="button" id="removeImage" class="mt-2 text-red-500 text-sm hover:text-red-700">
+                                    <i class="fa-solid fa-xmark mr-1"></i> Hapus Gambar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Website -->
+                    <div class="mb-4">
+                        <label class="block font-medium">Website (Opsional)</label>
+                        <input type="url" name="detail" value="{{ old('detail', $dynamicAsset->detail) }}"
+                            class="w-full border rounded p-2" placeholder="https://www.contoh.com">
+                    </div>
+
+                    <!-- Deskripsi Singkat -->
+                    <div class="mb-4">
+                        <label class="block font-medium">Deskripsi Singkat (Opsional)</label>
+                        <textarea name="description" rows="3"
+                            class="w-full border rounded p-2"
+                            placeholder="Deskripsi singkat tentang sponsor atau partner">{{ old('description', $dynamicAsset->description) }}</textarea>
+                    </div>    
+                
                 @elseif($dynamicAsset->type == 'LAYANAN')
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Kolom Judul Layanan -->
@@ -344,6 +487,7 @@
                         <textarea name="detail" rows="4"
                             class="w-full border rounded p-2">{{ old('detail', $dynamicAsset->detail) }}</textarea>
                     </div>
+
                 @endif
 
                 <div class="mb-4">
@@ -380,7 +524,7 @@
 </div>
 
 <script>
-// Script untuk preview gambar (khusus Banner)
+
 document.addEventListener('DOMContentLoaded', function() {
     const imageInput = document.getElementById('imageInput');
     if (imageInput) {
@@ -425,4 +569,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+<script>
+        $(document).ready(function () {
+            $('#detail').summernote({
+                placeholder: 'Isi Detail Paket',
+                tabsize: 2,
+                height: 500,
+                callbacks: {
+                    onImageUpload: function (files) {
+                        uploadImage(files[0]);
+                    }
+                },
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    // ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']]
+                    // ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+
+            $('form').on('submit', function () {
+                var content = $('#detail').summernote('code');
+                $('input[name="body"]').val(content);
+            });
+        });
+
+        function uploadImage(file) {
+            var data = new FormData();
+            data.append("file", file);
+
+            $.ajax({
+                url: '/upload-image',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                type: "POST",
+                success: function (response) {
+                    $('#detail').summernote('insertImage', response.url);
+                },
+                error: function (xhr, status, error) {
+                    alert('Upload gambar gagal: ' + error);
+                }
+            });
+        }
+    </script>
 @endsection

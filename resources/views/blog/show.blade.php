@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-    <div class="bg-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div class="rich-content bg-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto">
             <article class="space-y-8">
                 <header>
