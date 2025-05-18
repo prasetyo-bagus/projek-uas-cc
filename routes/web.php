@@ -3,7 +3,6 @@
 use App\Models\DynamicAsset;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TrixController;
@@ -152,14 +151,10 @@ Route::get('/review', [TestimonialController::class, 'showAll'])->name('testimon
  */
 require __DIR__ . '/auth.php';
 
-Route::get('/ads', [AdController::class, 'create']);
-Route::post('/ads', [AdController::class, 'store'])->name('ads.store');
-
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::resource('blogs', BlogController::class);
     Route::resource('dynamic-assets', DynamicAssetController::class);
-    // Route::resource('ads', AdController::class);
 });
 
 
@@ -175,3 +170,10 @@ Route::patch('/users/{user}/toggle-status', [UserController::class, 'toggleStatu
 
 
 Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('upload.image');
+
+// Route untuk verifikasi email
+Route::post('/api/send-verification-code', [App\Http\Controllers\EmailVerificationController::class, 'sendVerificationCode']);
+Route::post('/api/verify-code', [App\Http\Controllers\EmailVerificationController::class, 'verifyCode']);
+
+// Route untuk verifikasi password dan email
+Route::post('/api/verify-current-password', [App\Http\Controllers\UserController::class, 'verifyCurrentPassword']);

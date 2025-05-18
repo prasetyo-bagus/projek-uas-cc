@@ -133,4 +133,30 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
     }
+
+    /**
+     * Verifikasi password lama pengguna
+     */
+    public function verifyCurrentPassword(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'password' => 'required|string',
+        ]);
+
+        $user = User::findOrFail($request->user_id);
+        
+        // Verifikasi password
+        if (Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Password benar'
+            ]);
+        }
+        
+        return response()->json([
+            'success' => false,
+            'message' => 'Password salah. Silakan coba lagi.'
+        ], 401);
+    }
 }

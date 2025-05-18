@@ -25,10 +25,22 @@ class ProfileController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'birthdate' => ['nullable', 'date'],
+            'gender' => ['nullable', 'in:L,P'],
+            'position' => ['nullable', 'string', 'max:100'],
+            'address' => ['nullable', 'string'],
+            'bio' => ['nullable', 'string'],
         ]);
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->birthdate = $request->birthdate;
+        $user->gender = $request->gender;
+        $user->position = $request->position;
+        $user->address = $request->address;
+        $user->bio = $request->bio;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
@@ -49,7 +61,13 @@ class ProfileController extends Controller
             'name' => $user->name,
             'email' => $user->email,
             'password' => $user->password,
-            'photo_path' => $user->photo_path
+            'photo_path' => $user->photo_path,
+            'phone' => $user->phone,
+            'birthdate' => $user->birthdate,
+            'gender' => $user->gender,
+            'position' => $user->position,
+            'address' => $user->address,
+            'bio' => $user->bio
         ]);
 
         return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui!');
