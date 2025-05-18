@@ -171,9 +171,5 @@ Route::patch('/users/{user}/toggle-status', [UserController::class, 'toggleStatu
 
 Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('upload.image');
 
-// Route untuk verifikasi email
-Route::post('/api/send-verification-code', [App\Http\Controllers\EmailVerificationController::class, 'sendVerificationCode']);
-Route::post('/api/verify-code', [App\Http\Controllers\EmailVerificationController::class, 'verifyCode']);
-
 // Route untuk verifikasi password dan email
 Route::post('/api/verify-current-password', [App\Http\Controllers\UserController::class, 'verifyCurrentPassword']);
