@@ -8,11 +8,11 @@
                     <h1 class="text-4xl font-extrabold text-gray-900">{{ $blog->title }}</h1>
 
                     {{-- Kategori --}}
-                    <p class="mt-2 text-sm text-gray-600 italic">
+                    {{-- <p class="mt-2 text-sm text-gray-600 italic">
                         Kategori: {{ ucfirst(str_replace('_', ' ', strtolower($blog->category))) }}
-                    </p>
+                    </p> --}}
 
-                    <p class="mt-1 text-sm text-gray-500">
+                    <p class="mt-3 text-sm text-gray-500">
                         Ditulis oleh <span class="font-medium text-gray-700">{{ $blog->user->name ?? 'Admin' }}</span>
                         • {{ $blog->created_at->translatedFormat('d F Y') }}
                     </p>
@@ -22,12 +22,12 @@
                     {!! str_replace('<img', '<img class="mx-auto block"', $blog->body) !!}
                 </div>
 
-                <div class="pt-6">
-                    <a href="{{ route('blogs.index') }}"
+                {{-- <div class="pt-6">
+                    <a href="{{ url()->previous() }}"
                         class="inline-block text-blue-600 hover:text-blue-800 font-medium transition">
                         ← Kembali
                     </a>
-                </div>
+                </div> --}}
             </article>
         </div>
     </div>

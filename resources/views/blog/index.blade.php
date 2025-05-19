@@ -199,76 +199,96 @@
             });
         </script>
     @else
-        <!-- Hero Section -->
-        <section class="py-20 bg-red-700 relative overflow-hidden">
-            <div class="absolute inset-0 opacity-20">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
-                    class="absolute w-full h-full">
-                    <path fill="#fff"
-                        d="M0,128L48,133.3C96,139,192,149,288,149.3C384,149,480,139,576,144C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-                    </path>
-                </svg>
-            </div>
-            <div class="container mx-auto px-6 text-center relative z-10">
-                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">BERITA & ARTIKEL NUSANTARA EDUPARK</h1>
-                <p class="text-xl text-white/80 mb-0">Informasi terbaru dan artikel menarik seputar Nusantara Edupark</p>
-            </div>
-        </section>
 
-        <div class="bg-gray-100 min-h-screen p-6">
-            <div class="container mx-auto max-w-5xl">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @foreach ($allBlogs as $blog)
-                        <div class="relative bg-white shadow-md border border-gray-200 rounded-lg flex flex-col h-[400px]">
-                            <a href="{{ route('blog.show', $blog->url) }}" class="hover:shadow-lg h-full flex flex-col">
-                                <div class="w-full h-50 overflow-hidden">
-                                    <img src="{{ asset('storage/' . $blog->picture) }}" alt="{{ $blog->title }}"
-                                        class="object-cover w-full h-full">
+    <section class="py-20 bg-blue-700 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
+                class="absolute w-full h-full">
+                <path fill="#fff"
+                    d="M0,128L48,133.3C96,139,192,149,288,149.3C384,149,480,139,576,144C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">BERITA & ARTIKEL NUSANTARA EDUPARK</h1>
+            <p class="text-xl text-white/80">Informasi terbaru dan artikel menarik seputar Nusantara Edupark</p>
+        </div>
+    </section>
+    <!-- Blog Grid -->
+    <div class="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach ($allBlogs as $blog)
+                    <div class="bg-white border border-gray-200 rounded-xl shadow-md flex flex-col overflow-hidden transition hover:shadow-lg">
+                        <a href="{{ route('blog.show', $blog->url) }}" class="flex flex-col h-full group">
+
+                            <!-- Gambar -->
+                            <div class="w-full h-48 overflow-hidden">
+                                <img src="{{ asset('storage/' . $blog->picture) }}" alt="{{ $blog->title }}"
+                                    class="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105">
+                            </div>
+
+                            <!-- Konten -->
+                            <div class="flex flex-col flex-grow p-4 space-y-2">
+                                <!-- Badge -->
+                                <div class="flex items-center gap-2 text-xs font-semibold uppercase">
+                                    @php
+                                        $categoryColor = match ($blog->category) {
+                                            'BERITA' => 'bg-blue-600',
+                                            'ACARA' => 'bg-green-600',
+                                            'PROMO' => 'bg-red-600',
+                                            'KULINER' => 'bg-yellow-500 text-gray-800',
+                                            'DESTINASI' => 'bg-purple-600',
+                                            'PANDUAN_WISATA' => 'bg-teal-600',
+                                            'FASILITAS' => 'bg-orange-500',
+                                            default => 'bg-gray-600',
+                                        };
+                                    @endphp
+
+                                    @if ($blog->category)
+                                        <span class="px-2 py-1 rounded {{ $categoryColor }} text-white tracking-wide">
+                                            {{ ucwords(str_replace('_', ' ', strtolower($blog->category))) }}
+                                        </span>
+                                    @endif
+
+                                    @if ($blog->is_featured)
+                                        <span class="px-2 py-1 rounded bg-purple-600 text-white">Pilihan</span>
+                                    @endif
+
                                 </div>
-
-                                @php
-                                    $positionStyle = $blog->is_featured ? 'top-10' : 'top-2';
-                                    $categoryColor = match ($blog->category) {
-                                        'BERITA' => 'bg-blue-500',
-                                        'ACARA' => 'bg-green-500',
-                                        'PROMO' => 'bg-red-500',
-                                        'KULINER' => 'bg-yellow-500',
-                                        'DESTINASI' => 'bg-purple-500',
-                                        'PANDUAN_WISATA' => 'bg-teal-500',
-                                        'FASILITAS' => 'bg-orange-500',
-                                    };
-                                @endphp
-
-                                @if ($blog->is_featured)
-                                    <span class="absolute top-2 left-2 bg-purple-500 text-white text-xs px-2 py-1 rounded">
-                                    </span>`
-                                @endif
-
-                                @if ($blog->category)
-                                    <span
-                                        class="absolute {{ $positionStyle }} left-2 {{ $categoryColor }} text-white text-xs px-2 py-1 rounded">
-                                        <p>{{ ucwords(str_replace('_', ' ', strtolower($blog->category))) }}</p>
+                                <!-- (Opsional) Tanggal -->
+                                @if ($blog->created_at)
+                                    <span class="text-sm text-gray-500">
+                                        {{ $blog->created_at->format('d M Y') }}
                                     </span>
                                 @endif
 
-                                <div class="p-2 flex flex-col flex-grow">
-                                    <h2 class="font-semibold text-gray-800 hover:text-yellow-500 min-h-[60px]">
-                                        {{ Str::words($blog->title, 10) }}
-                                    </h2>
-                                    <span class="mt-auto text-purple-700 hover:text-purple-500">
+                                <!-- Judul -->
+                                <h2 class="text-lg font-bold text-gray-800 group-hover:text-purple-600 transition min-h-[60px] leading-snug">
+                                    {{ Str::words($blog->title, 14) }}
+                                </h2>
+                                 <!-- Link -->
+                                <div class="mt-auto pt-4">
+                                    <span class="inline-flex items-center text-sm text-purple-700 hover:text-purple-900 font-medium transition">
                                         Baca Selengkapnya
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                        </svg>
                                     </span>
                                 </div>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
 
-                <div class="mt-8">
-                    {{ $blogReguler->links() }}
-                </div>
+            <!-- Pagination -->
+            <div class="mt-10 flex justify-center">
+                {{ $blogReguler->links() }}
             </div>
         </div>
+    </div>
     @endauth
 
     <!-- Modal Konfirmasi Hapus -->
