@@ -179,7 +179,7 @@
         </button>
         <span class="font-bold text-lg text-white">NUSANTARA EDUPARK</span>
         <div class="p-2">
-            <img src="{{ asset('storage/logoNusantaraEdupark.jpg') }}" alt="Logo" class="w-12 h-12 object-cover">
+            <img src="{{ asset('favicon.svg') }}" alt="Logo" class="w-12 h-12 object-contain">
         </div>
     </header>
 
