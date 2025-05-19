@@ -10,7 +10,7 @@
     <!-- Vite & Livewire -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    
+
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
+        :root {
+        --swiper-pagination-color: white;
+        --swiper-pagination-bullet-inactive-color: rgba(255, 255, 255, 0.5);
+        --swiper-pagination-bullet-inactive-opacity: 0.5;
+        --swiper-pagination-bullet-opacity: 1;
+        --swiper-pagination-bottom: 8px;
+        --swiper-pagination-right: 8px;
+        }
+
         .rich-content ul {
             list-style-type: disc;
             margin-left: 1.5rem;

@@ -4,13 +4,10 @@
     <div class="swiper heroSwiper w-full h-[60vh] md:h-[80vh] relative">
         <div class="swiper-wrapper w-full h-full">
             @foreach ($banners as $banner)
-                {{-- <div class="swiper-slide w-full h-full bg-cover bg-center flex"
-                    style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}');"> --}}
-                <div class="swiper-slide w-full aspect-video md:h-[80vh] bg-cover bg-center flex"
-                    style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}');">
+                <div class="swiper-slide w-full aspect-video md:h-[80vh] bg-center bg-cover flex lazy-slide"
+                    data-bg="{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}">
 
-                    <!-- Konten di bawah -->
-                    <div class="flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-12">
+                    <div class="flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-12 bg-black/20">
                         <div class="container mx-auto">
                             <h1 class="text-3xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
                                 {{ $banner->title ?? 'Nusantara Edupark' }}
@@ -19,10 +16,6 @@
                                 {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
                             </p>
                             <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                                {{-- <a href="#"
-                                    class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
-                                    Jelajahi Sekarang
-                                </a> --}}
                                 <a href="{{ route('packets') }}"
                                     class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
                                     Lihat Paket Wisata
@@ -30,37 +23,50 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             @endforeach
         </div>
 
-        <!-- Tombol Navigasi -->
-        <div
-            class="swiper-button-prev w-6 h-6 ml-4 top-1/2 -translate-y-1/2 left-0 absolute z-10 filter brightness-0 invert">
-        </div>
-        <div
-            class="swiper-button-next w-6 h-6 mr-4 top-1/2 -translate-y-1/2 right-0 absolute z-10 filter brightness-0 invert">
-        </div>
+        <!-- swiper pagination -->
+        <div class="swiper-pagination"></div>
+
     </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const swiper = new Swiper(".heroSwiper", {
                 loop: true,
+                effect: "fade",
                 autoplay: {
                     delay: 5000,
                     disableOnInteraction: false,
                 },
-                effect: 'fade',
-                speed: 1000,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                on: {
+                    slideChangeTransitionStart: function () {
+                        lazyLoadBg();
+                    },
                 },
             });
+
+            function lazyLoadBg() {
+                const slides = document.querySelectorAll(".swiper-slide.lazy-slide");
+                slides.forEach(slide => {
+                    if (slide.classList.contains("swiper-slide-active") && !slide.classList.contains("bg-loaded")) {
+                        const bg = slide.getAttribute("data-bg");
+                        slide.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${bg}')`;
+                        slide.classList.add("bg-loaded");
+                    }
+                });
+            }
+
+            // Initial lazy load
+            lazyLoadBg();
         });
     </script>
 
@@ -197,11 +203,15 @@
                     <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative">
                         <div class="relative h-[300px] sm:h-[400px] overflow-hidden group rounded-lg transform scale-95 group-hover:scale-100 transition-transform duration-700 ease-in-out">
                             <div class="absolute inset-0 flex items-center justify-center bg-gray-100">
-                                <img src="{{ asset('storage/' . $packet->image) }}" loading="lazy"
-                                    class="max-w-full max-h-full object-contain transition-transform duration-700 ease-in-out"
-                                    alt="{{ $packet->title }}">
+                                <div class="w-full h-full bg-gray-300 animate-pulse"></div>
+                                <img
+                                    src="{{ asset('storage/' . $packet->image) }}"
+                                    loading="lazy"
+                                    class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-700 ease-in-out"
+                                    onload="this.style.opacity='1'"
+                                    alt="{{ $packet->title }}"
+                                >
                             </div>
-
                             <button onclick="document.getElementById('imageModal-{{ $packet->id }}').showModal()"
                                     class="absolute z-10 top-3 right-3 ...">
                                 <i class="fas fa-expand mr-1"></i> Lihat
@@ -414,9 +424,12 @@
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
                         <div class="relative overflow-hidden">
-                            <img src="{{ asset('storage/' . $facility->image) }}" loading="lazy"
-                                class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
-                                alt="{{ $facility->title }}">
+                            <div class="relative w-full h-60 overflow-hidden bg-gray-300 animate-pulse">
+                                <img src="{{ asset('storage/' . $facility->image) }}" loading="lazy"
+                                    class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700 opacity-0"
+                                    alt="{{ $facility->title }}"
+                                    onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse')">
+                            </div>
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
                                 <p class="text-white px-4 pb-4 font-medium">
@@ -588,9 +601,12 @@
                 @forelse ($galleries->take(8) as $gallery)
                     <div class="relative overflow-hidden rounded-lg group cursor-pointer"
                         onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')">
-                        <img src="{{ asset('storage/' . $gallery->image) }}"
-                            class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
-                            alt="{{ $gallery->title }}">
+                        <div class="relative w-full h-48 overflow-hidden bg-gray-300 animate-pulse">
+                            <img src="{{ asset('storage/' . $gallery->image) }}"
+                                class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500 opacity-0"
+                                alt="{{ $gallery->title }}"
+                                onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse')">
+                        </div>
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
                             <span class="text-white font-medium"><i class="fas fa-image mr-2"></i>
@@ -716,9 +732,12 @@
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
                         <div class="relative overflow-hidden">
-                            <img src="{{ asset('storage/' . $blogItem->picture) }}" loading="lazy"
-                                class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
-                                alt="{{ $blogItem->title }}">
+                            <div class="relative w-full h-56 overflow-hidden bg-gray-300 animate-pulse">
+                                <img src="{{ asset('storage/' . $blogItem->picture) }}" loading="lazy"
+                                    class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500 opacity-0"
+                                    alt="{{ $blogItem->title }}"
+                                    onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse', 'bg-gray-300')">
+                            </div>
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             </div>

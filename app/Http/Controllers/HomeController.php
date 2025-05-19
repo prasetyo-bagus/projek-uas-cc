@@ -19,7 +19,7 @@ class HomeController extends Controller
         $banners = DynamicAsset::where('type', 'BANNER')
             ->where('is_active', true)
             ->latest()
-            ->take(3)
+            // ->take(3)
             ->get();
 
         // Ambil data untuk sponsors
