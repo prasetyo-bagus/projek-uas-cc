@@ -2,7 +2,7 @@
     <div class="container mx-auto">
         <h4 class="text-white text-2xl font-bold mb-6 flex items-center">
             <i class="fas fa-comment-dots mr-3 text-yellow-400 animate-pulse"></i>
-            Beri Testimoni Anda
+            Beri Ulasan Anda
         </h4>
 
 
@@ -126,7 +126,7 @@
 
             <button type="submit"
                 class="w-full md:w-auto bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 rounded-lg transition-all shadow hover:shadow-lg transform hover:-translate-y-1 flex items-center justify-center">
-                <i class="fas fa-paper-plane mr-2"></i> Kirim Testimoni
+                <i class="fas fa-paper-plane mr-2"></i> Kirim Ulasan
             </button>
         </form>
     </div>

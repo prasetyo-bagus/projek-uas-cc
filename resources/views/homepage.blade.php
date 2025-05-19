@@ -192,14 +192,45 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($packets as $packet)
                     <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative">
-                        <div class="relative h-[500px] overflow-hidden">
+                        {{-- <div class="relative h-[500px] overflow-hidden group rounded-lg">
                             <div class="absolute inset-0 flex items-center justify-center bg-gray-100">
-                                <img src="{{ asset('storage/' . $packet->image) }}"
+                                <img src="{{ asset('storage/' . $packet->image) }}" loading="lazy"
                                     class="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110"
                                     alt="{{ $packet->title }}">
                             </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+
+                            <a href="{{ asset('storage/' . $packet->image) }}"
+                                target="_blank"
+                                class="absolute z-10 top-3 right-3 bg-white/80 text-gray-700 text-xs px-3 py-1 rounded-full shadow hover:bg-white transition"
+                                title="Lihat gambar penuh">
+                                <i class="fas fa-expand mr-1"></i> Lihat
+                            </a>
+
+                            <div class="absolute inset-0 z-[1] bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                                <div class="w-full flex justify-between items-center px-4 pb-3">
+                                    <p class="text-white font-medium">
+                                        <i class="fas fa-camera mr-2"></i> Paket Wisata Edukasi
+                                    </p>
+                                </div>
+                            </div>
+                        </div> --}}
+
+                        <div class="relative h-[300px] sm:h-[400px] overflow-hidden group rounded-lg transform scale-95 group-hover:scale-100 transition-transform duration-700 ease-in-out">
+                            <div class="absolute inset-0 flex items-center justify-center bg-gray-100">
+                                <img src="{{ asset('storage/' . $packet->image) }}" loading="lazy"
+                                    class="max-w-full max-h-full object-contain transition-transform duration-700 ease-in-out"
+                                    alt="{{ $packet->title }}">
+                            </div>
+
+                            {{-- Tombol lihat gambar penuh --}}
+                            <a href="{{ asset('storage/' . $packet->image) }}"
+                                target="_blank"
+                                class="absolute z-10 top-3 right-3 bg-white/80 text-gray-700 text-xs px-3 py-1 rounded-full shadow hover:bg-white transition"
+                                title="Lihat gambar penuh">
+                                <i class="fas fa-expand mr-1"></i> Lihat
+                            </a>
+
+                            <div class="absolute inset-0 z-[1] bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
                                 <div class="w-full flex justify-between items-center px-4 pb-3">
                                     <p class="text-white font-medium">
                                         <i class="fas fa-camera mr-2"></i> Paket Wisata Edukasi
@@ -207,44 +238,49 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="p-4">
                             <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $packet->title }}</h3>
                             <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
                             <div class="price-container bg-white rounded-lg">                                
                                 <div class="space-y-2">
                                     <!-- Weekday Price -->
-                                    <div class="flex items-center p-3 bg-purple-50 rounded-md transition-all hover:bg-purple-100 mb-2">
-                                        <div class="bg-purple-600 text-white p-2 rounded-full mr-3">
-                                            <i class="fas fa-calendar-week"></i>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div class="flex items-center p-4 bg-purple-50 rounded-md shadow-sm">
+                                            <div class="bg-purple-600 text-white p-2 rounded-full mr-3">
+                                                <i class="fas fa-calendar-week"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm text-gray-600">Harga Weekday</div>
+                                                <div class="text-lg font-bold text-purple-700">
+                                                    {{ $packet->weekday_price ?: 'Hubungi kami' }}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="flex-grow">
-                                            <div class="text-sm font-medium text-gray-600">Weekday</div>
-                                            <div class="text-lg font-bold text-purple-700">{{ $packet->weekday_price ?: 'Hubungi kami untuk info harga'}}</div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Weekend Price -->
-                                    <div class="flex items-center p-3 bg-indigo-50 rounded-md transition-all hover:bg-indigo-100">
-                                        <div class="bg-indigo-600 text-white p-2 rounded-full mr-3">
-                                            <i class="fas fa-calendar-week"></i>
-                                        </div>
-                                        <div class="flex-grow">
-                                            <div class="text-sm font-medium text-gray-600">Weekend</div>
-                                            <div class="text-lg font-bold text-indigo-700">{{ $packet->weekend_price ?: 'Hubungi kami untuk info harga'}}</div>
+                                        <div class="flex items-center p-4 bg-indigo-50 rounded-md shadow-sm">
+                                            <div class="bg-indigo-600 text-white p-2 rounded-full mr-3">
+                                                <i class="fas fa-calendar-week"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm text-gray-600">Harga Weekend</div>
+                                                <div class="text-lg font-bold text-indigo-700">
+                                                    {{ $packet->weekend_price ?: 'Hubungi kami' }}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap gap-2 pt-2">
                                         <a href="{{ route('packets') }}#contact-packet"
-                                            class="bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                                            class="w-full bg-purple-700 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center inline-flex items-center justify-center">
                                             <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                         </a>
                                         <!-- Button to open modal -->
                                         <button onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
-                                            class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                            class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors">
                                             <i class="fas fa-info-circle mr-1"></i> Selengkapnya
                                         </button>
                                     </div>
-                                    
+
                                     <dialog id="detailModal-{{ $packet->id }}"
                                         class="rounded-xl w-500 max-w-4xl sm:mx-auto mx-2 my-6 sm:my-16 p-0 overflow-hidden backdrop:bg-black/50"
                                         onclick="handleOutsideClick(event, this)">
@@ -252,7 +288,7 @@
                                             <!-- Header -->
                                             <div class="p-4 sm:p-6 border-b border-gray-200">
                                                 <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-1">
-                                                    <i class="fas fa-map-marker-alt mr-2 text-purple-600"></i> {{ $packet->title }}
+                                                    </i> {{ $packet->title }}
                                                 </h4>
                                                 <p class="text-gray-600 text-sm">{{ $packet->description }}</p>
                                             </div>
@@ -278,7 +314,7 @@
                                                     </div>
                                                     <div class="flex items-center p-4 bg-indigo-50 rounded-md shadow-sm">
                                                         <div class="bg-indigo-600 text-white p-2 rounded-full mr-3">
-                                                            <i class="fas fa-umbrella-beach"></i>
+                                                            <i class="fas fa-calendar-week"></i>
                                                         </div>
                                                         <div>
                                                             <div class="text-sm text-gray-600">Harga Weekend</div>
@@ -301,13 +337,13 @@
                                                     <i class="fas fa-ticket-alt mr-1"></i> Pesan Sekarang
                                                 </a>
                                                 <a href="https://wa.me/6281939114933?text=Halo%2C%20saya%20mau%20tanya"
-                                                    class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md transition w-full sm:w-auto"
+                                                    class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition w-full sm:w-auto"
                                                     target="_blank" rel="noopener noreferrer">
                                                     <i class="fab fa-whatsapp text-xl mr-2"></i> Whatsapp
                                                 </a>
 
                                                 <a href="https://www.traveloka.com/id-id/activities/indonesia/product/nusantara-edupark-madiun-5389237971312"
-                                                    class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md transition w-full sm:w-auto"
+                                                    class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition w-full sm:w-auto"
                                                     target="_blank" rel="noopener noreferrer">
                                                     <i class="fas fa-plane-departure text-xl mr-2"></i> Traveloka
                                                 </a>
@@ -364,7 +400,7 @@
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
                         <div class="relative overflow-hidden">
-                            <img src="{{ asset('storage/' . $facility->image) }}"
+                            <img src="{{ asset('storage/' . $facility->image) }}" loading="lazy"
                                 class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
                                 alt="{{ $facility->title }}">
                             <div
@@ -420,7 +456,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                 <div class="overflow-hidden rounded-lg">
-                    <img id="facility-image" src="" alt="Gambar Fasilitas" class="w-full h-auto object-cover rounded-lg hover:scale-105 transition-transform duration-500">
+                    <img id="facility-image" loading="lazy" src="" alt="Gambar Fasilitas" class="w-full h-auto object-cover rounded-lg hover:scale-105 transition-transform duration-500">
                 </div>
                 <div>
                     <div class="mb-4">
@@ -534,7 +570,7 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
                 @forelse ($galleries->take(8) as $gallery)
                     <div class="relative overflow-hidden rounded-lg group cursor-pointer" onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')">
-                        <img src="{{ asset('storage/' . $gallery->image) }}"
+                        <img src="{{ asset('storage/' . $gallery->image) }}" loading="lazy"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
                             alt="{{ $gallery->title }}">
                         <div
@@ -577,7 +613,7 @@
                 <div class="flex flex-col">
                     <!-- Gambar -->
                     <div class="overflow-hidden rounded-lg bg-black flex items-center justify-center">
-                        <img id="gallery-image" src="" alt="" class="max-h-[70vh] max-w-full object-contain">
+                        <img id="gallery-image" loading="lazy" src="" alt="" class="max-h-[70vh] max-w-full object-contain">
                     </div>
                     
                     <!-- Caption -->
@@ -660,7 +696,7 @@
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
                         <div class="relative overflow-hidden">
-                            <img src="{{ asset('storage/' . $blogItem->picture) }}"
+                            <img src="{{ asset('storage/' . $blogItem->picture) }}" loading="lazy"
                                 class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
                                 alt="{{ $blogItem->title }}">
                             <div
@@ -718,7 +754,7 @@
 
             <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
                 <i class="fas fa-quote-left text-purple-500 mr-3"></i>
-                Testimonial Pengunjung
+                Ulasan Pengunjung
             </h3>
 
             <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -789,7 +825,7 @@
 
                 <a href="{{ route('testimonials.all') }}"
                     class="inline-flex items-center text-purple-700 font-medium hover:text-purple-900 transition-colors">
-                    <span>Lihat Semua Testimonial</span>
+                    <span>Lihat Semua Ulasan</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -838,7 +874,7 @@
 
                                                                                                                                                                                                             <div class="text-gray-500">
                                                                                                                                                                                                                 <i class="fas fa-comment-slash text-4xl mb-3"></i>
-                                                                                                                                                                                                                <p>Belum ada testimonial. Jadilah yang pertama memberikan testimoni!</p>
+                                                                                                                                                                                                                <p>Belum ada ulasan. Jadilah yang pertama memberikan ulasan!</p>
                                                                                                                                                                                                             </div>
                                                                                                                                                                                                         `;
 
