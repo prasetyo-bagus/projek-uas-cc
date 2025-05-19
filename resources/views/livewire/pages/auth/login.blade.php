@@ -86,32 +86,32 @@ $login = function () {
             </div>
 
             <!-- Remember Me -->
-            <div class="flex items-center justify-between">
+            {{-- <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <input wire:model="form.remember" id="remember" type="checkbox"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" name="remember">
                     <label for="remember" class="ml-2 block text-sm text-gray-900">
                         {{ __('Remember me') }}
                     </label>
-                </div>
+                </div> --}}
 
-                @if (Route::has('password.request'))
+            {{-- @if (Route::has('password.request'))
                     <div class="text-sm">
-                        <a class="font-medium text-indigo-600 hover:text-indigo-500" href="{{ route('password.request') }}"
-                            wire:navigate>
+                        <a class="font-medium text-indigo-600 hover:text-indigo-500"
+                            href="{{ route('password.request') }}" wire:navigate>
                             {{ __('Forgot your password?') }}
                         </a>
                     </div>
                 @endif
-            </div>
+            </div> --}}
 
             <div>
                 <button type="submit"
                     class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                         <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                            class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>

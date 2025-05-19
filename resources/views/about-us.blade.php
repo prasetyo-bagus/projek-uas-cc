@@ -125,7 +125,7 @@
 
 
 
-    <!-- Our Partners & Supporters -->
+    {{-- <!-- Our Partners & Supporters -->
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
@@ -172,7 +172,7 @@
                 @endforelse
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Contact & Location Section -->
     <section class="py-16 bg-white">

@@ -17,10 +17,10 @@
                                 {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
                             </p>
                             <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                                <a href="#"
+                                {{-- <a href="#"
                                     class="bg-purple-900 hover:bg-purple-600 text-white font-semibold py-3 px-8 rounded-full transition-all">
                                     Jelajahi Sekarang
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('packets') }}"
                                     class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
                                     Lihat Paket Wisata
@@ -45,7 +45,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const swiper = new Swiper(".heroSwiper", {
                 loop: true,
                 autoplay: {
@@ -62,7 +62,7 @@
         });
     </script>
 
-    <!-- Sponsors Section -->
+    {{-- <!-- Sponsors Section -->
     <section class="py-4 bg-white  border-gray-100">
         <div class="container mx-auto px-6">
             <div class="text-center mb-6">
@@ -82,7 +82,7 @@
                 @endforelse
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- Features Section with Playful Elements -->
     <section class="py-16 bg-white relative overflow-hidden">
@@ -99,8 +99,8 @@
                 <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
                     <span class="relative z-10">Pengalaman Wisata Edukatif</span>
                     <svg class="absolute -bottom-2 left-0 w-full h-3 text-green-200 z-0" viewBox="0 0 200 8">
-                        <path d="M0 4C40 0 60 8 100 4C140 0 160 8 200 4" fill="none" stroke="currentColor" stroke-width="4"
-                            stroke-linecap="round"></path>
+                        <path d="M0 4C40 0 60 8 100 4C140 0 160 8 200 4" fill="none" stroke="currentColor"
+                            stroke-width="4" stroke-linecap="round"></path>
                     </svg>
                 </h2>
                 <p class="text-gray-600 mt-4">Nikmati beragam aktivitas menarik dan bermanfaat</p>
@@ -191,7 +191,8 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($packets as $packet)
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative">
+                    <div
+                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative">
                         <div class="relative h-[500px] overflow-hidden">
                             <div class="absolute inset-0 flex items-center justify-center bg-gray-100">
                                 <img src="{{ asset('storage/' . $packet->image) }}"
@@ -210,27 +211,31 @@
                         <div class="p-4">
                             <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $packet->title }}</h3>
                             <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
-                            <div class="price-container bg-white rounded-lg">                                
+                            <div class="price-container bg-white rounded-lg">
                                 <div class="space-y-2">
                                     <!-- Weekday Price -->
-                                    <div class="flex items-center p-3 bg-purple-50 rounded-md transition-all hover:bg-purple-100 mb-2">
+                                    <div
+                                        class="flex items-center p-3 bg-purple-50 rounded-md transition-all hover:bg-purple-100 mb-2">
                                         <div class="bg-purple-600 text-white p-2 rounded-full mr-3">
                                             <i class="fas fa-calendar-week"></i>
                                         </div>
                                         <div class="flex-grow">
                                             <div class="text-sm font-medium text-gray-600">Weekday</div>
-                                            <div class="text-lg font-bold text-purple-700">{{ $packet->weekday_price ?: 'Hubungi kami untuk info harga'}}</div>
+                                            <div class="text-lg font-bold text-purple-700">
+                                                {{ $packet->weekday_price ?: 'Hubungi kami untuk info harga' }}</div>
                                         </div>
                                     </div>
 
                                     <!-- Weekend Price -->
-                                    <div class="flex items-center p-3 bg-indigo-50 rounded-md transition-all hover:bg-indigo-100">
+                                    <div
+                                        class="flex items-center p-3 bg-indigo-50 rounded-md transition-all hover:bg-indigo-100">
                                         <div class="bg-indigo-600 text-white p-2 rounded-full mr-3">
                                             <i class="fas fa-calendar-week"></i>
                                         </div>
                                         <div class="flex-grow">
                                             <div class="text-sm font-medium text-gray-600">Weekend</div>
-                                            <div class="text-lg font-bold text-indigo-700">{{ $packet->weekend_price ?: 'Hubungi kami untuk info harga'}}</div>
+                                            <div class="text-lg font-bold text-indigo-700">
+                                                {{ $packet->weekend_price ?: 'Hubungi kami untuk info harga' }}</div>
                                         </div>
                                     </div>
                                     <div class="flex flex-wrap gap-2 pt-2">
@@ -239,27 +244,32 @@
                                             <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                         </a>
                                         <!-- Button to open modal -->
-                                        <button onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
+                                        <button
+                                            onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
                                             class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors">
                                             <i class="fas fa-info-circle mr-1"></i> Selengkapnya
                                         </button>
                                     </div>
-                                    
+
                                     <dialog id="detailModal-{{ $packet->id }}"
                                         class="rounded-xl w-500 max-w-4xl sm:mx-auto mx-2 my-6 sm:my-16 p-0 overflow-hidden backdrop:bg-black/50"
                                         onclick="handleOutsideClick(event, this)">
-                                        <div class="bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh] flex flex-col">
+                                        <div
+                                            class="bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh] flex flex-col">
                                             <!-- Header -->
                                             <div class="p-4 sm:p-6 border-b border-gray-200">
-                                                <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-1">
-                                                    <i class="fas fa-map-marker-alt mr-2 text-purple-600"></i> {{ $packet->title }}
+                                                <h4
+                                                    class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-1">
+                                                    <i class="fas fa-map-marker-alt mr-2 text-purple-600"></i>
+                                                    {{ $packet->title }}
                                                 </h4>
                                                 <p class="text-gray-600 text-sm">{{ $packet->description }}</p>
                                             </div>
 
                                             <!-- Body -->
                                             <div class="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
-                                                <div class="rich-content text-sm text-gray-700 leading-relaxed prose prose-sm sm:prose">
+                                                <div
+                                                    class="rich-content text-sm text-gray-700 leading-relaxed prose prose-sm sm:prose">
                                                     {!! $packet->detail !!}
                                                 </div>
 
@@ -291,8 +301,10 @@
                                             </div>
 
                                             <!-- Footer -->
-                                            <div class="px-4 sm:px-6 py-4 bg-gray-50 flex flex-col sm:flex-row justify-end gap-3 border-t">
-                                                <button onclick="document.getElementById('detailModal-{{ $packet->id }}').close()"
+                                            <div
+                                                class="px-4 sm:px-6 py-4 bg-gray-50 flex flex-col sm:flex-row justify-end gap-3 border-t">
+                                                <button
+                                                    onclick="document.getElementById('detailModal-{{ $packet->id }}').close()"
                                                     class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-md transition w-full sm:w-auto">
                                                     Tutup
                                                 </button>
@@ -377,15 +389,16 @@
                         <div class="p-6">
                             <div class="flex justify-between items-center mb-3">
                                 <!-- <span
-                                    class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                    <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
-                                </span> -->
+                                                class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                                <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
+                                            </span> -->
                             </div>
                             <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
                             <p class="text-gray-600 mb-4">{{ $facility->description }}</p>
                             @if ($facility->detail)
                                 <div class="flex justify-end">
-                                    <a href="javascript:void(0)" onclick="openDetailModal('{{ $facility->title }}', '{{ addslashes($facility->description) }}', '{{ addslashes($facility->detail) }}', '{{ asset('storage/' . $facility->image) }}')"
+                                    <a href="javascript:void(0)"
+                                        onclick="openDetailModal('{{ $facility->title }}', '{{ addslashes($facility->description) }}', '{{ addslashes($facility->detail) }}', '{{ asset('storage/' . $facility->image) }}')"
                                         class="text-blue-600 hover:text-blue-800 font-medium transition-colors flex items-center">
                                         <i class="fas fa-info-circle mr-1"></i> Detail
                                     </a>
@@ -410,33 +423,35 @@
         class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
         <div id="facility-modal-box"
             class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-3xl mx-auto transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto">
-            
+
             <div class="flex justify-between items-start mb-4">
                 <h2 id="facility-title" class="text-2xl font-bold text-gray-800"></h2>
                 <button onclick="closeDetailModal()" class="text-gray-500 hover:text-gray-700">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                 <div class="overflow-hidden rounded-lg">
-                    <img id="facility-image" src="" alt="Gambar Fasilitas" class="w-full h-auto object-cover rounded-lg hover:scale-105 transition-transform duration-500">
+                    <img id="facility-image" src="" alt="Gambar Fasilitas"
+                        class="w-full h-auto object-cover rounded-lg hover:scale-105 transition-transform duration-500">
                 </div>
                 <div>
                     <div class="mb-4">
                         <h3 class="text-lg font-semibold text-gray-700 mb-2">Deskripsi:</h3>
                         <p id="facility-description" class="text-gray-600"></p>
                     </div>
-                    
+
                     <div class="p-4 bg-gray-50 rounded-lg">
                         <h3 class="font-semibold mb-2 text-purple-700">Detail Fasilitas:</h3>
                         <div id="facility-detail" class="prose max-w-none text-gray-700"></div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="mt-6 flex justify-end">
-                <button onclick="closeDetailModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors">
+                <button onclick="closeDetailModal()"
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors">
                     Tutup
                 </button>
             </div>
@@ -447,27 +462,27 @@
         function openDetailModal(title, description, detail, imageUrl) {
             const modal = document.getElementById('facility-detail-modal');
             const box = document.getElementById('facility-modal-box');
-            
+
             document.getElementById('facility-title').textContent = title;
             document.getElementById('facility-description').textContent = description;
             document.getElementById('facility-detail').innerHTML = detail;
             document.getElementById('facility-image').src = imageUrl;
             document.getElementById('facility-image').alt = title;
-            
+
             modal.classList.remove('hidden');
             setTimeout(() => {
                 box.classList.remove('scale-95', 'opacity-0');
                 box.classList.add('scale-100', 'opacity-100');
             }, 10);
         }
-        
+
         function closeDetailModal() {
             const modal = document.getElementById('facility-detail-modal');
             const box = document.getElementById('facility-modal-box');
-            
+
             box.classList.remove('scale-100', 'opacity-100');
             box.classList.add('scale-95', 'opacity-0');
-            
+
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 300);
@@ -533,7 +548,8 @@
             <!-- Container untuk gambar-gambar gallery -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
                 @forelse ($galleries->take(8) as $gallery)
-                    <div class="relative overflow-hidden rounded-lg group cursor-pointer" onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')">
+                    <div class="relative overflow-hidden rounded-lg group cursor-pointer"
+                        onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')">
                         <img src="{{ asset('storage/' . $gallery->image) }}"
                             class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500"
                             alt="{{ $gallery->title }}">
@@ -542,7 +558,7 @@
                             <span class="text-white font-medium"><i class="fas fa-image mr-2"></i>
                                 {{ $gallery->title }}</span>
                         </div>
-                        
+
                     </div>
                 @empty
                     <div class="col-span-4 text-center py-12">
@@ -568,18 +584,20 @@
         class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
         <div id="gallery-modal-box"
             class="bg-transparent w-full max-w-5xl mx-auto transform scale-95 opacity-0 transition-all duration-300">
-            
+
             <div class="relative">
-                <button onclick="closeGalleryModal()" class="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors">
+                <button onclick="closeGalleryModal()"
+                    class="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors">
                     <i class="fas fa-times text-2xl"></i>
                 </button>
-                
+
                 <div class="flex flex-col">
                     <!-- Gambar -->
                     <div class="overflow-hidden rounded-lg bg-black flex items-center justify-center">
-                        <img id="gallery-image" src="" alt="" class="max-h-[70vh] max-w-full object-contain">
+                        <img id="gallery-image" src="" alt=""
+                            class="max-h-[70vh] max-w-full object-contain">
                     </div>
-                    
+
                     <!-- Caption -->
                     <div class="bg-white p-4 rounded-b-lg">
                         <h3 id="gallery-title" class="text-xl font-bold text-gray-800 mb-2"></h3>
@@ -594,36 +612,36 @@
         function openGalleryModal(imageUrl, title, description) {
             const modal = document.getElementById('gallery-modal');
             const box = document.getElementById('gallery-modal-box');
-            
+
             document.getElementById('gallery-image').src = imageUrl;
             document.getElementById('gallery-image').alt = title;
             document.getElementById('gallery-title').textContent = title;
             document.getElementById('gallery-description').textContent = description || 'Tidak ada deskripsi';
-            
+
             modal.classList.remove('hidden');
             setTimeout(() => {
                 box.classList.remove('scale-95', 'opacity-0');
                 box.classList.add('scale-100', 'opacity-100');
             }, 10);
-            
+
             // Mencegah scrolling pada body ketika modal terbuka
             document.body.style.overflow = 'hidden';
         }
-        
+
         function closeGalleryModal() {
             const modal = document.getElementById('gallery-modal');
             const box = document.getElementById('gallery-modal-box');
-            
+
             box.classList.remove('scale-100', 'opacity-100');
             box.classList.add('scale-95', 'opacity-0');
-            
+
             setTimeout(() => {
                 modal.classList.add('hidden');
                 // Mengaktifkan kembali scrolling pada body
                 document.body.style.overflow = 'auto';
             }, 300);
         }
-        
+
         // Menambahkan keyboard listener untuk menutup dengan tombol ESC
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
@@ -683,7 +701,8 @@
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
                                 </svg>
                             </a>
                         </div>
@@ -804,7 +823,7 @@
         </div>
     </section>
 
-     <script>
+    <script>
         function handleOutsideClick(event, dialog) {
             // Tutup hanya jika klik terjadi di luar konten modal
             const rect = dialog.querySelector('div').getBoundingClientRect();
@@ -820,7 +839,7 @@
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Ambil testimonial dari API
             fetch('{{ route('api.testimonials') }}')
 
@@ -834,7 +853,8 @@
                     if (data.length === 0) {
                         const noData = document.createElement('div');
                         noData.className = 'col-span-3 text-center py-10';
-                        noData.innerHTML = `
+                        noData.innerHTML =
+                            `
 
                                                                                                                                                                                                             <div class="text-gray-500">
                                                                                                                                                                                                                 <i class="fas fa-comment-slash text-4xl mb-3"></i>
@@ -870,7 +890,8 @@
                             photoHtml =
                                 `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
                         } else {
-                            photoHtml = `
+                            photoHtml =
+                                `
                                                                                                                                                                                                                 <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
                                                                                                                                                                                                                     <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
                                                                                                                                                                                                                 </div>
@@ -883,7 +904,8 @@
 
                         testimonialCard.className =
                             'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
-                        testimonialCard.innerHTML = `
+                        testimonialCard.innerHTML =
+                            `
                                                                                                                                                                                                             <div class="flex items-center mb-4">
                                                                                                                                                                                                                 <div class="text-yellow-400 flex">
                                                                                                                                                                                                                     ${starsHtml}
@@ -963,5 +985,4 @@
             speed: 1000,
         });
     </script> --}}
-    
 @endsection
