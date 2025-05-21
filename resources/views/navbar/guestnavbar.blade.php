@@ -1,13 +1,16 @@
 <!-- Navbar with Alpine.js for mobile toggle -->
-<nav class="bg-white border-gray-200 shadow-sm sticky top-0 z-50" x-data="{ open: false }">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+<!-- Navbar with Alpine.js for mobile toggle -->
+<nav class="bg-white border-b border-gray-200 shadow-md sticky top-0 z-50 transition-all" x-data="{ open: false }">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
         <a href="{{ route('homepage') }}" class="flex items-center space-x-3">
-            <span class="text-xl font-bold text-purple-800">NUSANTARA EDUPARK</span>
+            <!-- Logo -->
+            <img src="{{ asset('Logo/LogoNusantara2.png') }}" class="h-12 w-auto" alt="Nusantara Edupark Logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/120x48/6B46C1/FFFFFF?text=EDUPARK'">
+            <span class="text-xl font-bold bg-gradient-to-r from-purple-800 to-indigo-700 text-transparent bg-clip-text hidden sm:inline-block">NUSANTARA EDUPARK</span>
         </a>
-        
+
         <!-- Mobile menu button -->
         <button @click="open = !open" type="button"
-            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-300 transition-all"
             aria-controls="navbar-menu" aria-expanded="false">
             <span class="sr-only">Open main menu</span>
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -16,63 +19,31 @@
                     d="M1 1h15M1 7h15M1 13h15" />
             </svg>
         </button>
-        
+
         <!-- Navigation Menu -->
-        <div class="hidden w-full md:block md:w-auto" 
-                :class="{'block': open, 'hidden': !open}" 
-                id="navbar-menu">
-            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
+        <div class="hidden w-full md:block md:w-auto transition-all duration-300" 
+             :class="{'block': open, 'hidden': !open}" 
+             id="navbar-menu">
+            <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
                 <li>
                     <a href="{{ route('homepage') }}"
-                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('homepage') ? 'text-purple-700 font-bold' : '' }}"
-                        aria-current="page">
-                        {{-- <i class="fas fa-home mr-1"></i> Beranda --}}
+                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 hover:bg-purple-50 md:hover:bg-transparent rounded md:p-0 transition-all duration-200 {{ request()->routeIs('homepage') ? 'text-purple-700 font-bold border-b-2 border-purple-700 md:border-b-2' : '' }}">
                         Beranda
                     </a>
                 </li>
-                <a href="{{ route('services') }}"
-                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('services') ? 'text-purple-700 font-bold' : '' }}">
-                         Layanan
+                <li>
+                    <a href="{{ route('services') }}"
+                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 hover:bg-purple-50 md:hover:bg-transparent rounded md:p-0 transition-all duration-200 {{ request()->routeIs('services') ? 'text-purple-700 font-bold border-b-2 border-purple-700 md:border-b-2' : '' }}">
+                        Layanan
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('about-us') }}"
-                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('about-us') ? 'text-purple-700 font-bold' : '' }}">
+                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 hover:bg-purple-50 md:hover:bg-transparent rounded md:p-0 transition-all duration-200 {{ request()->routeIs('about-us') ? 'text-purple-700 font-bold border-b-2 border-purple-700 md:border-b-2' : '' }}">
                         Tentang Kami
                     </a>
                 </li>
-                <li>
-                  
-                <!-- <li>
-                    <a href="{{ route('blogs.index') }}"
-                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('blogs.*') ? 'text-purple-700 font-bold' : '' }}">
-                        <i class="fas fa-newspaper mr-1"></i> Blog
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('packets') }}"
-                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('packets') ? 'text-purple-700 font-bold' : '' }}">
-                        <i class="fas fa-ticket-alt mr-1"></i> Paket Wisata
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('gallery') }}"
-                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('gallery') ? 'text-purple-700 font-bold' : '' }}">
-                        <i class="fas fa-images mr-1"></i> Galeri
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('facilities') }}"
-                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0 {{ request()->routeIs('facilities') ? 'text-purple-700 font-bold' : '' }}">
-                        <i class="fas fa-building mr-1"></i> Fasilitas
-                    </a>
-                </li> -->
-                <!-- <li>
-                    <a href="{{ route('homepage') }}"
-                        class="block py-2 px-3 text-gray-700 hover:text-purple-700 rounded-sm md:p-0">
-                        <i class="fas fa-comment-dots mr-1"></i> Testimonial
-                    </a>
-                </li> -->
+                <!-- Menu lainnya bisa ditambahkan kembali sesuai kebutuhan -->
             </ul>
         </div>
     </div>

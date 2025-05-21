@@ -1,6 +1,49 @@
 @extends('layouts.guest')
 
 @section('content')
+    <style>
+        /* Tooltip Style */
+        .tooltip-container {
+            position: relative;
+        }
+        
+        .tooltip-text {
+            visibility: hidden;
+            width: auto;
+            min-width: 100px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+        
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+        }
+        
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+
     <div class="swiper heroSwiper w-full h-[60vh] md:h-[80vh] relative">
         <div class="swiper-wrapper w-full h-full">
             @foreach ($banners as $banner)
@@ -23,6 +66,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Tambahkan area klik untuk banner -->
+                    <div class="absolute inset-0 cursor-pointer" onclick="openBannerModal('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}', '{{ $banner->title ?? 'Nusantara Edupark' }}')"></div>
                 </div>
             @endforeach
         </div>
@@ -33,40 +78,116 @@
     </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Modal untuk Banner -->
+    <dialog id="banner-modal" class="rounded-xl max-w-5xl sm:mx-auto backdrop:bg-black/80" onclick="handleOutsideClick(event, this)">
+        <div class="relative bg-transparent rounded-xl overflow-hidden max-h-[90vh]">
+            <button onclick="document.getElementById('banner-modal').close()"
+                    class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-black z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="banner-modal-image" src="" alt="Banner" class="w-full h-auto max-h-[90vh] object-contain">
+        </div>
+    </dialog>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const swiper = new Swiper(".heroSwiper", {
-                loop: true,
-                effect: "fade",
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                on: {
-                    slideChangeTransitionStart: function () {
-                        lazyLoadBg();
-                    },
-                },
-            });
+        function openBannerModal(imageUrl, title) {
+            const modal = document.getElementById('banner-modal');
+            const img = document.getElementById('banner-modal-image');
+            img.src = imageUrl;
+            img.alt = title;
+            modal.showModal();
+        }
+    </script>
 
-            function lazyLoadBg() {
-                const slides = document.querySelectorAll(".swiper-slide.lazy-slide");
-                slides.forEach(slide => {
-                    if (slide.classList.contains("swiper-slide-active") && !slide.classList.contains("bg-loaded")) {
-                        const bg = slide.getAttribute("data-bg");
-                        slide.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${bg}')`;
-                        slide.classList.add("bg-loaded");
-                    }
-                });
+    <script>
+        // Load Font Awesome asynchronously
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if Font Awesome is already loaded
+            if (!document.querySelector('link[href*="fontawesome"]')) {
+                const fontAwesome = document.createElement('link');
+                fontAwesome.rel = 'stylesheet';
+                fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+                fontAwesome.integrity = 'sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==';
+                fontAwesome.crossOrigin = 'anonymous';
+                fontAwesome.referrerPolicy = 'no-referrer';
+                
+                // Append to head
+                document.head.appendChild(fontAwesome);
+            }
+        });
+    </script>
+
+    <script>
+        // Script untuk mengoptimalkan AOS
+        document.addEventListener("DOMContentLoaded", function() {
+            // Deteksi apakah perangkat mobile
+            const isMobile = window.innerWidth < 768;
+            
+            // Fungsi untuk me-load AOS library
+            function loadAOS() {
+                const aosScript = document.createElement('script');
+                aosScript.src = 'https://unpkg.com/aos@next/dist/aos.js';
+                aosScript.defer = true;
+                aosScript.onload = function() {
+                    AOS.init({
+                        // Disable animation pada perangkat mobile untuk performa
+                        disable: isMobile ? 'phone' : false,
+                        once: true, // Animasi hanya sekali
+                        duration: 800,
+                        delay: 0,
+                        throttleDelay: 99,
+                    });
+                };
+                document.head.appendChild(aosScript);
             }
 
-            // Initial lazy load
-            lazyLoadBg();
+            // Load AOS secara asynchronous setelah konten utama dimuat
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadAOS);
+            } else {
+                setTimeout(loadAOS, 1000);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const swiperScript = document.createElement('script');
+            swiperScript.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
+            swiperScript.onload = function() {
+                const swiper = new Swiper(".heroSwiper", {
+                    loop: true,
+                    effect: "fade",
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                    on: {
+                        init: function() {
+                            loadActiveSlideBg();
+                        },
+                        slideChangeTransitionStart: function () {
+                            loadActiveSlideBg();
+                        },
+                    },
+                });
+            };
+            document.head.appendChild(swiperScript);
+
+            function loadActiveSlideBg() {
+                const activeSlide = document.querySelector(".swiper-slide-active.lazy-slide");
+                if (activeSlide && !activeSlide.classList.contains("bg-loaded")) {
+                    const bg = activeSlide.getAttribute("data-bg");
+                    if (bg) {
+                        activeSlide.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${bg}')`;
+                        activeSlide.classList.add("bg-loaded");
+                    }
+                }
+            }
         });
     </script>
 
@@ -94,16 +215,12 @@
 
     <!-- Features Section with Playful Elements -->
     <section class="py-16 bg-white relative overflow-hidden">
-        <!-- Background Decorative Elements -->
-        <div
-            class="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full opacity-30 transform -translate-y-1/2 translate-x-1/2">
-        </div>
-        <div
-            class="absolute bottom-0 left-0 w-48 h-48 bg-green-200 rounded-full opacity-30 transform translate-y-1/2 -translate-x-1/2">
-        </div>
+        <!-- Background Decorative Elements - simplified -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full opacity-20 transform -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-green-200 rounded-full opacity-20 transform translate-y-1/2 -translate-x-1/2"></div>
 
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
                     <span class="relative z-10">Pengalaman Wisata Edukatif</span>
                     <svg class="absolute -bottom-2 left-0 w-full h-3 text-green-200 z-0" viewBox="0 0 200 8">
@@ -116,7 +233,8 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group">
+                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                    data-aos="fade-up" data-aos-delay="100">
                     <div
                         class="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
                         <i class="fas fa-seedling text-green-600 text-3xl group-hover:animate-bounce-slow"></i>
@@ -129,7 +247,8 @@
                 </div>
 
                 <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group">
+                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                    data-aos="fade-up" data-aos-delay="200">
                     <div
                         class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
                         <i class="fas fa-horse text-orange-600 text-3xl group-hover:animate-bounce-slow"></i>
@@ -142,7 +261,8 @@
                 </div>
 
                 <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group">
+                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                    data-aos="fade-up" data-aos-delay="300">
                     <div
                         class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
                         <i class="fas fa-tree text-blue-600 text-3xl group-hover:animate-bounce-slow"></i>
@@ -160,27 +280,11 @@
     <!-- PACKET -->
     <!-- Popular Tours Section with Animated Effects -->
     <section class="py-16 bg-gray-50 relative overflow-hidden">
-        <!-- Background Elements -->
+        <!-- Background Elements - simplified -->
         <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-gray-50 opacity-50"></div>
-        <div
-            class="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full opacity-30 transform -translate-y-1/2 translate-x-1/2">
-        </div>
-        <div
-            class="absolute bottom-0 left-0 w-48 h-48 bg-green-200 rounded-full opacity-30 transform translate-y-1/2 -translate-x-1/2">
-        </div>
-
-        <!-- Decorative Background Elements -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
-            <i class="fas fa-leaf absolute text-green-500 text-6xl" style="top: 10%; left: 5%;"></i>
-            <i class="fas fa-carrot absolute text-orange-500 text-5xl" style="top: 30%; left: 15%;"></i>
-            <i class="fas fa-tractor absolute text-red-500 text-7xl" style="top: 70%; left: 8%;"></i>
-            <i class="fas fa-cow absolute text-gray-500 text-6xl" style="top: 40%; right: 12%;"></i>
-            <i class="fas fa-egg absolute text-yellow-500 text-5xl" style="top: 15%; right: 20%;"></i>
-            <i class="fas fa-apple-alt absolute text-red-500 text-4xl" style="top: 80%; right: 5%;"></i>
-        </div>
-
+        
         <div class="container mx-auto px-6 relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12" data-aos="fade-up">
                 <div>
                     <h2
                         class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-900">
@@ -200,51 +304,108 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($packets as $packet)
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative">
-                        <div class="relative h-[300px] sm:h-[400px] overflow-hidden group rounded-lg transform scale-95 group-hover:scale-100 transition-transform duration-700 ease-in-out">
-                            <div class="absolute inset-0 flex items-center justify-center bg-gray-100">
-                                <div class="w-full h-full bg-gray-300 animate-pulse"></div>
-                                <img
-                                    src="{{ asset('storage/' . $packet->image) }}"
-                                    loading="lazy"
-                                    class="absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-700 ease-in-out"
-                                    onload="this.style.opacity='1'"
-                                    alt="{{ $packet->title }}"
-                                >
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative" 
+                         data-aos="fade-up" 
+                         data-aos-delay="{{ $loop->index * 100 }}">
+                        <div class="relative h-56 md:h-64 overflow-hidden rounded-t-xl">
+                            <div class="absolute inset-0 bg-gray-300 animate-pulse"></div>
+                            <img 
+                                data-src="{{ asset('storage/' . $packet->image) }}"
+                                loading="lazy"
+                                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 cursor-pointer"
+                                alt="{{ $packet->title }}"
+                                onload="this.style.opacity='1'; this.parentElement.querySelector('.animate-pulse').classList.add('opacity-0');"
+                                onclick="openImageModal('{{ asset('storage/' . $packet->image) }}', '{{ $packet->title }}')"
+                            >
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            
+                            <!-- Tombol untuk melihat gambar paket wisata -->
+                            <div class="absolute z-10 top-3 right-3 flex gap-2">
+                                <button onclick="openImageModal('{{ asset('storage/' . $packet->image) }}', '{{ $packet->title }}')"
+                                    class="bg-white/80 hover:bg-white text-purple-900 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform hover:scale-105 tooltip-container">
+                                    <i class="fas fa-expand"></i>
+                                    <span class="tooltip-text">Perbesar</span>
+                                </button>
                             </div>
-                            <button onclick="document.getElementById('imageModal-{{ $packet->id }}').showModal()"
-                                    class="absolute z-10 top-3 right-3 ...">
-                                <i class="fas fa-expand mr-1"></i> Lihat
-                            </button>
-
-                            <div class="absolute inset-0 z-[1] bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                <div class="w-full flex justify-between items-center px-4 pb-3">
-                                    <p class="text-white font-medium">
-                                        <i class="fas fa-camera mr-2"></i> {{ $packet->title }}
-                                    </p>
-                                </div>
-                            </div>
-                            <dialog id="imageModal-{{ $packet->id }}"
-                                    class="rounded-xl max-w-5xl sm:mx-auto ... backdrop:bg-black/50"
-                                    onclick="handleOutsideClick(event, this)">
-                                <div class="relative bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh]">
-                                    <button onclick="document.getElementById('imageModal-{{ $packet->id }}').close()"
-                                            class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-1 hover:bg-black z-10">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                    <img src="{{ asset('storage/' . $packet->image) }}"
-                                        alt="{{ $packet->title }}"
-                                        class="w-full h-auto max-h-[90vh] object-contain">
-                                </div>
-                            </dialog>
                         </div>
 
-                        <div class="p-4">
-                            <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $packet->title }}</h3>
-                            <p class="text-gray-600 mb-4">{{ $packet->description }}</p>
-                            <div class="price-container bg-white rounded-lg">
-                                <div class="space-y-2">
-                                    <!-- Weekday Price -->
+                        <dialog id="imageModal-{{ $packet->id }}"
+                                class="rounded-xl max-w-5xl sm:mx-auto backdrop:bg-black/50"
+                                onclick="handleOutsideClick(event, this)">
+                            <div class="relative bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh]">
+                                <button onclick="document.getElementById('imageModal-{{ $packet->id }}').close()"
+                                        class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-black z-10">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <img src="{{ asset('storage/' . $packet->image) }}"
+                                    alt="{{ $packet->title }}"
+                                    class="w-full h-auto max-h-[90vh] object-contain"
+                                    onload="this.style.opacity='1'">
+                            </div>
+                        </dialog>
+
+                        <div class="p-5">
+                            <div class="mb-3">
+                                <h3 class="text-xl font-bold text-gray-800 group-hover:text-purple-700 transition-colors">{{ $packet->title }}</h3>
+                                <div class="w-10 h-1 bg-purple-700 mt-2 mb-3 group-hover:w-20 transition-all duration-300"></div>
+                                <!-- <p class="text-gray-600 mb-4 line-clamp-2">{{ $packet->description }}</p> -->
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <!-- Pricing Cards -->
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-purple-50 rounded-lg p-3 border-l-4 border-purple-600 transform transition-transform hover:scale-105">
+                                        <p class="text-xs text-gray-600 mb-1">Weekday</p>
+                                        <p class="text-lg font-bold text-purple-700">
+                                            {{ $packet->weekday_price ?: 'Hubungi kami' }}
+                                        </p>
+                                    </div>
+                                    <div class="bg-indigo-50 rounded-lg p-3 border-l-4 border-indigo-600 transform transition-transform hover:scale-105">
+                                        <p class="text-xs text-gray-600 mb-1">Weekend</p>
+                                        <p class="text-lg font-bold text-indigo-700">
+                                            {{ $packet->weekend_price ?: 'Hubungi kami' }}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex gap-2 pt-2">
+                                    <a href="{{ route('packets') }}#contact-packet"
+                                        class="flex-1 bg-purple-600 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center inline-flex items-center justify-center">
+                                        <i class="fas fa-ticket-alt mr-1"></i> Pesan
+                                    </a>
+                                    <button onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
+                                        class="flex-1 bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                        <i class="fas fa-info-circle mr-1"></i> Detail
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Decoration elements -->
+                        <div class="absolute -bottom-2 -right-2 w-16 h-16 bg-purple-200 rounded-full opacity-20 z-0 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+                        <div class="absolute -top-2 -left-2 w-12 h-12 bg-indigo-200 rounded-full opacity-20 z-0 transform scale-0 group-hover:scale-100 transition-transform duration-500 delay-100"></div>
+
+                        <dialog id="detailModal-{{ $packet->id }}"
+                            class="rounded-xl w-500 max-w-4xl sm:mx-auto mx-2 my-6 sm:my-16 p-0 overflow-hidden backdrop:bg-black/50"
+                            onclick="handleOutsideClick(event, this)">
+                            <div
+                                class="bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh] flex flex-col">
+                                <!-- Header -->
+                                <div class="p-4 sm:p-6 border-b border-gray-200 bg-purple-50">
+                                    <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-1">
+                                        <i class="fas fa-ticket-alt mr-2 text-purple-700"></i> {{ $packet->title }}
+                                    </h4>
+                                    <p class="text-gray-600 text-sm">{{ $packet->description }}</p>
+                                </div>
+
+                                <!-- Body -->
+                                <div class="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
+                                    <div
+                                        class="rich-content text-sm text-gray-700 leading-relaxed prose prose-sm sm:prose">
+                                        {!! $packet->detail !!}
+                                    </div>
+
+                                    <!-- Harga -->
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                         <div class="flex items-center p-4 bg-purple-50 rounded-md shadow-sm">
                                             <div class="bg-purple-600 text-white p-2 rounded-full mr-3">
@@ -269,97 +430,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex flex-wrap gap-2 pt-2">
-                                        <a href="{{ route('packets') }}#contact-packet"
-                                            class="w-full bg-purple-600 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center inline-flex items-center justify-center">
-                                            <i class="fas fa-ticket-alt mr-1"></i> Pesan
-                                        </a>
-                                        <!-- Button to open modal -->
-                                            <button onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
-                                                class="w-full bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium py-2 px-4 rounded-lg transition-colors">
-                                                <i class="fas fa-info-circle mr-1"></i> Selengkapnya
-                                            </button>
-                                    </div>
+                                </div>
 
-                                    <dialog id="detailModal-{{ $packet->id }}"
-                                        class="rounded-xl w-500 max-w-4xl sm:mx-auto mx-2 my-6 sm:my-16 p-0 overflow-hidden backdrop:bg-black/50"
-                                        onclick="handleOutsideClick(event, this)">
-                                        <div
-                                            class="bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh] flex flex-col">
-                                            <!-- Header -->
-                                            <div class="p-4 sm:p-6 border-b border-gray-200">
-                                                <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-1">
-                                                    </i> {{ $packet->title }}
-                                                </h4>
-                                                <p class="text-gray-600 text-sm">{{ $packet->description }}</p>
-                                            </div>
+                                <!-- Footer -->
+                                <div
+                                    class="px-4 sm:px-6 py-4 bg-gray-50 flex flex-col sm:flex-row justify-end gap-3 border-t">
+                                    <button
+                                        onclick="document.getElementById('detailModal-{{ $packet->id }}').close()"
+                                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-md transition w-full sm:w-auto">
+                                        Tutup
+                                    </button>
+                                    <a href="{{ route('packets') }}#contact-packet"
+                                        class="bg-purple-700 hover:bg-purple-800 text-white py-2 px-4 rounded-md transition font-medium w-full sm:w-auto text-center">
+                                        <i class="fas fa-ticket-alt mr-1"></i> Pesan Sekarang
+                                    </a>
+                                    <a href="https://wa.me/6281939114933?text=Halo%2C%20saya%20mau%20tanya"
+                                        class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition w-full sm:w-auto"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-whatsapp text-xl mr-2"></i> Whatsapp
+                                    </a>
 
-                                            <!-- Body -->
-                                            <div class="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
-                                                <div
-                                                    class="rich-content text-sm text-gray-700 leading-relaxed prose prose-sm sm:prose">
-                                                    {!! $packet->detail !!}
-                                                </div>
-
-                                                <!-- Harga -->
-                                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                                    <div class="flex items-center p-4 bg-purple-50 rounded-md shadow-sm">
-                                                        <div class="bg-purple-600 text-white p-2 rounded-full mr-3">
-                                                            <i class="fas fa-calendar-week"></i>
-                                                        </div>
-                                                        <div>
-                                                            <div class="text-sm text-gray-600">Harga Weekday</div>
-                                                            <div class="text-lg font-bold text-purple-700">
-                                                                {{ $packet->weekday_price ?: 'Hubungi kami' }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex items-center p-4 bg-indigo-50 rounded-md shadow-sm">
-                                                        <div class="bg-indigo-600 text-white p-2 rounded-full mr-3">
-                                                            <i class="fas fa-calendar-week"></i>
-                                                        </div>
-                                                        <div>
-                                                            <div class="text-sm text-gray-600">Harga Weekend</div>
-                                                            <div class="text-lg font-bold text-indigo-700">
-                                                                {{ $packet->weekend_price ?: 'Hubungi kami' }}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Footer -->
-                                            <div
-                                                class="px-4 sm:px-6 py-4 bg-gray-50 flex flex-col sm:flex-row justify-end gap-3 border-t">
-                                                <button
-                                                    onclick="document.getElementById('detailModal-{{ $packet->id }}').close()"
-                                                    class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-md transition w-full sm:w-auto">
-                                                    Tutup
-                                                </button>
-                                                <a href="{{ route('packets') }}#contact-packet"
-                                                    class="bg-purple-700 hover:bg-purple-800 text-white py-2 px-4 rounded-md transition font-medium w-full sm:w-auto text-center">
-                                                    <i class="fas fa-ticket-alt mr-1"></i> Pesan Sekarang
-                                                </a>
-                                                <a href="https://wa.me/6281939114933?text=Halo%2C%20saya%20mau%20tanya"
-                                                    class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-md transition w-full sm:w-auto"
-                                                    target="_blank" rel="noopener noreferrer">
-                                                    <i class="fab fa-whatsapp text-xl mr-2"></i> Whatsapp
-                                                </a>
-
-                                                <a href="https://www.traveloka.com/id-id/activities/indonesia/product/nusantara-edupark-madiun-5389237971312"
-                                                    class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition w-full sm:w-auto"
-                                                    target="_blank" rel="noopener noreferrer">
-                                                    <i class="fas fa-plane-departure text-xl mr-2"></i> Traveloka
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </dialog>
+                                    <a href="https://www.traveloka.com/id-id/activities/indonesia/product/nusantara-edupark-madiun-5389237971312"
+                                        class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition w-full sm:w-auto"
+                                        target="_blank" rel="noopener noreferrer">
+                                        <i class="fas fa-plane-departure text-xl mr-2"></i> Traveloka
+                                    </a>
                                 </div>
                             </div>
-                        </div>
+                        </dialog>
                     </div>
                 @empty
-                    <div class="col-span-3 text-center py-12">
+                    <div class="col-span-3 text-center py-12" data-aos="fade-up">
                         <div class="bg-gray-100 rounded-lg p-8 inline-block">
                             <i class="fas fa-ticket-alt text-gray-400 text-4xl mb-3"></i>
                             <p class="text-gray-500">Belum ada paket wisata yang tersedia.</p>
@@ -374,16 +475,8 @@
 
     <!-- FACILITY -->
     <section class="py-16 bg-gray-50 relative overflow-hidden">
-        <!-- Decorative Background Elements -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-5 pointer-events-none">
-            <i class="fas fa-leaf absolute text-green-500 text-6xl" style="top: 10%; left: 5%;"></i>
-            <i class="fas fa-carrot absolute text-orange-500 text-5xl" style="top: 30%; left: 15%;"></i>
-            <i class="fas fa-tractor absolute text-red-500 text-7xl" style="top: 70%; left: 8%;"></i>
-            <i class="fas fa-cow absolute text-gray-500 text-6xl" style="top: 40%; right: 12%;"></i>
-            <i class="fas fa-egg absolute text-yellow-500 text-5xl" style="top: 15%; right: 20%;"></i>
-            <i class="fas fa-apple-alt absolute text-red-500 text-4xl" style="top: 80%; right: 5%;"></i>
-        </div>
-
+        <!-- Decorative Background Elements removed for performance -->
+        
         <div class="container mx-auto px-6 relative z-10">
             {{-- <div class="flex justify-between items-center mb-10">
                 <div>
@@ -399,7 +492,7 @@
                 </a>
             </div> --}}
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12" data-aos="fade-up">
                 <div>
                     <h2
                         class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-green-600 flex items-center">
@@ -422,13 +515,17 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 @forelse ($facilities as $facility)
                     <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
+                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group"
+                        data-aos="fade-up" 
+                        data-aos-delay="{{ $loop->index * 100 }}">
                         <div class="relative overflow-hidden">
                             <div class="relative w-full h-60 overflow-hidden bg-gray-300 animate-pulse">
                                 <img src="{{ asset('storage/' . $facility->image) }}" loading="lazy"
-                                    class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700 opacity-0"
+                                    class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700 opacity-0 cursor-pointer"
                                     alt="{{ $facility->title }}"
-                                    onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse')">
+                                    onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse');"
+                                    onclick="openImageModal('{{ asset('storage/' . $facility->image) }}', '{{ $facility->title }}')"
+                                >
                             </div>
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
@@ -458,7 +555,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-span-3 text-center py-12">
+                    <div class="col-span-3 text-center py-12" data-aos="fade-up">
                         <div class="bg-gray-100 rounded-lg p-8 inline-block">
                             <i class="fas fa-building text-gray-400 text-4xl mb-3"></i>
                             <p class="text-gray-500">Belum ada fasilitas yang tersedia.</p>
@@ -540,6 +637,7 @@
         }
     </script>
 
+   
     <!-- Gallery Section with Fun Interactive Elements -->
     <section class="py-16 relative overflow-hidden">
         <!-- Background dengan bentuk gelombang -->
@@ -588,7 +686,7 @@
         </div>
 
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-yellow-200 relative inline-block">
                     <i class="fas fa-images text-yellow-300 mr-2 animate-pulse-slow"></i>
                     Galeri Destinasi
@@ -600,12 +698,14 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
                 @forelse ($galleries->take(8) as $gallery)
                     <div class="relative overflow-hidden rounded-lg group cursor-pointer"
-                        onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')">
+                        onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')"
+                        data-aos="zoom-in" 
+                        data-aos-delay="{{ $loop->index * 50 }}">
                         <div class="relative w-full h-48 overflow-hidden bg-gray-300 animate-pulse">
                             <img src="{{ asset('storage/' . $gallery->image) }}"
-                                class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500 opacity-0"
+                                class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500 opacity-0 cursor-pointer"
                                 alt="{{ $gallery->title }}"
-                                onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse')">
+                                onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse');">
                         </div>
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
@@ -615,7 +715,7 @@
 
                     </div>
                 @empty
-                    <div class="col-span-4 text-center py-12">
+                    <div class="col-span-4 text-center py-12" data-aos="fade-up">
                         <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
                             <i class="fas fa-image text-4xl mb-3"></i>
                             <p>Belum ada foto galeri yang tersedia.</p>
@@ -624,7 +724,7 @@
                 @endforelse
             </div>
 
-            <div class="text-center mb-10">
+            <div class="text-center mb-10" data-aos="fade-up" data-aos-delay="400">
                 <a href="{{ route('gallery') }}"
                     class="border-2 border-yellow-400 bg-yellow-300 text-purple-800 hover:bg-yellow-400 hover:border-yellow-500 font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
                     <i class="fas fa-images mr-2"></i> Lihat Semua Foto
@@ -705,10 +805,11 @@
         });
     </script>
 
+
     <!-- Blog Section -->
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12" data-aos="fade-up">
                 <div>
                     <h2
                         class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-900">
@@ -722,21 +823,25 @@
                         class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            d="M14 5l7 7-7 7" />
                     </svg>
                 </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach ($blogs as $blogItem)
+                @foreach ($blogs->take(3) as $blogItem)
                     <div
-                        class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group">
+                        class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group"
+                        data-aos="fade-up" 
+                        data-aos-delay="{{ $loop->index * 100 }}">
                         <div class="relative overflow-hidden">
                             <div class="relative w-full h-56 overflow-hidden bg-gray-300 animate-pulse">
                                 <img src="{{ asset('storage/' . $blogItem->picture) }}" loading="lazy"
-                                    class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500 opacity-0"
+                                    class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500 opacity-0 cursor-pointer"
                                     alt="{{ $blogItem->title }}"
-                                    onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse', 'bg-gray-300')">
+                                    onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse', 'bg-gray-300');"
+                                    onclick="openImageModal('{{ asset('storage/' . $blogItem->picture) }}', '{{ $blogItem->title }}')"
+                                >
                             </div>
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -782,7 +887,7 @@
 
 
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-12">
+            <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
                     <i class="fas fa-comments text-yellow-500 mr-2 animate-pulse-slow"></i>
                     Apa Kata Mereka?
@@ -792,12 +897,12 @@
 
 
 
-            <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center" data-aos="fade-up">
                 <i class="fas fa-quote-left text-purple-500 mr-3"></i>
                 Ulasan Pengunjung
             </h3>
 
-            <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
                 <!-- Testimonial akan dirender melalui JavaScript -->
                 <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
                     <div class="flex items-center mb-4">
@@ -861,8 +966,7 @@
                 </div>
             </div>
 
-            <div class="text-center mt-8">
-
+            <div class="text-center mt-8" data-aos="fade-up" data-aos-delay="300">
                 <a href="{{ route('testimonials.all') }}"
                     class="inline-flex items-center text-purple-700 font-medium hover:text-purple-900 transition-colors">
                     <span>Lihat Semua Ulasan</span>
@@ -875,7 +979,7 @@
             </div>
         </div>
         <!-- Form Testimonial -->
-        <div class="max-w-4xl mx-auto mb-16 mt-16">
+        <div class="max-w-4xl mx-auto mb-16 mt-16" data-aos="fade-up" data-aos-delay="400">
             @include('review.formkomentar')
         </div>
     </section>
@@ -896,104 +1000,176 @@
     </script>
 
     <script>
+        // Lazy loading images with Intersection Observer API
         document.addEventListener('DOMContentLoaded', function() {
-            // Ambil testimonial dari API
-            fetch('{{ route('api.testimonials') }}')
-
-                .then(response => response.json())
-                .then(data => {
-                    // Kosongkan container untuk menghilangkan skeletons
-                    const container = document.getElementById('testimonials-container');
-                    container.innerHTML = '';
-
-                    // Jika tidak ada testimonial yg disetujui, tampilkan placeholder
-                    if (data.length === 0) {
-                        const noData = document.createElement('div');
-                        noData.className = 'col-span-3 text-center py-10';
-                        noData.innerHTML =
-                            `
-
-                                                                                                                                                                                                            <div class="text-gray-500">
-                                                                                                                                                                                                                <i class="fas fa-comment-slash text-4xl mb-3"></i>
-                                                                                                                                                                                                                <p>Belum ada ulasan. Jadilah yang pertama memberikan ulasan!</p>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        `;
-
-                        container.appendChild(noData);
-                        return;
-                    }
-
-
-                    // Hanya tampilkan 3 testimonial terbaru
-                    const latestThree = data.slice(0, 3);
-
-                    // Render testimonial
-                    latestThree.forEach(testimonial => {
-
-                        // Buat elemen bintang berdasarkan rating
-                        let starsHtml = '';
-                        for (let i = 1; i <= 5; i++) {
-                            if (i <= testimonial.rating) {
-                                starsHtml += '<i class="fas fa-star"></i>';
-                            } else {
-                                starsHtml += '<i class="far fa-star"></i>';
+            // Check if Intersection Observer API is available
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src');
+                            if (src) {
+                                img.src = src;
+                                img.onload = function() {
+                                    img.style.opacity = '1';
+                                    const animateElement = img.parentElement.querySelector('.animate-pulse');
+                                    if (animateElement) {
+                                        animateElement.classList.remove('animate-pulse');
+                                    }
+                                };
+                                // Once loaded, no need to observe anymore
+                                observer.unobserve(img);
                             }
                         }
+                    });
+                }, {
+                    rootMargin: '100px 0px',
+                    threshold: 0.01
+                });
 
-                        // Tentukan foto profil (pakai default jika tidak ada)
-                        let photoHtml = '';
-                        if (testimonial.foto) {
+                // Select all images with data-src attribute
+                const lazyImages = document.querySelectorAll('img[data-src]');
+                lazyImages.forEach(img => {
+                    imageObserver.observe(img);
+                });
 
-                            photoHtml =
-                                `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
-                        } else {
-                            photoHtml =
-                                `
-                                                                                                                                                                                                                <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                                                                                                                                                                                                                    <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            `;
+                // Handle images in modals separately
+                document.querySelectorAll('dialog').forEach(dialog => {
+                    dialog.addEventListener('click', function() {
+                        const dialogImages = this.querySelectorAll('img[data-src]');
+                        dialogImages.forEach(img => {
+                            if (!img.src) {
+                                const src = img.getAttribute('data-src');
+                                if (src) {
+                                    img.src = src;
+                                }
+                            }
+                        });
+                    });
+                });
+            } else {
+                // Fallback for browsers that don't support Intersection Observer
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    img.src = img.getAttribute('data-src');
+                });
+            }
+        });
+    </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load testimonials when they are about to be visible
+            const testimonialsSection = document.getElementById('testimonials');
+            let testimonialsLoaded = false;
+            
+            function loadTestimonials() {
+                if (testimonialsLoaded) return;
+                
+                // Ambil testimonial dari API
+                fetch('{{ route('api.testimonials') }}')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Kosongkan container untuk menghilangkan skeletons
+                        const container = document.getElementById('testimonials-container');
+                        container.innerHTML = '';
+
+                        // Jika tidak ada testimonial yg disetujui, tampilkan placeholder
+                        if (data.length === 0) {
+                            const noData = document.createElement('div');
+                            noData.className = 'col-span-3 text-center py-10';
+                            noData.innerHTML =
+                                `<div class="text-gray-500">
+                                    <i class="fas fa-comment-slash text-4xl mb-3"></i>
+                                    <p>Belum ada ulasan. Jadilah yang pertama memberikan ulasan!</p>
+                                </div>`;
+
+                            container.appendChild(noData);
+                            return;
                         }
 
-                        // Buat card testimonial
-                        const testimonialCard = document.createElement('div');
+                        // Hanya tampilkan 3 testimonial terbaru
+                        const latestThree = data.slice(0, 3);
 
-                        testimonialCard.className =
-                            'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
-                        testimonialCard.innerHTML =
-                            `
-                                                                                                                                                                                                            <div class="flex items-center mb-4">
-                                                                                                                                                                                                                <div class="text-yellow-400 flex">
-                                                                                                                                                                                                                    ${starsHtml}
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                            <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
-                                                                                                                                                                                                            <div class="flex items-center">
-                                                                                                                                                                                                                ${photoHtml}
-                                                                                                                                                                                                                <div class="ml-3">
-                                                                                                                                                                                                                    <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
-                                                                                                                                                                                                                    <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                <div class="ml-auto text-xs text-gray-400">
-                                                                                                                                                                                                                    ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                        `;
+                        // Render testimonial
+                        latestThree.forEach(testimonial => {
+
+                            // Buat elemen bintang berdasarkan rating
+                            let starsHtml = '';
+                            for (let i = 1; i <= 5; i++) {
+                                if (i <= testimonial.rating) {
+                                    starsHtml += '<i class="fas fa-star"></i>';
+                                } else {
+                                    starsHtml += '<i class="far fa-star"></i>';
+                                }
+                            }
+
+                            // Tentukan foto profil (pakai default jika tidak ada)
+                            let photoHtml = '';
+                            if (testimonial.foto) {
+                                photoHtml =
+                                    `<img src="${window.location.origin}/storage/${testimonial.foto}" class="w-12 h-12 rounded-full object-cover" alt="${testimonial.nama}">`;
+                            } else {
+                                photoHtml =
+                                    `<div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
+                                        <span class="text-lg font-medium text-purple-700">${testimonial.nama.charAt(0)}</span>
+                                    </div>`;
+                            }
+
+                            // Buat card testimonial
+                            const testimonialCard = document.createElement('div');
+
+                            testimonialCard.className =
+                                'bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all';
+                            testimonialCard.innerHTML =
+                                `<div class="flex items-center mb-4">
+                                    <div class="text-yellow-400 flex">
+                                        ${starsHtml}
+                                    </div>
+                                    <span class="text-gray-600 ml-2">${testimonial.rating}.0</span>
+                                </div>
+                                <p class="text-gray-600 mb-4">"${testimonial.pesan}"</p>
+                                <div class="flex items-center">
+                                    ${photoHtml}
+                                    <div class="ml-3">
+                                        <h4 class="font-semibold text-gray-800">${testimonial.nama}</h4>
+                                        <p class="text-gray-600 text-sm">${testimonial.kota || 'Pengunjung'}</p>
+                                    </div>
+                                    <div class="ml-auto text-xs text-gray-400">
+                                        ${new Date(testimonial.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                    </div>
+                                </div>`;
 
 
-                        container.appendChild(testimonialCard);
+                            container.appendChild(testimonialCard);
+                        });
+                        
+                        testimonialsLoaded = true;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching testimonials:', error);
+                        const container = document.getElementById('testimonials-container');
+                        container.innerHTML =
+                            '<div class="col-span-3 text-center py-8 text-red-500">Gagal memuat testimonial</div>';
                     });
-                })
-                .catch(error => {
-                    console.error('Error fetching testimonials:', error);
-                    const container = document.getElementById('testimonials-container');
+            }
 
-                    container.innerHTML =
-                        '<div class="col-span-3 text-center py-8 text-red-500">Gagal memuat testimonial</div>';
-
-                });
+            // Use Intersection Observer to load testimonials when section is visible
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            loadTestimonials();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {rootMargin: '100px'});
+                
+                observer.observe(testimonialsSection);
+            } else {
+                // Fallback for browsers that don't support Intersection Observer
+                loadTestimonials();
+            }
         });
     </script>
 
@@ -1042,4 +1218,37 @@
             speed: 1000,
         });
     </script> --}}
+
+    <!-- Modal Global untuk Gambar -->
+    <dialog id="image-modal" class="rounded-xl max-w-5xl sm:mx-auto backdrop:bg-black/80" onclick="handleOutsideClick(event, this)">
+        <div class="relative bg-transparent rounded-xl overflow-hidden max-h-[90vh]">
+            <button onclick="document.getElementById('image-modal').close()"
+                    class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-black z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="modal-image" src="" alt="Image" class="w-full h-auto max-h-[90vh] object-contain">
+            <div id="modal-caption" class="bg-black/70 text-white p-2 text-center absolute bottom-0 w-full"></div>
+        </div>
+    </dialog>
+
+    <script>
+        function openImageModal(imageUrl, caption) {
+            const modal = document.getElementById('image-modal');
+            const img = document.getElementById('modal-image');
+            const captionEl = document.getElementById('modal-caption');
+            
+            img.src = imageUrl;
+            img.alt = caption;
+            captionEl.textContent = caption;
+            modal.showModal();
+            
+            // Mencegah scrolling pada body ketika modal terbuka
+            document.body.style.overflow = 'hidden';
+        }
+
+        document.getElementById('image-modal').addEventListener('close', function() {
+            // Mengaktifkan kembali scrolling pada body ketika modal ditutup
+            document.body.style.overflow = 'auto';
+        });
+    </script>
 @endsection
