@@ -98,7 +98,7 @@ class HomeController extends Controller
         $packets = DynamicAsset::where('type', 'PACKET')
             ->where('is_active', true)
             ->latest()
-            ->paginate(9);
+            ->paginate(3);
 
         return view('packets', compact('packets'));
     }
