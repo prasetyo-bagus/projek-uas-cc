@@ -113,13 +113,23 @@
                 width: 100%;
             }
         }
+
+        /* Padding untuk konten utama agar tidak tertutup navbar */
+        .content-wrapper {
+            padding-top: 72px; /* Sesuaikan dengan tinggi navbar */
+        }
+
+        /* Penanganan khusus untuk homepage - tanpa padding untuk hero section */
+        .homepage-content .hero-section {
+            margin-top: -72px; /* Mengembalikan posisi hero section ke atas */
+        }
     </style>
 </head>
 
-<body class="bg-gray-100 text-gray-900 font-sans antialiased">
+<body class="bg-gray-100 text-gray-900 font-poppins antialiased">
     @include('navbar.guestnavbar')
 
-    <main class="w-full">
+    <main class="w-full content-wrapper {{ request()->routeIs('homepage') ? 'homepage-content' : '' }}">
         @yield('content')
 
         @livewireScripts

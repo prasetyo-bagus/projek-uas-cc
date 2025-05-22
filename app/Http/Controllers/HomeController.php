@@ -68,7 +68,7 @@ class HomeController extends Controller
         $galleries = DynamicAsset::where('type', 'GALERY')
             ->where('is_active', true)
             ->latest()
-            ->paginate(12);
+            ->paginate(8);
 
         return view('gallery', compact('galleries'));
     }
@@ -83,7 +83,7 @@ class HomeController extends Controller
         $facilities = DynamicAsset::where('type', 'FACILITY')
             ->where('is_active', true)
             ->latest()
-            ->paginate(9);
+            ->paginate(3);
 
         return view('facilities', compact('facilities'));
     }

@@ -11,9 +11,36 @@ class DynamicAssetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $assets = DynamicAsset::all();
+        $query = DynamicAsset::query();
+        
+        // Filter by type if provided
+        if ($request->has('type') && $request->type) {
+            $query->where('type', $request->type);
+        }
+        
+        // Filter by status if provided
+        if ($request->has('status') && $request->status) {
+            $isActive = $request->status === 'active';
+            $query->where('is_active', $isActive);
+        }
+        
+        // Search by title or description if provided
+        if ($request->has('search') && $request->search) {
+            $search = '%' . $request->search . '%';
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', $search)
+                  ->orWhere('description', 'like', $search);
+            });
+        }
+        
+        // Order by created_at date, latest first
+        $query->latest();
+        
+        // Paginate the results
+        $assets = $query->paginate(10)->withQueryString();
+        
         return view('dynamic_assets.index', compact('assets'));
     }
 

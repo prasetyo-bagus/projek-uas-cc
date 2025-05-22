@@ -1,4 +1,4 @@
-<section class="testimonial-section bg-gradient-to-r from-purple-900 to-purple-700 p-8 rounded-xl shadow-xl">
+<section class="testimonial-section bg-gradient-to-br from-purple-800 to-indigo-900 p-8 rounded-xl shadow-xl">
     <div class="container mx-auto">
         <h4 class="text-white text-2xl font-bold mb-6 flex items-center">
             <i class="fas fa-comment-dots mr-3 text-yellow-400 animate-pulse"></i>

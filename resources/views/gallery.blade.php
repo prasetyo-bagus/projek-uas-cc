@@ -3,7 +3,7 @@
 <body class="bg-gray-50">
     @section('content')
         <!-- Hero Section -->
-        <section class="py-20 bg-purple-900 relative overflow-hidden">
+        <section class="py-24 bg-gradient-to-br from-purple-700 to-purple-900 relative overflow-hidden">
             <div class="absolute inset-0 opacity-20">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
                     class="absolute w-full h-full">
@@ -13,13 +13,14 @@
                 </svg>
             </div>
             <div class="container mx-auto px-6 text-center relative z-10">
-                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Galeri Nusantara Edupark</h1>
-                <p class="text-xl text-white/80 mb-0">Keindahan dan keseruan dalam jepretan foto</p>
+                <span class="inline-block px-4 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-4">Photo Gallery</span>
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">Galeri <span class="text-pink-300">Nusantara Edupark</span></h1>
+                <p class="text-xl text-white/80 max-w-2xl mx-auto">Keindahan dan keseruan dalam jepretan foto</p>
             </div>
         </section>
 
         <!-- Gallery Grid -->
-        <section class="py-16 bg-gray-50">
+        <section class="py-20 bg-gray-50">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 @if($galleries->count() > 0)
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
@@ -40,14 +41,18 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="mt-12">
-                        {{ $galleries->links() }}
+                    <div class="mt-16 flex justify-center" id="pagination-container">
+                        <div class="pagination-wrapper">
+                            {{ $galleries->onEachSide(1)->links('vendor.pagination.tailwind') }}
+                        </div>
                     </div>
                 @else
-                    <div class="text-center py-20">
-                        <div class="inline-block p-6 rounded-lg bg-gray-100 shadow-sm">
-                            <i class="fas fa-images text-gray-400 text-5xl mb-4"></i>
-                            <h3 class="text-xl font-medium text-gray-700 mb-2">Belum Ada Foto</h3>
+                    <div class="text-center py-24">
+                        <div class="inline-block p-8 rounded-2xl bg-white shadow-md border border-gray-100">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto text-gray-400 mb-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <h3 class="text-2xl font-medium text-gray-700 mb-3">Belum Ada Foto</h3>
                             <p class="text-gray-500">Galeri foto akan segera ditambahkan. Silakan kunjungi kembali nanti.</p>
                         </div>
                     </div>
@@ -56,3 +61,25 @@
         </section>
     @endsection
 </body>
+
+<style>
+    /* Custom styling for pagination with purple theme */
+    .pagination-wrapper .shadow-sm {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Override the green theme with purple theme */
+    .pagination-wrapper [aria-current="page"] span {
+        background-color: #9333ea !important; /* Purple-600 */
+        border-color: #9333ea !important;
+    }
+    
+    .pagination-wrapper a:hover {
+        color: #9333ea !important; /* Purple hover color */
+        border-color: #e9d5ff !important; /* Light purple border */
+    }
+    
+    .pagination-wrapper a:focus {
+        border-color: #d8b4fe !important; /* Medium purple border */
+    }
+</style>

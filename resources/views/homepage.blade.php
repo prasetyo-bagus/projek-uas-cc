@@ -42,50 +42,116 @@
             visibility: visible;
             opacity: 1;
         }
+
+        /* Hero Section Enhancements */
+        .hero-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
+            font-size: 90%;
+        }
+
+        .hero-description {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1.2s ease-out;
+            font-size: 90%;
+        }
+
+        .hero-buttons {
+            animation: fadeInUp 1.4s ease-out;
+            transform: scale(0.95);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .swiper-slide-active .hero-overlay {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
     </style>
 
-    <div class="swiper heroSwiper w-full h-[60vh] md:h-[80vh] relative">
-        <div class="swiper-wrapper w-full h-full">
-            @foreach ($banners as $banner)
-                <div class="swiper-slide w-full aspect-video md:h-[80vh] bg-center bg-cover flex lazy-slide"
-                    data-bg="{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}">
+    <div class="hero-section">
+        <div class="swiper heroSwiper w-full h-[65vh] md:h-[80vh] relative">
+            <div class="swiper-wrapper w-full h-full">
+                @foreach ($banners as $banner)
+                    <div class="swiper-slide w-full aspect-video md:h-[70vh] bg-center bg-cover flex lazy-slide"
+                        data-bg="{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}">
 
-                    <div class="flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-12 bg-black/20">
-                        <div class="container mx-auto">
-                            <h1 class="text-3xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                                {{ $banner->title ?? 'Nusantara Edupark' }}
-                            </h1>
-                            <p class="text-l md:text-2xl text-white mb-8 drop-shadow-md">
-                                {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
-                            </p>
-                            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                                <a href="{{ route('packets') }}"
-                                    class="bg-white hover:bg-gray-100 text-purple-900 font-semibold py-3 px-8 rounded-full transition-all">
-                                    Lihat Paket Wisata
-                                </a>
+                        <div class="hero-overlay flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-16 md:pb-24 bg-gradient-to-b from-black/10 via-black/20 to-black/50">
+                            <div class="container mx-auto hero-content">
+                                <h1 class="hero-title text-2xl md:text-5xl font-bold text-white mb-3 drop-shadow-lg">
+                                    {{ $banner->title ?? 'Nusantara Edupark' }}
+                                </h1>
+                                <p class="hero-description text-base md:text-xl text-white mb-6 drop-shadow-md">
+                                    {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
+                                </p>
+                                <div class="hero-buttons flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-3">
+                                    <a href="{{ route('packets') }}" class="bg-purple-800 hover:bg-purple-700 text-white px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center">
+                                        <i class="fas fa-ticket-alt mr-2"></i> Lihat Paket Wisata
+                                    </a>
+                                    <a href="{{ route('gallery') }}" class="bg-white/30 backdrop-blur-sm hover:bg-white/40 text-white border border-white/50 px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center">
+                                        <i class="fas fa-images mr-2"></i> Galeri
+                                    </a>
+                                </div>
                             </div>
                         </div>
+                        <!-- Tambahkan area klik untuk banner -->
+                        <div class="absolute inset-0 cursor-pointer" onclick="openBannerModal('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}', '{{ $banner->title ?? 'Nusantara Edupark' }}')"></div>
                     </div>
-                    <!-- Tambahkan area klik untuk banner -->
-                    <div class="absolute inset-0 cursor-pointer" onclick="openBannerModal('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}', '{{ $banner->title ?? 'Nusantara Edupark' }}')"></div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+
+            <!-- swiper pagination -->
+            <div class="swiper-pagination"></div>
         </div>
-
-        <!-- swiper pagination -->
-        <div class="swiper-pagination"></div>
-
-    </div>
+        
+        <!-- Wave/Curved shape at the bottom -->
+        <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-[60px] md:h-[80px]">
+                <path fill="#ffffff" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+            </svg>
+        </div>
     </div>
 
     <!-- Modal untuk Banner -->
-    <dialog id="banner-modal" class="rounded-xl max-w-5xl sm:mx-auto backdrop:bg-black/80" onclick="handleOutsideClick(event, this)">
-        <div class="relative bg-transparent rounded-xl overflow-hidden max-h-[90vh]">
+    <dialog id="banner-modal" class="rounded-xl max-w-4xl sm:mx-auto backdrop:bg-black/80" onclick="handleOutsideClick(event, this)">
+        <div class="relative bg-transparent rounded-xl overflow-hidden max-h-[50vh]">
             <button onclick="document.getElementById('banner-modal').close()"
                     class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-black z-10">
                 <i class="fas fa-times"></i>
             </button>
-            <img id="banner-modal-image" src="" alt="Banner" class="w-full h-auto max-h-[90vh] object-contain">
+            <img id="banner-modal-image" src="" alt="Banner" class="w-full h-auto max-h-[50vh] object-contain">
         </div>
     </dialog>
     
@@ -214,61 +280,61 @@
     </section> --}}
 
     <!-- Features Section with Playful Elements -->
-    <section class="py-16 bg-white relative overflow-hidden">
+    <section class="py-12 bg-white relative overflow-hidden">
         <!-- Background Decorative Elements - simplified -->
-        <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-200 rounded-full opacity-20 transform -translate-y-1/2 translate-x-1/2"></div>
-        <div class="absolute bottom-0 left-0 w-48 h-48 bg-green-200 rounded-full opacity-20 transform translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute top-0 right-0 w-28 h-28 bg-yellow-200 rounded-full opacity-20 transform -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-40 h-40 bg-green-200 rounded-full opacity-20 transform translate-y-1/2 -translate-x-1/2"></div>
 
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-gray-800 relative inline-block">
                     <span class="relative z-10">Pengalaman Wisata Edukatif</span>
                     <svg class="absolute -bottom-2 left-0 w-full h-3 text-green-200 z-0" viewBox="0 0 200 8">
                         <path d="M0 4C40 0 60 8 100 4C140 0 160 8 200 4" fill="none" stroke="currentColor"
                             stroke-width="4" stroke-linecap="round"></path>
                     </svg>
                 </h2>
-                <p class="text-gray-600 mt-4">Nikmati beragam aktivitas menarik dan bermanfaat</p>
+                <p class="text-gray-600 mt-3">Nikmati beragam aktivitas menarik dan bermanfaat</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                    class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
                     data-aos="fade-up" data-aos-delay="100">
                     <div
-                        class="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
-                        <i class="fas fa-seedling text-green-600 text-3xl group-hover:animate-bounce-slow"></i>
+                        class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
+                        <i class="fas fa-seedling text-green-600 text-2xl group-hover:animate-bounce-slow"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Edukasi Pertanian</h3>
-                    <p class="text-gray-600">Pelajari teknik bertani modern dan tradisional dengan pengalaman langsung
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Edukasi Pertanian</h3>
+                    <p class="text-gray-600 text-sm">Pelajari teknik bertani modern dan tradisional dengan pengalaman langsung
                         di lahan pertanian kami.</p>
                     <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     </div>
                 </div>
 
                 <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                    class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
                     data-aos="fade-up" data-aos-delay="200">
                     <div
-                        class="bg-orange-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
-                        <i class="fas fa-horse text-orange-600 text-3xl group-hover:animate-bounce-slow"></i>
+                        class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
+                        <i class="fas fa-horse text-orange-600 text-2xl group-hover:animate-bounce-slow"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Peternakan Interaktif</h3>
-                    <p class="text-gray-600">Berinteraksi dengan beragam hewan ternak dan pelajari cara merawat mereka
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Peternakan Interaktif</h3>
+                    <p class="text-gray-600 text-sm">Berinteraksi dengan beragam hewan ternak dan pelajari cara merawat mereka
                         dengan baik.</p>
                     <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     </div>
                 </div>
 
                 <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                    class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
                     data-aos="fade-up" data-aos-delay="300">
                     <div
-                        class="bg-blue-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all">
-                        <i class="fas fa-tree text-blue-600 text-3xl group-hover:animate-bounce-slow"></i>
+                        class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
+                        <i class="fas fa-tree text-blue-600 text-2xl group-hover:animate-bounce-slow"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Taman Perkebunan</h3>
-                    <p class="text-gray-600">Jelajahi aneka tanaman perkebunan dan pelajari proses panen hingga
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Taman Perkebunan</h3>
+                    <p class="text-gray-600 text-sm">Jelajahi aneka tanaman perkebunan dan pelajari proses panen hingga
                         pengolahan hasil perkebunan.</p>
                     <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     </div>
@@ -279,20 +345,20 @@
 
     <!-- PACKET -->
     <!-- Popular Tours Section with Animated Effects -->
-    <section class="py-16 bg-gray-50 relative overflow-hidden">
+    <section class="py-12 bg-white relative overflow-hidden">
         <!-- Background Elements - simplified -->
-        <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-gray-50 opacity-50"></div>
+        <!-- <div class="absolute inset-0 bg-pattern opacity-5"></div> -->
         
         <div class="container mx-auto px-6 relative z-10">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12" data-aos="fade-up">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8" data-aos="fade-up">
                 <div>
                     <h2
-                        class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-900">
+                        class="text-2xl md:text-3xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-800">
                         Paket Wisata</h2>
-                    <p class="text-gray-600 mt-3 text-lg">Pilihan paket wisata edukatif</p>
+                    <p class="text-gray-600 mt-2 text-base">Pilihan paket wisata edukatif</p>
                 </div>
                 <a href="{{ route('packets') }}"
-                    class="group flex items-center mt-4 md:mt-0 text-purple-900 font-semibold hover:text-purple-900 transition-all duration-300">
+                    class="group flex items-center mt-4 md:mt-0 text-purple-800 font-semibold hover:text-purple-900 transition-all duration-300">
                     Lihat Semua
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
@@ -302,12 +368,12 @@
                     </svg>
                 </a>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @forelse ($packets as $packet)
                     <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative" 
                          data-aos="fade-up" 
                          data-aos-delay="{{ $loop->index * 100 }}">
-                        <div class="relative h-56 md:h-64 overflow-hidden rounded-t-xl">
+                        <div class="relative h-40 md:h-48 overflow-hidden rounded-t-xl">
                             <div class="absolute inset-0 bg-gray-300 animate-pulse"></div>
                             <img 
                                 data-src="{{ asset('storage/' . $packet->image) }}"
@@ -320,61 +386,46 @@
                             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             
                             <!-- Tombol untuk melihat gambar paket wisata -->
-                            <div class="absolute z-10 top-3 right-3 flex gap-2">
+                            <div class="absolute z-10 top-2 right-2 flex gap-2">
                                 <button onclick="openImageModal('{{ asset('storage/' . $packet->image) }}', '{{ $packet->title }}')"
-                                    class="bg-white/80 hover:bg-white text-purple-900 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform hover:scale-105 tooltip-container">
+                                    class="bg-white/80 hover:bg-white text-purple-900 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform hover:scale-105 tooltip-container">
                                     <i class="fas fa-expand"></i>
                                     <span class="tooltip-text">Perbesar</span>
                                 </button>
                             </div>
                         </div>
 
-                        <dialog id="imageModal-{{ $packet->id }}"
-                                class="rounded-xl max-w-5xl sm:mx-auto backdrop:bg-black/50"
-                                onclick="handleOutsideClick(event, this)">
-                            <div class="relative bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh]">
-                                <button onclick="document.getElementById('imageModal-{{ $packet->id }}').close()"
-                                        class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-black z-10">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                                <img src="{{ asset('storage/' . $packet->image) }}"
-                                    alt="{{ $packet->title }}"
-                                    class="w-full h-auto max-h-[90vh] object-contain"
-                                    onload="this.style.opacity='1'">
-                            </div>
-                        </dialog>
-
-                        <div class="p-5">
-                            <div class="mb-3">
-                                <h3 class="text-xl font-bold text-gray-800 group-hover:text-purple-700 transition-colors">{{ $packet->title }}</h3>
-                                <div class="w-10 h-1 bg-purple-700 mt-2 mb-3 group-hover:w-20 transition-all duration-300"></div>
+                        <div class="p-4">
+                            <div class="mb-2">
+                                <h3 class="text-lg font-bold text-gray-800 group-hover:text-purple-700 transition-colors">{{ $packet->title }}</h3>
+                                <div class="w-10 h-1 bg-purple-700 mt-1.5 mb-2 group-hover:w-16 transition-all duration-300"></div>
                                 <!-- <p class="text-gray-600 mb-4 line-clamp-2">{{ $packet->description }}</p> -->
                             </div>
                             
-                            <div class="space-y-3">
+                            <div class="space-y-2">
                                 <!-- Pricing Cards -->
-                                <div class="grid grid-cols-2 gap-3">
-                                    <div class="bg-purple-50 rounded-lg p-3 border-l-4 border-purple-600 transform transition-transform hover:scale-105">
-                                        <p class="text-xs text-gray-600 mb-1">Weekday</p>
-                                        <p class="text-lg font-bold text-purple-700">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-purple-50 rounded-lg p-2 border-l-4 border-purple-600 transform transition-transform hover:scale-105">
+                                        <p class="text-xs text-gray-600 mb-0.5">Weekday</p>
+                                        <p class="text-base font-bold text-purple-700">
                                             {{ $packet->weekday_price ?: 'Hubungi kami' }}
                                         </p>
                                     </div>
-                                    <div class="bg-indigo-50 rounded-lg p-3 border-l-4 border-indigo-600 transform transition-transform hover:scale-105">
-                                        <p class="text-xs text-gray-600 mb-1">Weekend</p>
-                                        <p class="text-lg font-bold text-indigo-700">
+                                    <div class="bg-indigo-50 rounded-lg p-2 border-l-4 border-indigo-600 transform transition-transform hover:scale-105">
+                                        <p class="text-xs text-gray-600 mb-0.5">Weekend</p>
+                                        <p class="text-base font-bold text-indigo-700">
                                             {{ $packet->weekend_price ?: 'Hubungi kami' }}
                                         </p>
                                     </div>
                                 </div>
                                 
-                                <div class="flex gap-2 pt-2">
+                                <div class="flex gap-2 pt-1.5">
                                     <a href="{{ route('packets') }}#contact-packet"
-                                        class="flex-1 bg-purple-600 hover:bg-purple-800 text-white font-medium py-2 px-4 rounded-lg transition-colors text-center inline-flex items-center justify-center">
+                                        class="flex-1 bg-purple-600 hover:bg-purple-800 text-white font-medium py-1.5 px-3 rounded-lg transition-colors text-center inline-flex items-center justify-center text-sm">
                                         <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                     </a>
                                     <button onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
-                                        class="flex-1 bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium py-2 px-4 rounded-lg transition-colors">
+                                        class="flex-1 bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium py-1.5 px-3 rounded-lg transition-colors text-sm">
                                         <i class="fas fa-info-circle mr-1"></i> Detail
                                     </button>
                                 </div>
@@ -386,7 +437,7 @@
                         <div class="absolute -top-2 -left-2 w-12 h-12 bg-indigo-200 rounded-full opacity-20 z-0 transform scale-0 group-hover:scale-100 transition-transform duration-500 delay-100"></div>
 
                         <dialog id="detailModal-{{ $packet->id }}"
-                            class="rounded-xl w-500 max-w-4xl sm:mx-auto mx-2 my-6 sm:my-16 p-0 overflow-hidden backdrop:bg-black/50"
+                            class="rounded-xl w-500 max-w-3xl sm:mx-auto mx-2 my-4 sm:my-8 p-0 overflow-hidden backdrop:bg-black/50"
                             onclick="handleOutsideClick(event, this)">
                             <div
                                 class="bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh] flex flex-col">
@@ -474,34 +525,21 @@
 
 
     <!-- FACILITY -->
-    <section class="py-16 bg-gray-50 relative overflow-hidden">
-        <!-- Decorative Background Elements removed for performance -->
+    <section class="py-12 bg-white relative overflow-hidden">
+        <!-- Decorative Background Elements -->
+        <div class="absolute inset-0 bg-pattern opacity-5"></div>
         
         <div class="container mx-auto px-6 relative z-10">
-            {{-- <div class="flex justify-between items-center mb-10">
-                <div>
-                    <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
-                        <i class="fas fa-star text-yellow-400 mr-2 animate-pulse-slow"></i>
-                        FASILITAS
-                    </h2>
-                    <p class="text-gray-600 mt-2">FASILITAS YANG TERSEDIA</p>
-                </div>
-                <a href="{{ route('facilities') }}"
-                    class="text-green-600 hover:text-green-700 font-semibold transition-all flex items-center group">
-                    Lihat Semua <i class="fas fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i>
-                </a>
-            </div> --}}
-
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12" data-aos="fade-up">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8" data-aos="fade-up">
                 <div>
                     <h2
-                        class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-green-600 flex items-center">
+                        class="text-2xl md:text-3xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-green-700 flex items-center">
                         Fasilitas
                     </h2>
-                    <p class="text-gray-600 mt-3 text-lg">Fasilitas yang tersedia</p>
+                    <p class="text-gray-600 mt-2 text-base">Fasilitas yang tersedia</p>
                 </div>
                 <a href="{{ route('facilities') }}"
-                    class="group flex items-center mt-4 md:mt-0 text-green-600 font-semibold hover:text-green-700 transition-all duration-300">
+                    class="group flex items-center mt-4 md:mt-0 text-green-700 font-semibold hover:text-green-800 transition-all duration-300">
                     Lihat Semua
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
@@ -512,16 +550,16 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @forelse ($facilities as $facility)
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group"
                         data-aos="fade-up" 
                         data-aos-delay="{{ $loop->index * 100 }}">
                         <div class="relative overflow-hidden">
-                            <div class="relative w-full h-60 overflow-hidden bg-gray-300 animate-pulse">
+                            <div class="relative w-full h-48 overflow-hidden bg-gray-300 animate-pulse">
                                 <img src="{{ asset('storage/' . $facility->image) }}" loading="lazy"
-                                    class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700 opacity-0 cursor-pointer"
+                                    class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700 opacity-0 cursor-pointer"
                                     alt="{{ $facility->title }}"
                                     onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse');"
                                     onclick="openImageModal('{{ asset('storage/' . $facility->image) }}', '{{ $facility->title }}')"
@@ -529,25 +567,25 @@
                             </div>
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                                <p class="text-white px-4 pb-4 font-medium">
+                                <p class="text-white px-4 pb-3 font-medium text-sm">
                                     <i class="fas fa-building mr-2"></i> Fasilitas
                                 </p>
                             </div>
                         </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-center mb-3">
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-2">
                                 <!-- <span
                                                 class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
                                                 <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
                                             </span> -->
                             </div>
-                            <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
-                            <p class="text-gray-600 mb-4">{{ $facility->description }}</p>
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
+                            <p class="text-gray-600 mb-3 text-sm">{{ $facility->description }}</p>
                             @if ($facility->detail)
                                 <div class="flex justify-end">
                                     <a href="javascript:void(0)"
                                         onclick="openDetailModal('{{ $facility->title }}', '{{ addslashes($facility->description) }}', '{{ addslashes($facility->detail) }}', '{{ asset('storage/' . $facility->image) }}')"
-                                        class="text-blue-600 hover:text-blue-800 font-medium transition-colors flex items-center">
+                                        class="text-blue-600 hover:text-blue-800 font-medium transition-colors flex items-center text-sm">
                                         <i class="fas fa-info-circle mr-1"></i> Detail
                                     </a>
                                 </div>
@@ -555,9 +593,9 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-span-3 text-center py-12" data-aos="fade-up">
-                        <div class="bg-gray-100 rounded-lg p-8 inline-block">
-                            <i class="fas fa-building text-gray-400 text-4xl mb-3"></i>
+                    <div class="col-span-3 text-center py-10" data-aos="fade-up">
+                        <div class="bg-gray-100 rounded-lg p-6 inline-block">
+                            <i class="fas fa-building text-gray-400 text-3xl mb-3"></i>
                             <p class="text-gray-500">Belum ada fasilitas yang tersedia.</p>
                         </div>
                     </div>
@@ -569,37 +607,37 @@
     <!-- Modal Detail Fasilitas -->
     <div id="facility-detail-modal"
         class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
-        <div id="facility-modal-box"
-            class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-3xl mx-auto transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto">
+            <div id="facility-modal-box"
+        class="bg-white p-3 rounded-xl shadow-2xl w-full max-w-2xl mx-auto transform scale-95 opacity-0 transition-all duration-300 max-h-[80vh] overflow-y-auto">
 
-            <div class="flex justify-between items-start mb-4">
-                <h2 id="facility-title" class="text-2xl font-bold text-gray-800"></h2>
+            <div class="flex justify-between items-start mb-3">
+                <h2 id="facility-title" class="text-xl font-bold text-gray-800"></h2>
                 <button onclick="closeDetailModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-xl"></i>
+                    <i class="fas fa-times text-lg"></i>
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
                 <div class="overflow-hidden rounded-lg">
                     <img id="facility-image" src="" alt="Gambar Fasilitas"
                         class="w-full h-auto object-cover rounded-lg hover:scale-105 transition-transform duration-500">
                 </div>
                 <div>
-                    <div class="mb-4">
-                        <h3 class="text-lg font-semibold text-gray-700 mb-2">Deskripsi:</h3>
-                        <p id="facility-description" class="text-gray-600"></p>
+                    <div class="mb-3">
+                        <h3 class="text-base font-semibold text-gray-700 mb-1">Deskripsi:</h3>
+                        <p id="facility-description" class="text-gray-600 text-sm"></p>
                     </div>
 
-                    <div class="p-4 bg-gray-50 rounded-lg">
-                        <h3 class="font-semibold mb-2 text-purple-700">Detail Fasilitas:</h3>
-                        <div id="facility-detail" class="prose max-w-none text-gray-700"></div>
+                    <div class="p-3 bg-gray-50 rounded-lg">
+                        <h3 class="font-semibold mb-2 text-purple-700 text-sm">Detail Fasilitas:</h3>
+                        <div id="facility-detail" class="prose max-w-none text-gray-700 text-sm"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-6 flex justify-end">
+            <div class="mt-4 flex justify-end">
                 <button onclick="closeDetailModal()"
-                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors">
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-1.5 px-3 rounded-lg transition-colors text-sm">
                     Tutup
                 </button>
             </div>
@@ -639,94 +677,55 @@
 
    
     <!-- Gallery Section with Fun Interactive Elements -->
-    <section class="py-16 relative overflow-hidden">
+    <section class="py-12 relative overflow-hidden">
         <!-- Background dengan bentuk gelombang -->
         <div class="absolute inset-0">
-            <!-- Warna dasar sesuai permintaan: rgb(144, 0, 239) -->
-            <div class="absolute inset-0" style="background-color: rgb(144, 0, 239);"></div>
-
-            <!-- Icon anak-anak yang transparan di background (dihapus untuk mengurangi beban) -->
-
-            <!-- Gelombang sederhana di bagian atas -->
-            <div class="absolute top-0 left-0 w-full">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full"
-                    style="height: 60px;">
-                    <path fill="#ffffff"
-                        d="M0,32L60,42.7C120,53,240,75,360,69.3C480,64,600,32,720,21.3C840,11,960,21,1080,37.3C1200,53,1320,75,1380,85.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z">
-                    </path>
-                </svg>
-            </div>
-
-            <!-- Gelombang bertumpuk di bagian bawah seperti di referensi -->
-            <div class="absolute bottom-0 left-0 w-full overflow-hidden" style="height: 200px;">
-                <!-- Gelombang 1 (paling belakang, paling terang) -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
-                    class="absolute w-full bottom-0" style="height: 200px; opacity: 0.3;">
-                    <path fill="#ffffff"
-                        d="M0,224L80,213.3C160,203,320,181,480,181.3C640,181,800,203,960,202.7C1120,203,1280,181,1360,170.7L1440,160L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
-                    </path>
-                </svg>
-
-                <!-- Gelombang 2 (tengah) -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
-                    class="absolute w-full bottom-0" style="height: 170px; opacity: 0.4;">
-                    <path fill="#ffffff"
-                        d="M0,192L80,176C160,160,320,128,480,128C640,128,800,160,960,160C1120,160,1280,128,1360,112L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
-                    </path>
-                </svg>
-
-                <!-- Gelombang 3 (paling depan) -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none"
-                    class="absolute w-full bottom-0" style="height: 140px; opacity: 0.5;">
-                    <path fill="#ffffff"
-                        d="M0,160L80,144C160,128,320,96,480,96C640,96,800,128,960,128C1120,128,1280,96,1360,80L1440,64L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
-                    </path>
-                </svg>
-            </div>
+            <!-- Warna dasar yang konsisten dengan skema warna lainnya -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-800 to-indigo-900"></div>
         </div>
 
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-yellow-200 relative inline-block">
+            <div class="text-center mb-8" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-yellow-300 relative inline-block">
                     <i class="fas fa-images text-yellow-300 mr-2 animate-pulse-slow"></i>
                     Galeri Destinasi
                 </h2>
-                <p class="text-white mt-2">Keindahan dan keseruan di Nusantara Edupark</p>
+                <p class="text-white mt-2 text-sm">Keindahan dan keseruan di Nusantara Edupark</p>
             </div>
 
             <!-- Container untuk gambar-gambar gallery -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-16">
                 @forelse ($galleries->take(8) as $gallery)
                     <div class="relative overflow-hidden rounded-lg group cursor-pointer"
                         onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')"
                         data-aos="zoom-in" 
                         data-aos-delay="{{ $loop->index * 50 }}">
-                        <div class="relative w-full h-48 overflow-hidden bg-gray-300 animate-pulse">
+                        <div class="relative w-full h-40 overflow-hidden bg-gray-300 animate-pulse">
                             <img src="{{ asset('storage/' . $gallery->image) }}"
-                                class="w-full h-48 object-cover group-hover:scale-110 transition-all duration-500 opacity-0 cursor-pointer"
+                                class="w-full h-40 object-cover group-hover:scale-110 transition-all duration-500 opacity-0 cursor-pointer"
                                 alt="{{ $gallery->title }}"
                                 onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse');">
                         </div>
                         <div
-                            class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-4">
-                            <span class="text-white font-medium"><i class="fas fa-image mr-2"></i>
+                            class="absolute inset-0 bg-gradient-to-t from-purple-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-3">
+                            <span class="text-white font-medium text-sm"><i class="fas fa-image mr-2"></i>
                                 {{ $gallery->title }}</span>
                         </div>
 
                     </div>
                 @empty
-                    <div class="col-span-4 text-center py-12" data-aos="fade-up">
-                        <div class="text-white bg-purple-800/50 rounded-lg p-6 inline-block">
-                            <i class="fas fa-image text-4xl mb-3"></i>
+                    <div class="col-span-4 text-center py-10" data-aos="fade-up">
+                        <div class="text-white bg-purple-800/50 rounded-lg p-5 inline-block">
+                            <i class="fas fa-image text-3xl mb-3"></i>
                             <p>Belum ada foto galeri yang tersedia.</p>
                         </div>
                     </div>
                 @endforelse
             </div>
 
-            <div class="text-center mb-10" data-aos="fade-up" data-aos-delay="400">
+            <div class="text-center mb-8" data-aos="fade-up" data-aos-delay="400">
                 <a href="{{ route('gallery') }}"
-                    class="border-2 border-yellow-400 bg-yellow-300 text-purple-800 hover:bg-yellow-400 hover:border-yellow-500 font-semibold py-2 px-6 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max">
+                    class="border-2 border-yellow-400 bg-yellow-300 text-purple-800 hover:bg-yellow-400 hover:border-yellow-500 font-semibold py-1.5 px-5 rounded-full transition-all transform hover:scale-105 flex items-center justify-center mx-auto w-max text-sm">
                     <i class="fas fa-images mr-2"></i> Lihat Semua Foto
                 </a>
             </div>
@@ -737,25 +736,25 @@
     <div id="gallery-modal"
         class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
         <div id="gallery-modal-box"
-            class="bg-transparent w-full max-w-5xl mx-auto transform scale-95 opacity-0 transition-all duration-300">
+            class="bg-transparent w-full max-w-2xl mx-auto transform scale-95 opacity-0 transition-all duration-300">
 
             <div class="relative">
                 <button onclick="closeGalleryModal()"
-                    class="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors">
-                    <i class="fas fa-times text-2xl"></i>
+                    class="absolute -top-8 right-0 text-white hover:text-gray-300 transition-colors">
+                    <i class="fas fa-times text-xl"></i>
                 </button>
 
                 <div class="flex flex-col">
                     <!-- Gambar -->
                     <div class="overflow-hidden rounded-lg bg-black flex items-center justify-center">
                         <img id="gallery-image" src="" alt=""
-                            class="max-h-[70vh] max-w-full object-contain">
+                            class="max-h-[55vh] max-w-full object-contain">
                     </div>
 
                     <!-- Caption -->
-                    <div class="bg-white p-4 rounded-b-lg">
-                        <h3 id="gallery-title" class="text-xl font-bold text-gray-800 mb-2"></h3>
-                        <p id="gallery-description" class="text-gray-600"></p>
+                    <div class="bg-white p-3 rounded-b-lg">
+                        <h3 id="gallery-title" class="text-lg font-bold text-gray-800 mb-1"></h3>
+                        <p id="gallery-description" class="text-gray-600 text-sm"></p>
                     </div>
                 </div>
             </div>
@@ -807,17 +806,17 @@
 
 
     <!-- Blog Section -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-16 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12" data-aos="fade-up">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8" data-aos="fade-up">
                 <div>
                     <h2
-                        class="text-3xl md:text-4xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-900">
+                        class="text-2xl md:text-3xl font-bold text-gray-900 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-1 after:w-16 after:bg-purple-800">
                         Berita Pilihan</h2>
-                    <p class="text-gray-600 mt-3 text-lg">Berita Pilihan di Nusantara Edupark</p>
+                    <p class="text-gray-600 mt-2 text-base">Berita Pilihan di Nusantara Edupark</p>
                 </div>
                 <a href="/news"
-                    class="group flex items-center mt-4 md:mt-0 text-purple-900 font-semibold hover:text-purple-900 transition-all duration-300">
+                    class="group flex items-center mt-4 md:mt-0 text-purple-800 font-semibold hover:text-purple-900 transition-all duration-300">
                     Semua Berita
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
@@ -828,16 +827,16 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ($blogs->take(3) as $blogItem)
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group"
                         data-aos="fade-up" 
                         data-aos-delay="{{ $loop->index * 100 }}">
                         <div class="relative overflow-hidden">
-                            <div class="relative w-full h-56 overflow-hidden bg-gray-300 animate-pulse">
+                            <div class="relative w-full h-48 overflow-hidden bg-gray-300 animate-pulse">
                                 <img src="{{ asset('storage/' . $blogItem->picture) }}" loading="lazy"
-                                    class="w-full h-56 object-cover object-center transform group-hover:scale-105 transition-transform duration-500 opacity-0 cursor-pointer"
+                                    class="w-full h-48 object-cover object-center transform group-hover:scale-105 transition-transform duration-500 opacity-0 cursor-pointer"
                                     alt="{{ $blogItem->title }}"
                                     onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse', 'bg-gray-300');"
                                     onclick="openImageModal('{{ asset('storage/' . $blogItem->picture) }}', '{{ $blogItem->title }}')"
@@ -847,18 +846,18 @@
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             </div>
                         </div>
-                        <div class="p-6">
+                        <div class="p-4">
                             <div class="text-xs font-semibold text-purple-900 mb-2">
                                 {{ $blogItem->created_at->format('d M Y') }}
                             </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-purple-900 transition-colors">
+                            <h3 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-purple-900 transition-colors">
                                 {{ Str::words($blogItem->title, 12) }}
                             </h3>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                                {{ Str::limit($blogItem->content, 120) }}
+                            <p class="text-gray-600 text-sm leading-relaxed mb-3">
+                                {{ Str::limit($blogItem->content, 100) }}
                             </p>
                             <a href="{{ route('blogs.show', $blogItem->url) }}"
-                                class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors">
+                                class="inline-flex items-center text-purple-900 font-medium group-hover:text-purple-900 transition-colors text-sm">
                                 Baca Selengkapnya
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300"
@@ -876,36 +875,36 @@
 
 
     <!-- Testimonials Section with Animated Ratings -->
-    <section id="testimonials" class="py-16 bg-gray-50 relative overflow-hidden">
+    <section id="testimonials" class="py-12 bg-white relative overflow-hidden">
         <!-- Background decorative elements -->
-        <div class="absolute top-10 left-10 text-6xl text-gray-200 opacity-20 transform -rotate-12">
+        <div class="absolute top-10 left-10 text-5xl text-gray-200 opacity-20 transform -rotate-12">
             <i class="fas fa-quote-left"></i>
         </div>
-        <div class="absolute bottom-10 right-10 text-6xl text-gray-200 opacity-20 transform rotate-12">
+        <div class="absolute bottom-10 right-10 text-5xl text-gray-200 opacity-20 transform rotate-12">
             <i class="fas fa-quote-right"></i>
         </div>
 
 
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 relative inline-block">
+            <div class="text-center mb-8" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-gray-900 relative inline-block">
                     <i class="fas fa-comments text-yellow-500 mr-2 animate-pulse-slow"></i>
                     Apa Kata Mereka?
                 </h2>
-                <p class="text-gray-600 mt-2">Pengalaman pengunjung di Nusantara Edupark</p>
+                <p class="text-gray-600 mt-2 text-sm">Pengalaman pengunjung di Nusantara Edupark</p>
             </div>
 
 
 
-            <h3 class="text-2xl font-bold text-gray-800 mb-8 flex items-center" data-aos="fade-up">
-                <i class="fas fa-quote-left text-purple-500 mr-3"></i>
+            <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center" data-aos="fade-up">
+                <i class="fas fa-quote-left text-purple-800 mr-3"></i>
                 Ulasan Pengunjung
             </h3>
 
-            <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
+            <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
                 <!-- Testimonial akan dirender melalui JavaScript -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
-                    <div class="flex items-center mb-4">
+                <div class="bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
+                    <div class="flex items-center mb-3">
                         <div class="text-yellow-400 flex">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -915,17 +914,17 @@
                         </div>
                         <span class="text-gray-600 ml-2">5.0</span>
                     </div>
-                    <div class="h-20 bg-gray-200 rounded mb-4"></div>
+                    <div class="h-16 bg-gray-200 rounded mb-3"></div>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                        <div class="w-10 h-10 rounded-full bg-gray-300"></div>
                         <div class="ml-3">
-                            <div class="h-5 bg-gray-200 rounded w-24"></div>
-                            <div class="h-4 bg-gray-200 rounded w-16 mt-1"></div>
+                            <div class="h-4 bg-gray-200 rounded w-20"></div>
+                            <div class="h-3 bg-gray-200 rounded w-14 mt-1"></div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
-                    <div class="flex items-center mb-4">
+                <div class="bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
+                    <div class="flex items-center mb-3">
                         <div class="text-yellow-400 flex">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -935,17 +934,17 @@
                         </div>
                         <span class="text-gray-600 ml-2">4.5</span>
                     </div>
-                    <div class="h-20 bg-gray-200 rounded mb-4"></div>
+                    <div class="h-16 bg-gray-200 rounded mb-3"></div>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                        <div class="w-10 h-10 rounded-full bg-gray-300"></div>
                         <div class="ml-3">
-                            <div class="h-5 bg-gray-200 rounded w-24"></div>
-                            <div class="h-4 bg-gray-200 rounded w-16 mt-1"></div>
+                            <div class="h-4 bg-gray-200 rounded w-20"></div>
+                            <div class="h-3 bg-gray-200 rounded w-14 mt-1"></div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
-                    <div class="flex items-center mb-4">
+                <div class="bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition-all animate-pulse">
+                    <div class="flex items-center mb-3">
                         <div class="text-yellow-400 flex">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
@@ -955,22 +954,22 @@
                         </div>
                         <span class="text-gray-600 ml-2">5.0</span>
                     </div>
-                    <div class="h-20 bg-gray-200 rounded mb-4"></div>
+                    <div class="h-16 bg-gray-200 rounded mb-3"></div>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gray-300"></div>
+                        <div class="w-10 h-10 rounded-full bg-gray-300"></div>
                         <div class="ml-3">
-                            <div class="h-5 bg-gray-200 rounded w-24"></div>
-                            <div class="h-4 bg-gray-200 rounded w-16 mt-1"></div>
+                            <div class="h-4 bg-gray-200 rounded w-20"></div>
+                            <div class="h-3 bg-gray-200 rounded w-14 mt-1"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center mt-8" data-aos="fade-up" data-aos-delay="300">
+            <div class="text-center mt-6" data-aos="fade-up" data-aos-delay="300">
                 <a href="{{ route('testimonials.all') }}"
-                    class="inline-flex items-center text-purple-700 font-medium hover:text-purple-900 transition-colors">
+                    class="inline-flex items-center text-purple-800 font-medium hover:text-purple-900 transition-colors text-sm">
                     <span>Lihat Semua Ulasan</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -979,7 +978,7 @@
             </div>
         </div>
         <!-- Form Testimonial -->
-        <div class="max-w-4xl mx-auto mb-16 mt-16" data-aos="fade-up" data-aos-delay="400">
+        <div class="max-w-3xl mx-auto mb-12 mt-12" data-aos="fade-up" data-aos-delay="400">
             @include('review.formkomentar')
         </div>
     </section>
@@ -1220,14 +1219,14 @@
     </script> --}}
 
     <!-- Modal Global untuk Gambar -->
-    <dialog id="image-modal" class="rounded-xl max-w-5xl sm:mx-auto backdrop:bg-black/80" onclick="handleOutsideClick(event, this)">
-        <div class="relative bg-transparent rounded-xl overflow-hidden max-h-[90vh]">
+    <dialog id="image-modal" class="rounded-xl max-w-3xl sm:mx-auto backdrop:bg-black/80" onclick="handleOutsideClick(event, this)">
+        <div class="relative bg-transparent rounded-xl overflow-hidden max-h-[75vh]">
             <button onclick="document.getElementById('image-modal').close()"
-                    class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-black z-10">
+                    class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-1.5 hover:bg-black z-10">
                 <i class="fas fa-times"></i>
             </button>
-            <img id="modal-image" src="" alt="Image" class="w-full h-auto max-h-[90vh] object-contain">
-            <div id="modal-caption" class="bg-black/70 text-white p-2 text-center absolute bottom-0 w-full"></div>
+            <img id="modal-image" src="" alt="Image" class="w-full h-auto max-h-[75vh] object-contain">
+            <div id="modal-caption" class="bg-black/70 text-white p-1.5 text-center absolute bottom-0 w-full text-sm"></div>
         </div>
     </dialog>
 
