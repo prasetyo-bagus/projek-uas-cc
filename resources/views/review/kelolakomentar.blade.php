@@ -190,9 +190,9 @@
                     </table>
                 </div>
 
-                        <div class="px-6 py-4">
-                            {{ $testimonials->links() }}
-                        </div>
+                <div class="mt-6 flex justify-center px-6 py-4">
+                    {{ $testimonials->links() }}
+                </div>
                 @endif
             </div>
         </div>

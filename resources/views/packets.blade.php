@@ -17,7 +17,7 @@
             </svg>
         </div>
         <div class="container mx-auto px-6 text-center relative z-10">
-            <h1 class="text-3xl md:text-5xl font-bold text-white mb-3 drop-shadow-lg font-montserrat">Paket Wisata Nusantara Edupark</h1>
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-3 drop-shadow-lg font-poopins">Paket Wisata Nusantara Edupark</h1>
             <p class="text-lg md:text-xl text-white/90 mb-0 max-w-3xl mx-auto font-poppins">Pengalaman wisata edukatif yang menyenangkan untuk semua usia</p>
         </div>
     </section>
@@ -26,7 +26,7 @@
     <section class="py-14 bg-gradient-to-b from-gray-50 to-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3 font-montserrat">Pilihan Paket Wisata</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-3 font-poopins">Pilihan Paket Wisata</h2>
                 <p class="text-gray-600 max-w-3xl mx-auto text-base font-poppins">Kami menawarkan berbagai paket wisata edukatif yang dirancang
                     untuk berbagai kebutuhan dan preferensi pengunjung.</p>
             </div>
@@ -71,7 +71,7 @@
                                 </div>
 
                                 <div class="p-4 border-b border-gray-200">
-                                    <h4 class="text-lg sm:text-xl font-bold text-purple-800 flex items-center mb-1 font-montserrat">
+                                    <h4 class="text-lg sm:text-xl font-bold text-purple-800 flex items-center mb-1 font-poopins">
                                         {{ $packet->title }}
                                     </h4>
                                     <p class="font-normal text-sm text-gray-500">{{ $packet->description }}</p>
@@ -124,7 +124,7 @@
                                     <div class="bg-white rounded-xl shadow-xl overflow-hidden max-h-[90vh] flex flex-col">
                                         <!-- Header -->
                                         <div class="p-5 sm:p-6 border-b border-gray-200">
-                                            <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-2 font-montserrat">
+                                            <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-2 font-poopins">
                                                 {{ $packet->title }}
                                             </h4>
                                             <p class="text-gray-600 text-sm">{{ $packet->description }}</p>
@@ -190,16 +190,16 @@
                     </div>
                     
                     <!-- Pagination -->
-                    <div class="mt-12 flex justify-center" id="pagination-container">
-                        <div class="pagination-wrapper rounded-lg overflow-hidden bg-white shadow-md">
-                            {{ $packets->links() }}
+                    <div class="mt-16 flex justify-center" id="pagination-container">
+                        <div class="pagination-wrapper">
+                            {{ $packets->onEachSide(1)->links('vendor.pagination.tailwind') }}
                         </div>
                     </div>
                 @else
                     <div class="text-center py-16">
                         <div class="inline-block p-6 rounded-xl bg-white shadow-lg">
                             <i class="fas fa-ticket-alt text-purple-400 text-4xl mb-4"></i>
-                            <h3 class="text-xl font-medium text-gray-700 mb-2 font-montserrat">Belum Ada Paket Wisata</h3>
+                            <h3 class="text-xl font-medium text-gray-700 mb-2 font-poopins">Belum Ada Paket Wisata</h3>
                             <p class="text-gray-500 text-base">Paket wisata akan segera ditambahkan. Silakan kunjungi kembali nanti.</p>
                         </div>
                     </div>
@@ -208,7 +208,7 @@
 
             <!-- Call to Action -->
             <div id="contact-packet" class="mt-16 text-center py-12 px-6 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-2xl shadow-inner">
-                <h2 class="text-2xl font-bold text-purple-900 mb-3 font-montserrat">Butuh Paket Wisata?</h2>
+                <h2 class="text-2xl font-bold text-purple-900 mb-3 font-poopins">Butuh Paket Wisata?</h2>
                 <p class="text-purple-700 mb-7 max-w-2xl mx-auto text-base font-poppins">Hubungi tim kami untuk mendiskusikan rencana kunjungan Anda.</p>
                 <div class="flex flex-wrap justify-center gap-3">
                     <a href="https://wa.me/6281939114933?text=Halo%2C%20saya%20mau%20tanya"
@@ -241,168 +241,24 @@
         font-family: var(--font-montserrat);
     }
     
-    /* Custom styling for pagination */
-    .pagination-wrapper nav {
-        display: flex;
-        justify-content: center;
+    /* Custom styling for pagination with purple theme */
+    .pagination-wrapper .shadow-sm {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
     
-    /* Hide "Showing X to Y of Z results" text */
-    .pagination-wrapper nav > div:first-child,
-    .pagination-wrapper .flex.justify-between.flex-1,
-    .pagination-wrapper p.text-sm.text-gray-700,
-    .pagination-wrapper p {
-        display: none !important;
+    /* Override the green theme with purple theme */
+    .pagination-wrapper [aria-current="page"] span {
+        background-color: #7e22ce !important; /* Purple equivalent of green-600 */
+        border-color: #7e22ce !important;
     }
     
-    .pagination-wrapper nav > div:last-child {
-        display: flex;
-        padding: 0.5rem;
-        background: white;
-        border-radius: 0.75rem;
+    .pagination-wrapper a:hover {
+        color: #7e22ce !important; /* Purple hover color */
+        border-color: #e9d5ff !important; /* Light purple border */
     }
     
-    .pagination-wrapper .relative.inline-flex.items-center {
-        padding: 0.5rem 0.75rem;
-        margin: 0 0.2rem;
-        background: linear-gradient(to right, rgba(126, 34, 206, 0.05), rgba(79, 70, 229, 0.1));
-        color: #6b21a8;
-        font-weight: 600;
-        border-radius: 0.5rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        min-width: 2.25rem;
-        height: 2.25rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        border: 1px solid transparent;
-        position: relative;
-        overflow: hidden;
-        font-family: var(--font-poppins);
-    }
-    
-    /* Hover effect */
-    .pagination-wrapper .relative.inline-flex.items-center:hover {
-        background: linear-gradient(to right, rgba(126, 34, 206, 0.15), rgba(79, 70, 229, 0.25));
-        transform: translateY(-1px);
-        box-shadow: 0 2px 5px rgba(79, 70, 229, 0.2);
-        border-color: rgba(126, 34, 206, 0.3);
-        color: #4c1d95;
-        z-index: 2;
-    }
-    
-    /* Active/Current page effect */
-    .pagination-wrapper .relative.inline-flex.items-center[aria-current="page"] {
-        background: linear-gradient(135deg, #7e22ce, #6d28d9);
-        color: white;
-        box-shadow: 0 3px 8px -1px rgba(126, 34, 206, 0.4);
-        transform: scale(1.05);
-        z-index: 5;
-        font-weight: 700;
-    }
-    
-    /* Click effect - add this to active page with JS */
-    .pagination-wrapper .relative.inline-flex.items-center.active-click {
-        transform: scale(0.95);
-        box-shadow: 0 1px 4px -1px rgba(126, 34, 206, 0.6);
-        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    /* After click ripple effect */
-    .pagination-wrapper .relative.inline-flex.items-center::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 5px;
-        height: 5px;
-        background: rgba(255, 255, 255, 0.7);
-        opacity: 0;
-        border-radius: 100%;
-        transform: scale(1) translate(-50%, -50%);
-        transform-origin: 0 0;
-    }
-    
-    .pagination-wrapper .relative.inline-flex.items-center.ripple::after {
-        animation: ripple 0.6s ease-out;
-    }
-    
-    @keyframes ripple {
-        0% {
-            transform: scale(0) translate(-50%, -50%);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(20) translate(-50%, -50%);
-            opacity: 0;
-        }
-    }
-    
-    .pagination-wrapper svg {
-        width: 1rem;
-        height: 1rem;
-        stroke-width: 2;
-    }
-    
-    /* Fix for the pagination container */
-    #pagination-container {
-        margin-top: 3rem;
-    }
-    
-    .pagination-wrapper {
-        position: relative;
-        padding: 0.25rem;
-        border-radius: 0.75rem;
-        background: white;
-        box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.1), 
-                    0 4px 8px -4px rgba(0, 0, 0, 0.05);
-    }
-    
-    /* Cool glowing effect around the pagination */
-    .pagination-wrapper::before {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        background: linear-gradient(45deg, #7e22ce, #6d28d9, #4f46e5, #7e22ce);
-        border-radius: 0.85rem;
-        z-index: -1;
-        animation: borderGlow 3s linear infinite;
-        opacity: 0.4;
-    }
-    
-    @keyframes borderGlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    
-    /* Custom button styles for previous/next */
-    .pagination-wrapper [rel="prev"],
-    .pagination-wrapper [rel="next"] {
-        background: linear-gradient(135deg, #7e22ce, #6d28d9);
-        color: white;
-        font-weight: bold;
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        min-width: 3rem;
-    }
-    
-    .pagination-wrapper [rel="prev"]:hover,
-    .pagination-wrapper [rel="next"]:hover {
-        box-shadow: 0 4px 10px rgba(126, 34, 206, 0.3);
-        transform: translateY(-1px) scale(1.03);
-    }
-    
-    /* Disabled state */
-    .pagination-wrapper span.relative.inline-flex.items-center[aria-disabled="true"] {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background: rgba(156, 163, 175, 0.1);
-        color: #9ca3af;
-        transform: none;
-        box-shadow: none;
+    .pagination-wrapper a:focus {
+        border-color: #c084fc !important; /* Medium purple border */
     }
     
     /* Loading state for container */
@@ -451,38 +307,6 @@
         // Setup AJAX Pagination
         setupAjaxPagination();
         
-        // Add click effects to pagination buttons
-        setupPaginationEffects();
-        
-        function setupPaginationEffects() {
-            const paginationItems = document.querySelectorAll('.pagination-wrapper .relative.inline-flex.items-center');
-            
-            paginationItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    if (!this.hasAttribute('aria-current')) {
-                        // Add click effect
-                        this.classList.add('active-click');
-                        
-                        // Add ripple effect
-                        this.classList.add('ripple');
-                        
-                        // Remove effects after animation completes
-                        setTimeout(() => {
-                            this.classList.remove('active-click');
-                            this.classList.remove('ripple');
-                        }, 600);
-                    }
-                });
-                
-                // For non-clickable items, prevent default click behavior
-                if (item.hasAttribute('aria-disabled') && item.getAttribute('aria-disabled') === 'true') {
-                    item.addEventListener('click', function(e) {
-                        e.preventDefault();
-                    });
-                }
-            });
-        }
-        
         function setupAjaxPagination() {
             // Target pagination container
             const paginationContainer = document.getElementById('pagination-container');
@@ -499,9 +323,6 @@
                         // Add loading animation
                         const packetsContainer = document.getElementById('packets-container');
                         packetsContainer.classList.add('opacity-50', 'pointer-events-none', 'loading');
-                        
-                        // Animate the clicked button
-                        target.classList.add('scale-110', 'shadow-lg');
                         
                         // Fetch the page content
                         fetch(url, {
@@ -528,9 +349,6 @@
                                     
                                     // Setup pagination event listeners again
                                     setupAjaxPagination();
-                                    
-                                    // Setup pagination effects again
-                                    setupPaginationEffects();
                                     
                                     // Update URL without page reload
                                     history.pushState({}, '', url);

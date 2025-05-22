@@ -125,7 +125,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <div>{{ $asset->created_at->format('d M Y') }}</div>
-                                        <div class="text-xs text-gray-400">{{ $asset->created_at->format('H:i') }}</div>
+                                        <!-- <div class="text-xs text-gray-400">{{ $asset->created_at->format('H:i') }}</div> -->
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-center gap-5">
@@ -163,6 +163,11 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="mt-6 flex justify-center">
+            {{ $assets->links() }}
         </div>
     </div>
 
@@ -208,33 +213,64 @@
             const typeFilter = document.getElementById('type-filter');
             const statusFilter = document.getElementById('status-filter');
             const searchInput = document.getElementById('search-input');
-            const assetRows = document.querySelectorAll('.asset-row');
-
-            function filterAssets() {
+            
+            function applyFilters() {
                 const typeValue = typeFilter.value;
                 const statusValue = statusFilter.value;
-                const searchValue = searchInput.value.toLowerCase();
-
-                assetRows.forEach(row => {
-                    const rowType = row.getAttribute('data-type');
-                    const rowStatus = row.getAttribute('data-status');
-                    const rowText = row.textContent.toLowerCase();
-
-                    const typeMatch = !typeValue || rowType === typeValue;
-                    const statusMatch = !statusValue || rowStatus === statusValue;
-                    const searchMatch = !searchValue || rowText.includes(searchValue);
-
-                    if (typeMatch && statusMatch && searchMatch) {
-                        row.style.display = '';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
+                const searchValue = searchInput.value;
+                
+                // Build query parameters
+                const params = new URLSearchParams(window.location.search);
+                
+                if (typeValue) {
+                    params.set('type', typeValue);
+                } else {
+                    params.delete('type');
+                }
+                
+                if (statusValue) {
+                    params.set('status', statusValue);
+                } else {
+                    params.delete('status');
+                }
+                
+                if (searchValue) {
+                    params.set('search', searchValue);
+                } else {
+                    params.delete('search');
+                }
+                
+                // Set page to 1 when filters change
+                params.delete('page');
+                
+                // Redirect with new params
+                window.location.href = `${window.location.pathname}?${params.toString()}`;
             }
-
-            typeFilter.addEventListener('change', filterAssets);
-            statusFilter.addEventListener('change', filterAssets);
-            searchInput.addEventListener('input', filterAssets);
+            
+            // Set initial filter values from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('type')) {
+                typeFilter.value = urlParams.get('type');
+            }
+            
+            if (urlParams.has('status')) {
+                statusFilter.value = urlParams.get('status');
+            }
+            
+            if (urlParams.has('search')) {
+                searchInput.value = urlParams.get('search');
+            }
+            
+            // Add event listeners
+            typeFilter.addEventListener('change', applyFilters);
+            statusFilter.addEventListener('change', applyFilters);
+            
+            // For search, use input event with debounce
+            let searchTimeout;
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(applyFilters, 500);
+            });
 
             // Konfirmasi penghapusan
             document.querySelectorAll('.delete-form').forEach(form => {

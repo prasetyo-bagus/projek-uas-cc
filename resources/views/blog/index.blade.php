@@ -2,7 +2,17 @@
 
 @section('content')
     @php
+        // Only include featured blogs on the first page
         $blogUnggulan = request()->has('page') && request()->page > 1 ? collect([]) : $blogUnggulan;
+        
+        // Combine blogs for display, keeping the total of 6 per page
+        if (request()->has('page') && request()->page == 1) {
+            // On first page, make sure we only show 6 blogs total (featured + regular)
+            $regularCount = 6 - $blogUnggulan->count();
+            $regularBlogs = $blogReguler->getCollection()->take($regularCount);
+            $blogReguler->setCollection($regularBlogs);
+        }
+        
         $allBlogs = $blogUnggulan->merge($blogReguler->getCollection());
     @endphp
 
@@ -217,8 +227,13 @@
     <!-- Blog Grid -->
     <div class="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
+            <!-- Blog count indicator -->
+            <div class="mb-6 text-center">
+                <p class="text-gray-600">Menampilkan {{ $allBlogs->count() }} dari {{ $blogReguler->total() + ($blogUnggulan->count() > 0 && request()->page == 1 ? $blogUnggulan->count() : 0) }} artikel</p>
+            </div>
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($allBlogs as $blog)
+                @forelse($allBlogs as $blog)
                     <div class="bg-white border border-gray-200 rounded-xl shadow-md flex flex-col overflow-hidden transition hover:shadow-lg">
                         <a href="{{ route('blog.show', $blog->url) }}" class="flex flex-col h-full group">
 
@@ -280,7 +295,11 @@
                             </div>
                         </a>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-span-3 text-center py-12">
+                        <p class="text-gray-500 text-lg">Tidak ada artikel yang tersedia saat ini.</p>
+                    </div>
+                @endforelse
             </div>
 
             <!-- Pagination -->

@@ -26,6 +26,7 @@ class BlogController extends Controller
         $blogUnggulan = Blog::whereIn('status', $statusFilter)
         ->where('is_featured', true)
         ->latest()
+        ->take(6)
         ->get();
 
         $blogReguler = Blog::whereIn('status', $statusFilter)
