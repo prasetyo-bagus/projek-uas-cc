@@ -294,16 +294,8 @@
         </div>
     </section> --}}
 
-    <!-- Features Section with Playful Elements -->
-    <section class="py-12 bg-white relative overflow-hidden">
-        <!-- Background Decorative Elements - simplified -->
-        <div
-            class="absolute top-0 right-0 w-28 h-28 bg-yellow-200 rounded-full opacity-20 transform -translate-y-1/2 translate-x-1/2">
-        </div>
-        <div
-            class="absolute bottom-0 left-0 w-40 h-40 bg-green-200 rounded-full opacity-20 transform translate-y-1/2 -translate-x-1/2">
-        </div>
-
+    <!-- Features Section - Layanan Kami -->
+    <section class="py-12 bg-gray-50 relative overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="text-center mb-10" data-aos="fade-up">
                 <h2 class="text-2xl font-bold text-gray-800 relative inline-block">
@@ -316,50 +308,51 @@
                 <p class="text-gray-600 mt-3">Nikmati beragam aktivitas menarik dan bermanfaat</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
-                    data-aos="fade-up" data-aos-delay="100">
-                    <div
-                        class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
-                        <i class="fas fa-seedling text-green-600 text-2xl group-hover:animate-bounce-slow"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Edukasi Pertanian</h3>
-                    <p class="text-gray-600 text-sm">Pelajari teknik bertani modern dan tradisional dengan pengalaman
-                        langsung
-                        di lahan pertanian kami.</p>
-                    <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="100">
+                @php
+                    $services = \App\Models\DynamicAsset::where('type', 'LAYANAN')->where('is_active', true)->get();
+                @endphp
 
-                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
-                    data-aos="fade-up" data-aos-delay="200">
+                @forelse($services as $service)
                     <div
-                        class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
-                        <i class="fas fa-horse text-orange-600 text-2xl group-hover:animate-bounce-slow"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Peternakan Interaktif</h3>
-                    <p class="text-gray-600 text-sm">Berinteraksi dengan beragam hewan ternak dan pelajari cara merawat
-                        mereka
-                        dengan baik.</p>
-                    <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                    </div>
-                </div>
+                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group text-center">
+                        <!-- Icon -->
+                        <div
+                            class="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-all">
+                            <i class="{{ $service->icon }} text-purple-600 text-3xl"></i>
+                        </div>
 
-                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
-                    data-aos="fade-up" data-aos-delay="300">
-                    <div
-                        class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
-                        <i class="fas fa-tree text-blue-600 text-2xl group-hover:animate-bounce-slow"></i>
+                        <!-- Title -->
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2 break-words">
+                            {{ $service->title }}
+                        </h3>
+
+                        <!-- Description -->
+                        <p class="text-gray-600 text-sm mb-4 break-words">
+                            {{ $service->description }}
+                        </p>
+
+                        @if ($service->category)
+                            <a href="{{ route('services') }}#{{ strtolower($service->category) }}"
+                                class="inline-block text-purple-600 hover:text-purple-800 font-medium text-sm">
+                                Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        @endif
+
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Taman Perkebunan</h3>
-                    <p class="text-gray-600 text-sm">Jelajahi aneka tanaman perkebunan dan pelajari proses panen hingga
-                        pengolahan hasil perkebunan.</p>
-                    <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                @empty
+                    <div class="col-span-3 text-center py-10">
+                        <div class="text-gray-500 bg-gray-100 p-6 rounded-xl inline-block">
+                            <i class="fas fa-cogs text-3xl mb-3"></i>
+                            <p>Belum ada layanan yang tersedia saat ini.</p>
+                        </div>
                     </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>
+
+
 
     <!-- PACKET -->
     <!-- Popular Tours Section with Animated Effects -->
@@ -471,7 +464,8 @@
                                 <!-- Header -->
                                 <div class="p-4 sm:p-6 border-b border-gray-200 bg-purple-50">
                                     <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-1">
-                                        <i class="fas fa-ticket-alt mr-2 text-purple-700"></i> {{ $packet->title }}
+                                        <i class="fas fa-ticket-alt mr-2 text-purple-700"></i>
+                                        {{ $packet->title }}
                                     </h4>
                                     <p class="text-gray-600 text-sm">{{ $packet->description }}</p>
                                 </div>
@@ -598,9 +592,9 @@
                         <div class="p-4">
                             <div class="flex justify-between items-center mb-2">
                                 <!-- <span
-                                                                                                    class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                                                                                    <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
-                                                                                                </span> -->
+                                                                                                                                    class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                                                                                                                    <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
+                                                                                                                                </span> -->
                             </div>
                             <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
                             <p class="text-gray-600 mb-3 text-sm">{{ $facility->description }}</p>
