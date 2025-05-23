@@ -191,9 +191,9 @@
             <div class="hidden md:block px-6 py-6 border-b border-gray-800/50">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-3">
-                        <div class="rounded-lg">
-                            <img src="{{ asset('storage/logoNusantaraEdupark.jpg') }}" alt="Logo"
-                                class="w-13 h-13 object-cover">
+                        <div class="rounded-lg w-16 h-16">
+                            <img src="{{ asset('favicon.svg') }}" alt="Logo"
+                                class="w-full h-full object-contain">
                         </div>
                         <span class="font-bold text-xl text-white">NUSANTARA EDUPARK</span>
                     </div>
