@@ -828,7 +828,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($blogs->where('is_featured', true)->take(3) as $blogItem)
+                @foreach ($blogs->take(3) as $blogItem)
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group"
                         data-aos="fade-up" 
