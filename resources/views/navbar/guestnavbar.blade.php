@@ -9,7 +9,7 @@
     @scroll.window="atTop = (window.pageYOffset < 50)" 
     :class="{
         'bg-white/0 shadow-none': atTop && isHomepage, 
-        'bg-white border-b border-gray-200 shadow-md': !atTop || !isHomepage
+        'bg-white': !atTop || !isHomepage
     }">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
         <a href="{{ route('homepage') }}" class="flex items-center space-x-2">
@@ -35,11 +35,7 @@
         <div class="hidden w-full md:block md:w-auto transition-all duration-300" 
              :class="{'block': open, 'hidden': !open}" 
              id="navbar-menu">
-            <ul class="flex flex-col font-medium p-3 md:p-0 mt-3 border border-gray-100 rounded-lg md:flex-row md:space-x-6 md:mt-0 md:border-0"
-                :class="{
-                    'bg-gray-50 md:bg-transparent': atTop && isHomepage, 
-                    'bg-gray-50 md:bg-white': !atTop || !isHomepage
-                }">
+            <ul class="flex flex-col font-medium p-3 md:p-0 mt-3 rounded-lg md:flex-row md:space-x-6 md:mt-0 md:border-0">
                 <li>
                     <a href="{{ route('homepage') }}"
                         x-bind:class="open ? 'text-purple-700 hover:text-purple-700' : (atTop && isHomepage ? 'md:text-white text-white hover:text-gray-200' : 'text-purple-800 hover:text-purple-700')"
