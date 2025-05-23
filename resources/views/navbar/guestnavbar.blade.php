@@ -39,32 +39,34 @@
                 <li>
                     <a href="{{ route('homepage') }}"
                         x-bind:class="open ? 'text-purple-700 hover:text-purple-700' : (atTop && isHomepage ? 'md:text-white text-white hover:text-gray-200' : 'text-purple-800 hover:text-purple-700')"
-                        class="block py-1.5 px-2 text-sm hover:bg-purple-50 md:hover:bg-transparent rounded md:p-0 transition-all duration-200"
+                        class="block py-1.5 px-2 text-sm hover:bg-purple-50 md:hover:bg-transparent md:p-0 transition-all duration-200"
                         :class="{
-                            'font-bold border-b-2 border-white': atTop && isHomepage && !open && request()->routeIs('homepage'), 
-                            'font-bold border-b-2 border-purple-700': (!atTop || !isHomepage) && request()->routeIs('homepage')
+                            'font-bold border-b-2 border-white': atTop && isHomepage && !open && @json(request()->routeIs('homepage')), 
+                            'font-bold border-b-2 border-purple-700': (!atTop || !isHomepage) && @json(request()->routeIs('homepage'))
                         }">
                         Beranda
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('services') }}"
+                    <a 
+                        href="{{ route('services') }}"
                         x-bind:class="open ? 'text-purple-700 hover:text-purple-700' : (atTop && isHomepage ? 'md:text-white text-white hover:text-gray-200' : 'text-purple-800 hover:text-purple-700')"
-                        class="block py-1.5 px-2 text-sm hover:bg-purple-50 md:hover:bg-transparent rounded md:p-0 transition-all duration-200"
+                        class="block py-1.5 px-2 text-sm hover:bg-purple-50 md:hover:bg-transparent md:p-0 transition-all duration-200"
                         :class="{
-                            'font-bold border-b-2 border-white': atTop && isHomepage && !open && request()->routeIs('services'), 
-                            'font-bold border-b-2 border-purple-700': (!atTop || !isHomepage) && request()->routeIs('services')
-                        }">
+                            'font-bold border-b-2 border-white': atTop && isHomepage && !open && @json(request()->routeIs('services')), 
+                            'font-bold border-b-2 border-purple-700': (!atTop || !isHomepage) && @json(request()->routeIs('services'))
+                        }"
+                    >
                         Layanan
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('about-us') }}"
                         x-bind:class="open ? 'text-purple-700 hover:text-purple-700' : (atTop && isHomepage ? 'md:text-white text-white hover:text-gray-200' : 'text-purple-800 hover:text-purple-700')"
-                        class="block py-1.5 px-2 text-sm hover:bg-purple-50 md:hover:bg-transparent rounded md:p-0 transition-all duration-200"
+                        class="block py-1.5 px-2 text-sm hover:bg-purple-50 md:hover:bg-transparent md:p-0 transition-all duration-200"
                         :class="{
-                            'font-bold border-b-2 border-white': atTop && isHomepage && !open && request()->routeIs('about-us'), 
-                            'font-bold border-b-2 border-purple-700': (!atTop || !isHomepage) && request()->routeIs('about-us')
+                            'font-bold border-b-2 border-white': atTop && isHomepage && !open && @json(request()->routeIs('about-us')), 
+                            'font-bold border-b-2 border-purple-700': (!atTop || !isHomepage) && @json(request()->routeIs('about-us'))
                         }">
                         Tentang Kami
                     </a>

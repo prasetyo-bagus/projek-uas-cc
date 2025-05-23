@@ -26,13 +26,13 @@ class BlogController extends Controller
         $blogUnggulan = Blog::whereIn('status', $statusFilter)
         ->where('is_featured', true)
         ->latest()
-        ->take(6)
+        ->take(5)
         ->get();
 
         $blogReguler = Blog::whereIn('status', $statusFilter)
         ->where('is_featured', false)
         ->latest()
-        ->paginate(6);
+        ->paginate(5);
 
         return view('blog.index', compact('blogUnggulan', 'blogReguler'));
     }

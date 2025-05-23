@@ -378,7 +378,7 @@
                             <img 
                                 data-src="{{ asset('storage/' . $packet->image) }}"
                                 loading="lazy"
-                                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 cursor-pointer"
+                                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 cursor-pointer opacity-0"
                                 alt="{{ $packet->title }}"
                                 onload="this.style.opacity='1'; this.parentElement.querySelector('.animate-pulse').classList.add('opacity-0');"
                                 onclick="openImageModal('{{ asset('storage/' . $packet->image) }}', '{{ $packet->title }}')"
@@ -828,7 +828,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($blogs->take(3) as $blogItem)
+                @foreach ($blogs->where('is_featured', true)->take(3) as $blogItem)
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group"
                         data-aos="fade-up" 
