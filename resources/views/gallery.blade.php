@@ -68,19 +68,18 @@
             <!-- Image Modal -->
             <div x-show="isOpen" @keydown.window.escape="isOpen = false"
                 class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" x-cloak>
-                <div class="bg-white rounded-xl overflow-hidden shadow-lg max-w-3xl w-full">
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg w-auto max-w-[90vw] max-h-[90vh]">
                     <div class="relative">
                         <button @click="isOpen = false"
-                            class="absolute top-2 right-2 text-white bg-black bg-opacity-50 rounded-full p-1 hover:bg-opacity-75">
+                            class="absolute top-2 right-2 text-white bg-black bg-opacity-50 rounded-full p-1 hover:bg-opacity-75 z-10">
                             ✕
                         </button>
-                        <img :src="imageSrc" alt="" class="w-full h-auto object-contain max-h-[80vh]">
+                        <img :src="imageSrc" :alt="imageTitle"
+                            class="w-auto h-auto max-w-full max-h-[70vh] object-contain mx-auto" />
                     </div>
-                    {{-- <div class="p-4 text-center">
-                        <h2 class="text-lg font-semibold" x-text="imageTitle"></h2>
-                    </div> --}}
                 </div>
             </div>
+
         </section>
 
 

@@ -598,9 +598,9 @@
                         <div class="p-4">
                             <div class="flex justify-between items-center mb-2">
                                 <!-- <span
-                                                                            class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                                                            <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
-                                                                        </span> -->
+                                                                                                    class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                                                                                    <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
+                                                                                                </span> -->
                             </div>
                             <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
                             <p class="text-gray-600 mb-3 text-sm">{{ $facility->description }}</p>
@@ -756,9 +756,9 @@
 
     <!-- Modal Galeri -->
     <div id="gallery-modal"
-        class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
         <div id="gallery-modal-box"
-            class="bg-transparent w-full max-w-2xl mx-auto transform scale-95 opacity-0 transition-all duration-300">
+            class="bg-transparent mx-auto transform scale-95 opacity-0 transition-all duration-300 max-w-[90vw]">
 
             <div class="relative">
                 <button onclick="closeGalleryModal()"
@@ -769,13 +769,14 @@
                 <div class="flex flex-col">
                     <!-- Gambar -->
                     <div class="overflow-hidden rounded-lg bg-black flex items-center justify-center">
-                        <img id="gallery-image" src="" alt=""
-                            class="max-h-[55vh] max-w-full object-contain">
+                        <img id="gallery-image" src="" alt="Galeri"
+                            class="h-auto max-h-[60vh] w-auto max-w-[70vw] object-contain mx-auto" />
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <script>
         function openGalleryModal(imageUrl) {
