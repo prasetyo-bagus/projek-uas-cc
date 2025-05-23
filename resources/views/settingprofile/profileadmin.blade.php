@@ -1,6 +1,27 @@
 @extends('navbar.adminnavbar')
 
 @section('content')
+    @if (session('success'))
+        <div id="success-alert"
+            class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+            role="alert">
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+        <script>
+            // Membuat alert hilang setelah 5 detik
+            setTimeout(function() {
+                const alert = document.getElementById('success-alert');
+                if (alert) {
+                    alert.style.transition = 'opacity 1s';
+                    alert.style.opacity = '0';
+                    setTimeout(function() {
+                        alert.style.display = 'none';
+                    }, 1000);
+                }
+            }, 5000);
+        </script>
+    @endif
+
     <div class="max-w-4xl mx-auto" x-data="{ showEditModal: false, showPasswordModal: false }">
         <!-- Tampilan Profil Admin -->
         <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
@@ -77,27 +98,6 @@
                 </div>
             </div>
         </div>
-
-        @if (session('success'))
-            <div id="success-alert"
-                class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
-                role="alert">
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
-            <script>
-                // Membuat alert hilang setelah 5 detik
-                setTimeout(function() {
-                    const alert = document.getElementById('success-alert');
-                    if (alert) {
-                        alert.style.transition = 'opacity 1s';
-                        alert.style.opacity = '0';
-                        setTimeout(function() {
-                            alert.style.display = 'none';
-                        }, 1000);
-                    }
-                }, 5000);
-            </script>
-        @endif
 
         <!-- Modal Edit Profil -->
         <div x-show="showEditModal" class="fixed backdrop-blur-sm inset-0 z-50 overflow-y-auto" style="display: none;">

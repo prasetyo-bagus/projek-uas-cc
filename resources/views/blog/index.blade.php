@@ -17,22 +17,32 @@
     @endphp
 
     @auth
+        @if (session('success'))
+            <div class="bg-green-100 text-green-700 px-4 py-2 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="bg-white shadow-lg rounded-xl p-8 w-full mx-auto">
-            <div class="flex items-center justify-between mb-8">
-                <div>
-                    <h2 class="text-2xl font-bold text-gray-800">Kelola Berita</h2>
-                </div>
+            
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+                <h2 class="text-2xl font-bold text-gray-800">Kelola Berita</h2>
                 <a href="{{ route('blogs.create') }}"
-                    class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center">
+                    class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center w-full md:w-auto">
                     <i class="fa-solid fa-plus mr-2"></i> Tambah Berita
                 </a>
             </div>
 
             <!-- Filter dan Pencarian -->
-            <div class="bg-gray-50 p-4 rounded-lg mb-6 flex flex-wrap gap-4 items-center">
-                <div>
+            <div class="mb-6 flex flex-col md:flex-row md:items-center flex-wrap gap-2">
+                <div class="w-full md:w-auto">
                     <label class="text-sm text-gray-600 mr-2">Filter:</label>
-                    <select id="category-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
+                    <select id="category-filter" class="border border-gray-300 rounded px-3 py-1 text-sm w-full md:w-auto">
                         <option value="">Semua Kategori</option>
                         <option value="BERITA">Berita</option>
                         <option value="ACARA">Acara</option>
@@ -43,21 +53,21 @@
                         <option value="FASILITAS">Fasilitas</option>
                     </select>
                 </div>
-                <div>
-                    <select id="status-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
+                <div class="w-full md:w-auto">
+                    <select id="status-filter" class="border border-gray-300 rounded px-3 py-1 text-sm w-full md:w-auto">
                         <option value="">Semua Status</option>
                         <option value="PUBLISH">Publish</option>
                         <option value="DRAF">Draft</option>
                     </select>
                 </div>
-                <div>
-                    <select id="featured-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
+                <div class="w-full md:w-auto">
+                    <select id="featured-filter" class="border border-gray-300 rounded px-3 py-1 text-sm w-full md:w-auto">
                         <option value="">Semua</option>
                         <option value="1">Pilihan</option>
                         <option value="0">Reguler</option>
                     </select>
                 </div>
-                <div class="relative flex-grow md:max-w-xs">
+                <div class="relative w-full md:max-w-xs">
                     <input type="text" id="search-input" placeholder="Cari blog..."
                         class="border border-gray-300 rounded pl-9 pr-3 py-1 w-full text-sm">
                     <i class="fas fa-search text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>

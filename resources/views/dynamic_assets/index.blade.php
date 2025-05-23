@@ -1,46 +1,36 @@
 @extends('navbar.adminnavbar')
 
 @section('content')
+    @if (session('success'))
+        <div class="bg-green-100 text-green-700 px-4 py-2 rounded mb-4">
+            {{ session('success') }}
+        </div>
+        @endif
+        @if (session('error'))
+            <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">
+                {{ session('error') }}
+        </div>
+    @endif
     <div class="bg-white shadow-lg rounded-xl p-8 w-full mx-auto">
-        <div class="flex items-center justify-between mb-8">
-            <div>
+        <!-- Header dan Tombol -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-4">
+            <div class="flex-1">
                 <h2 class="text-2xl font-bold text-gray-800">Kelola Aset Dinamis</h2>
                 <p class="text-gray-500 mt-1">Unggah dan kelola aset untuk digunakan di website Nusantara Edupark</p>
             </div>
-            <a href="{{ route('dynamic-assets.create') }}"
-                class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center">
-                <i class="fa-solid fa-plus mr-2"></i> Tambah Aset
-            </a>
+            <div class="w-full md:w-auto">
+                <a href="{{ route('dynamic-assets.create') }}"
+                class="w-full md:w-auto block text-center bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                    <i class="fa-solid fa-plus mr-2"></i> Tambah Aset
+                </a>
+            </div>
         </div>
 
-        @if (session('success'))
-            <div id="success-alert" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded"
-                role="alert">
-                <div class="flex items-center">
-                    <i class="fa-solid fa-circle-check mr-2 text-green-500"></i>
-                    <p>{{ session('success') }}</p>
-                </div>
-            </div>
-            <script>
-                // Membuat alert hilang setelah 5 detik
-                setTimeout(function () {
-                    const alert = document.getElementById('success-alert');
-                    if (alert) {
-                        alert.style.transition = 'opacity 1s';
-                        alert.style.opacity = '0';
-                        setTimeout(function () {
-                            alert.style.display = 'none';
-                        }, 1000);
-                    }
-                }, 5000);
-            </script>
-        @endif
-
         <!-- Filter dan Pencarian -->
-        <div class="bg-gray-50 p-4 rounded-lg mb-6 flex flex-wrap gap-4 items-center">
-            <div>
+        <div class="mb-6 flex flex-col md:flex-row md:items-center flex-wrap gap-2">
+            <div class="w-full md:w-auto">
                 <label class="text-sm text-gray-600 mr-2">Filter:</label>
-                <select id="type-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
+                <select id="type-filter" class="border border-gray-300 rounded px-3 py-1 text-sm w-full md:w-auto">
                     <option value="">Semua Tipe</option>
                     <option value="BANNER">Banner</option>
                     <option value="GALERY">Galeri</option>
@@ -50,17 +40,17 @@
                     <option value="LAYANAN">Layanan</option>
                 </select>
             </div>
-            <div>
-                <select id="status-filter" class="border border-gray-300 rounded px-3 py-1 text-sm">
+            <div class="w-full md:w-auto">
+                <select id="status-filter" class="border border-gray-300 rounded px-3 py-1 text-sm w-full md:w-auto">
                     <option value="">Semua Status</option>
                     <option value="active">Aktif</option>
                     <option value="inactive">Nonaktif</option>
                 </select>
             </div>
-            <div class="relative flex-grow md:max-w-xs">
+            <div class="relative w-full md:max-w-xs">
                 <input type="text" id="search-input" placeholder="Cari aset..."
                     class="border border-gray-300 rounded pl-9 pr-3 py-1 w-full text-sm">
-                <i class="fa-solid fa-search text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                <i class="fas fa-search text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2"></i>
             </div>
         </div>
 

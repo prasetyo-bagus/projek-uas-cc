@@ -23,12 +23,12 @@
         </div>
     @endif
     <div class="bg-white shadow-lg rounded-xl p-8 w-full mx-auto">
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
             <div>
                 <h2 class="text-2xl font-bold text-gray-800">Kelola Akun Admin dan Super Admin</h2>
             </div>
             <button onclick="document.getElementById('create-user-modal').classList.remove('hidden')"
-                class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center">
+                class="w-full md:w-auto bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
                 + Tambah User
             </button>
         </div>
@@ -67,10 +67,10 @@
                                     {{ ucwords(strtolower(str_replace('_', ' ', $user->status))) }}
                                 </span>
                             </td>
-                            <td class="py-3 px-4 border text-center">
+                            {{-- <td class="py-3 px-4 border text-center">
                                 <button onclick="document.getElementById('modal-{{ $user->id }}').classList.remove('hidden')"
-                                    class="text-yellow-500 hover:text-yellow-600 px-2 text-sm">
-                                    <i class="fas fa-edit"></i> Edit
+                                    class="text-amber-600 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 rounded-md p-1.5 transition-colors">
+                                    <i class="fa-solid fa-pen-to-square"></i>
                                 </button>
                                 <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline"
                                     onsubmit="return confirm('Yakin ingin menghapus {{ $user->name }}?');">
@@ -79,9 +79,27 @@
                                     <button type="button"
                                         onclick="openDeleteModal('{{ route('users.destroy', $user) }}', '{{ $user->name }}')"
                                         class="text-red-500 hover:text-red-600 px-2 text-sm">
-                                        <i class="fas fa-trash"></i> Hapus
+                                        <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
+                            </td> --}}
+                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                <div class="flex justify-center gap-5">
+                                    <button onclick="document.getElementById('modal-{{ $user->id }}').classList.remove('hidden')"
+                                        class="text-amber-600 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 rounded-md p-1.5 transition-colors">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline"
+                                        onsubmit="return confirm('Yakin ingin menghapus {{ $user->name }}?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button"
+                                            onclick="openDeleteModal('{{ route('users.destroy', $user) }}', '{{ $user->name }}')"
+                                            class="text-red-600 hover:text-red-900 bg-red-50 hover:bg-red-100 rounded-md p-1.5 transition-colors">
+                                            <i class="fa-solid fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
 

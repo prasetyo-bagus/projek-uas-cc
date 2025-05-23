@@ -3,37 +3,35 @@
 @section('content')
     <div class="bg-white shadow-lg rounded-xl w-full mx-auto">
         <div class=" shadow-lg rounded-lg overflow-hidden">
-            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+            <div class="p-6 border-b border-gray-200 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                 <div>
                     <h1 class="text-2xl font-bold text-gray-800">Kelola Testimonial</h1>
-                    <p class="text-gray-600 mt-1">Mengelola testimonial dari pengunjung Nusantara Edupark</p>
+                    <p class="text-gray-600 mt-1">Mengelola ulasan dari pengunjung Nusantara Edupark</p>
                 </div>
-                <div class="relative group">
+                <div class="relative group w-full md:w-auto">
                     <button
-                        class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded inline-flex items-center transition duration-150 ease-in-out">
-                        <i class="fas fa-download mr-2"></i>
-                        Download
-                        <i class="fas fa-chevron-down ml-2"></i>
+                    class="w-full md:w-auto bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded inline-flex items-center justify-center transition duration-150 ease-in-out">
+                    <i class="fas fa-download mr-2"></i>
+                    Download
+                    <i class="fas fa-chevron-down ml-2"></i>
                     </button>
                     <div
-                        class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden group-hover:block">
-                        <div class="py-1">
-                            <span
-                                class="px-4 py-2 text-xs font-semibold text-gray-600 uppercase tracking-wider block bg-gray-100">CSV
-                                Format</span>
-                            <a href="{{ route('testimonials.export') }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Semua Testimonial</a>
-                            <a href="{{ route('testimonials.export', ['status' => 'approved']) }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Disetujui</a>
-                            <a href="{{ route('testimonials.export', ['status' => 'pending']) }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Pending</a>
-                            <a href="{{ route('testimonials.export', ['status' => 'rejected']) }}"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Ditolak</a>
-                        </div>
-
+                    class="absolute right-0 mt-2 w-full md:w-56 bg-white rounded-md shadow-lg overflow-hidden z-20 hidden group-hover:block">
+                    <div class="py-1">
+                        <span
+                        class="px-4 py-2 text-xs font-semibold text-gray-600 uppercase tracking-wider block bg-gray-100">CSV Format</span>
+                        <a href="{{ route('testimonials.export') }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Semua Testimonial</a>
+                        <a href="{{ route('testimonials.export', ['status' => 'approved']) }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Disetujui</a>
+                        <a href="{{ route('testimonials.export', ['status' => 'pending']) }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Pending</a>
+                        <a href="{{ route('testimonials.export', ['status' => 'rejected']) }}"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Testimonial Ditolak</a>
+                    </div>
                     </div>
                 </div>
-            </div>
+                </div>
 
             @if (session('success'))
                 <div id="success-alert" class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4 mx-6"
