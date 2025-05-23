@@ -23,13 +23,13 @@
         </section>
 
         <!-- Gallery Grid -->
-        <section class="py-20 bg-gray-50">
+        <section class="py-20 bg-gray-50" x-data="{ isOpen: false, imageSrc: '', imageTitle: '' }">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 @if ($galleries->count() > 0)
                     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                         @foreach ($galleries as $gallery)
-                            <div
-                                class="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300">
+                            <div class="relative group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+                                @click="isOpen = true; imageSrc = '{{ asset('storage/' . $gallery->image) }}'; imageTitle = '{{ $gallery->title }}'">
                                 <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}"
                                     class="w-full aspect-square object-cover transform group-hover:scale-110 transition-all duration-500">
                                 <div
@@ -64,7 +64,26 @@
                     </div>
                 @endif
             </div>
+
+            <!-- Image Modal -->
+            <div x-show="isOpen" @keydown.window.escape="isOpen = false"
+                class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" x-cloak>
+                <div class="bg-white rounded-xl overflow-hidden shadow-lg max-w-3xl w-full">
+                    <div class="relative">
+                        <button @click="isOpen = false"
+                            class="absolute top-2 right-2 text-white bg-black bg-opacity-50 rounded-full p-1 hover:bg-opacity-75">
+                            ✕
+                        </button>
+                        <img :src="imageSrc" alt="" class="w-full h-auto object-contain max-h-[80vh]">
+                    </div>
+                    {{-- <div class="p-4 text-center">
+                        <h2 class="text-lg font-semibold" x-text="imageTitle"></h2>
+                    </div> --}}
+                </div>
+            </div>
         </section>
+
+
     @endsection
 </body>
 

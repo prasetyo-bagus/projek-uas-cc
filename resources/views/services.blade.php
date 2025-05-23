@@ -38,26 +38,37 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 @php
-                    $services = \App\Models\DynamicAsset::where('type', 'LAYANAN')
-                        ->where('is_active', true)
-                        ->get();
+                    $services = \App\Models\DynamicAsset::where('type', 'LAYANAN')->where('is_active', true)->get();
                 @endphp
-                
+
                 @forelse($services as $service)
                     <!-- Service Card -->
                     <div
-                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group">
+                        class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group w-full max-w-sm mx-auto">
+
+                        <!-- Icon -->
                         <div
                             class="bg-purple-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-purple-200 transition-all">
                             <i class="{{ $service->icon }} text-purple-600 text-3xl"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">{{ $service->title }}</h3>
-                        <p class="text-gray-600 text-center mb-6">{{ $service->description }}</p>
+
+                        <!-- Title -->
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center break-words">
+                            {{ $service->title }}
+                        </h3>
+
+                        <!-- Description -->
+                        <p class="text-gray-600 text-center mb-6 break-words overflow-hidden">
+                            {{ $service->description }}
+                        </p>
+
+                        <!-- Button -->
                         <a href="#{{ strtolower($service->category) }}"
                             class="text-purple-600 hover:text-purple-800 font-medium flex items-center justify-center">
                             Pelajari Lebih Lanjut <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
+
                 @empty
                     <!-- Default Service Cards if no data -->
                     <!-- Service 1 -->
@@ -68,7 +79,8 @@
                             <i class="fas fa-seedling text-purple-600 text-3xl"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">Edukasi Pertanian</h3>
-                        <p class="text-gray-600 text-center mb-6">Program pembelajaran interaktif tentang pertanian modern dan
+                        <p class="text-gray-600 text-center mb-6">Program pembelajaran interaktif tentang pertanian modern
+                            dan
                             tradisional, termasuk teknik bertanam, berkebun, dan pemeliharaan tanaman.</p>
                         <a href="#agricultural"
                             class="text-purple-600 hover:text-purple-800 font-medium flex items-center justify-center">
@@ -115,12 +127,12 @@
     <!-- Service Detail Sections -->
     @php
         $servicesByCategory = [];
-        if(isset($services) && $services->count() > 0) {
+        if (isset($services) && $services->count() > 0) {
             $servicesByCategory = $services->groupBy('category');
         }
     @endphp
 
-    @if(isset($servicesByCategory['Pertanian']))
+    @if (isset($servicesByCategory['Pertanian']))
         <!-- Agricultural Education -->
         <section id="pertanian" class="py-16 bg-purple-50">
             <div class="container mx-auto px-6">
@@ -134,7 +146,7 @@
                             {{ $servicesByCategory['Pertanian'][0]->description }}
                         </p>
                         <ul class="space-y-4">
-                            @foreach($servicesByCategory['Pertanian'][0]->service_items as $item)
+                            @foreach ($servicesByCategory['Pertanian'][0]->service_items as $item)
                                 <li class="flex items-start">
                                     <div class="bg-purple-100 rounded-full p-1 mt-1 mr-3">
                                         <i class="fas fa-check text-purple-600"></i>
@@ -148,7 +160,8 @@
                         </ul>
                     </div>
                     <div>
-                        <img src="{{ asset('storage/' . $servicesByCategory['Pertanian'][0]->image) }}" alt="{{ $servicesByCategory['Pertanian'][0]->title }}"
+                        <img src="{{ asset('storage/' . $servicesByCategory['Pertanian'][0]->image) }}"
+                            alt="{{ $servicesByCategory['Pertanian'][0]->title }}"
                             class="rounded-lg shadow-lg w-full h-96 object-cover">
                     </div>
                 </div>
@@ -165,7 +178,8 @@
                             <div class="absolute -bottom-2 left-0 h-3 w-36 bg-purple-300 z-0"></div>
                         </h2>
                         <p class="text-gray-600 mb-6">
-                            Program edukasi pertanian kami dirancang untuk memberikan pengetahuan dan keterampilan praktis dalam
+                            Program edukasi pertanian kami dirancang untuk memberikan pengetahuan dan keterampilan praktis
+                            dalam
                             bidang pertanian, mulai dari persiapan lahan, penanaman, perawatan, hingga panen.
                         </p>
                         <ul class="space-y-4">
@@ -185,7 +199,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Area Praktek Pertanian</h4>
-                                    <p class="text-gray-600 text-sm">Area khusus untuk praktek langsung teknik bertanam dengan
+                                    <p class="text-gray-600 text-sm">Area khusus untuk praktek langsung teknik bertanam
+                                        dengan
                                         pendampingan dari ahli pertanian.</p>
                                 </div>
                             </li>
@@ -195,7 +210,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Tur Pertanian</h4>
-                                    <p class="text-gray-600 text-sm">Kunjungan terpandu ke area pertanian untuk melihat berbagai
+                                    <p class="text-gray-600 text-sm">Kunjungan terpandu ke area pertanian untuk melihat
+                                        berbagai
                                         teknik bertani modern dan tradisional.</p>
                                 </div>
                             </li>
@@ -220,13 +236,14 @@
         </section>
     @endif
 
-    @if(isset($servicesByCategory['Peternakan']))
+    @if (isset($servicesByCategory['Peternakan']))
         <!-- Livestock Interaction -->
         <section id="peternakan" class="py-16 bg-white">
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div class="order-2 md:order-1">
-                        <img src="{{ asset('storage/' . $servicesByCategory['Peternakan'][0]->image) }}" alt="{{ $servicesByCategory['Peternakan'][0]->title }}"
+                        <img src="{{ asset('storage/' . $servicesByCategory['Peternakan'][0]->image) }}"
+                            alt="{{ $servicesByCategory['Peternakan'][0]->title }}"
                             class="rounded-lg shadow-lg w-full h-96 object-cover">
                     </div>
                     <div class="order-1 md:order-2">
@@ -238,7 +255,7 @@
                             {{ $servicesByCategory['Peternakan'][0]->description }}
                         </p>
                         <ul class="space-y-4">
-                            @foreach($servicesByCategory['Peternakan'][0]->service_items as $item)
+                            @foreach ($servicesByCategory['Peternakan'][0]->service_items as $item)
                                 <li class="flex items-start">
                                     <div class="bg-indigo-100 rounded-full p-1 mt-1 mr-3">
                                         <i class="fas fa-check text-indigo-600"></i>
@@ -279,7 +296,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Memberi Makan Hewan</h4>
-                                    <p class="text-gray-600 text-sm">Kesempatan untuk memberi makan berbagai hewan ternak dengan
+                                    <p class="text-gray-600 text-sm">Kesempatan untuk memberi makan berbagai hewan ternak
+                                        dengan
                                         panduan dari petugas.</p>
                                 </div>
                             </li>
@@ -289,7 +307,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Pemerahan Susu</h4>
-                                    <p class="text-gray-600 text-sm">Belajar dan praktek cara memerah susu sapi serta proses
+                                    <p class="text-gray-600 text-sm">Belajar dan praktek cara memerah susu sapi serta
+                                        proses
                                         pengolahannya.</p>
                                 </div>
                             </li>
@@ -299,7 +318,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Animal Petting Zone</h4>
-                                    <p class="text-gray-600 text-sm">Area khusus untuk berinteraksi dengan hewan-hewan jinak
+                                    <p class="text-gray-600 text-sm">Area khusus untuk berinteraksi dengan hewan-hewan
+                                        jinak
                                         seperti kelinci, kambing, dan domba.</p>
                                 </div>
                             </li>
@@ -309,7 +329,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Edukasi Peternakan</h4>
-                                    <p class="text-gray-600 text-sm">Sesi edukasi tentang berbagai aspek peternakan, termasuk
+                                    <p class="text-gray-600 text-sm">Sesi edukasi tentang berbagai aspek peternakan,
+                                        termasuk
                                         pemeliharaan, breeding, dan kesehatan hewan.</p>
                                 </div>
                             </li>
@@ -320,7 +341,7 @@
         </section>
     @endif
 
-    @if(isset($servicesByCategory['Perkebunan']))
+    @if (isset($servicesByCategory['Perkebunan']))
         <!-- Plantation Tours -->
         <section id="perkebunan" class="py-16 bg-violet-50">
             <div class="container mx-auto px-6">
@@ -334,7 +355,7 @@
                             {{ $servicesByCategory['Perkebunan'][0]->description }}
                         </p>
                         <ul class="space-y-4">
-                            @foreach($servicesByCategory['Perkebunan'][0]->service_items as $item)
+                            @foreach ($servicesByCategory['Perkebunan'][0]->service_items as $item)
                                 <li class="flex items-start">
                                     <div class="bg-violet-100 rounded-full p-1 mt-1 mr-3">
                                         <i class="fas fa-check text-violet-600"></i>
@@ -348,7 +369,8 @@
                         </ul>
                     </div>
                     <div>
-                        <img src="{{ asset('storage/' . $servicesByCategory['Perkebunan'][0]->image) }}" alt="{{ $servicesByCategory['Perkebunan'][0]->title }}"
+                        <img src="{{ asset('storage/' . $servicesByCategory['Perkebunan'][0]->image) }}"
+                            alt="{{ $servicesByCategory['Perkebunan'][0]->title }}"
                             class="rounded-lg shadow-lg w-full h-96 object-cover">
                     </div>
                 </div>
@@ -385,7 +407,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Petik Buah Langsung</h4>
-                                    <p class="text-gray-600 text-sm">Pengalaman memetik buah langsung dari pohonnya saat musim
+                                    <p class="text-gray-600 text-sm">Pengalaman memetik buah langsung dari pohonnya saat
+                                        musim
                                         panen (bergantung pada musim).</p>
                                 </div>
                             </li>
@@ -395,7 +418,8 @@
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-800">Taman Herbal</h4>
-                                    <p class="text-gray-600 text-sm">Kunjungan ke taman tanaman obat untuk mempelajari berbagai
+                                    <p class="text-gray-600 text-sm">Kunjungan ke taman tanaman obat untuk mempelajari
+                                        berbagai
                                         jenis tanaman herbal dan manfaatnya.</p>
                                 </div>
                             </li>

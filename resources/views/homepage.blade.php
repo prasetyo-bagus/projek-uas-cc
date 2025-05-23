@@ -6,7 +6,7 @@
         .tooltip-container {
             position: relative;
         }
-        
+
         .tooltip-text {
             visibility: hidden;
             width: auto;
@@ -26,7 +26,7 @@
             font-size: 12px;
             white-space: nowrap;
         }
-        
+
         .tooltip-text::after {
             content: "";
             position: absolute;
@@ -37,7 +37,7 @@
             border-style: solid;
             border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
         }
-        
+
         .tooltip-container:hover .tooltip-text {
             visibility: visible;
             opacity: 1;
@@ -85,6 +85,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -96,8 +97,13 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
     </style>
 
@@ -108,7 +114,8 @@
                     <div class="swiper-slide w-full aspect-video md:h-[70vh] bg-center bg-cover flex lazy-slide"
                         data-bg="{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}">
 
-                        <div class="hero-overlay flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-16 md:pb-24 bg-gradient-to-b from-black/10 via-black/20 to-black/50">
+                        <div
+                            class="hero-overlay flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-16 md:pb-24 bg-gradient-to-b from-black/10 via-black/20 to-black/50">
                             <div class="container mx-auto hero-content">
                                 <h1 class="hero-title text-2xl md:text-5xl font-bold text-white mb-3">
                                     {{ $banner->title ?? 'Nusantara Edupark' }}
@@ -116,18 +123,23 @@
                                 <p class="hero-description text-base md:text-xl text-white mb-6 drop-shadow-md">
                                     {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
                                 </p>
-                                <div class="hero-buttons flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-3">
-                                    <a href="{{ route('packets') }}" class="bg-purple-800 hover:bg-purple-700 text-white px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center">
+                                <div
+                                    class="hero-buttons flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-3">
+                                    <a href="{{ route('packets') }}"
+                                        class="bg-purple-800 hover:bg-purple-700 text-white px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center">
                                         <i class="fas fa-ticket-alt mr-2"></i> Lihat Paket Wisata
                                     </a>
-                                    <a href="{{ route('gallery') }}" class="bg-white/30 backdrop-blur-sm hover:bg-white/40 text-white border border-white/50 px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center">
+                                    <a href="{{ route('gallery') }}"
+                                        class="bg-white/30 backdrop-blur-sm hover:bg-white/40 text-white border border-white/50 px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center">
                                         <i class="fas fa-images mr-2"></i> Galeri
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <!-- Tambahkan area klik untuk banner -->
-                        <div class="absolute inset-0 cursor-pointer" onclick="openBannerModal('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}', '{{ $banner->title ?? 'Nusantara Edupark' }}')"></div>
+                        <div class="absolute inset-0 cursor-pointer"
+                            onclick="openBannerModal('{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}', '{{ $banner->title ?? 'Nusantara Edupark' }}')">
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -135,7 +147,7 @@
             <!-- swiper pagination -->
             <div class="swiper-pagination"></div>
         </div>
-        
+
         <!-- Wave/Curved shape at the bottom -->
         {{-- <div class="hero-wave">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-[60px] md:h-[80px]">
@@ -145,16 +157,17 @@
     </div>
 
     <!-- Modal untuk Banner -->
-    <dialog id="banner-modal" class="rounded-xl max-w-4xl sm:mx-auto backdrop:bg-black/80" onclick="handleOutsideClick(event, this)">
+    <dialog id="banner-modal" class="rounded-xl max-w-4xl sm:mx-auto backdrop:bg-black/80"
+        onclick="handleOutsideClick(event, this)">
         <div class="relative bg-transparent rounded-xl overflow-hidden max-h-[50vh]">
             <button onclick="document.getElementById('banner-modal').close()"
-                    class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-black z-10">
+                class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-2 hover:bg-black z-10">
                 <i class="fas fa-times"></i>
             </button>
             <img id="banner-modal-image" src="" alt="Banner" class="w-full h-auto max-h-[50vh] object-contain">
         </div>
     </dialog>
-    
+
     <script>
         function openBannerModal(imageUrl, title) {
             const modal = document.getElementById('banner-modal');
@@ -173,10 +186,11 @@
                 const fontAwesome = document.createElement('link');
                 fontAwesome.rel = 'stylesheet';
                 fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
-                fontAwesome.integrity = 'sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==';
+                fontAwesome.integrity =
+                    'sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==';
                 fontAwesome.crossOrigin = 'anonymous';
                 fontAwesome.referrerPolicy = 'no-referrer';
-                
+
                 // Append to head
                 document.head.appendChild(fontAwesome);
             }
@@ -188,7 +202,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Deteksi apakah perangkat mobile
             const isMobile = window.innerWidth < 768;
-            
+
             // Fungsi untuk me-load AOS library
             function loadAOS() {
                 const aosScript = document.createElement('script');
@@ -217,7 +231,7 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const swiperScript = document.createElement('script');
             swiperScript.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
             swiperScript.onload = function() {
@@ -236,7 +250,7 @@
                         init: function() {
                             loadActiveSlideBg();
                         },
-                        slideChangeTransitionStart: function () {
+                        slideChangeTransitionStart: function() {
                             loadActiveSlideBg();
                         },
                     },
@@ -249,7 +263,8 @@
                 if (activeSlide && !activeSlide.classList.contains("bg-loaded")) {
                     const bg = activeSlide.getAttribute("data-bg");
                     if (bg) {
-                        activeSlide.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${bg}')`;
+                        activeSlide.style.backgroundImage =
+                            `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('${bg}')`;
                         activeSlide.classList.add("bg-loaded");
                     }
                 }
@@ -282,8 +297,12 @@
     <!-- Features Section with Playful Elements -->
     <section class="py-12 bg-white relative overflow-hidden">
         <!-- Background Decorative Elements - simplified -->
-        <div class="absolute top-0 right-0 w-28 h-28 bg-yellow-200 rounded-full opacity-20 transform -translate-y-1/2 translate-x-1/2"></div>
-        <div class="absolute bottom-0 left-0 w-40 h-40 bg-green-200 rounded-full opacity-20 transform translate-y-1/2 -translate-x-1/2"></div>
+        <div
+            class="absolute top-0 right-0 w-28 h-28 bg-yellow-200 rounded-full opacity-20 transform -translate-y-1/2 translate-x-1/2">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 w-40 h-40 bg-green-200 rounded-full opacity-20 transform translate-y-1/2 -translate-x-1/2">
+        </div>
 
         <div class="container mx-auto px-6">
             <div class="text-center mb-10" data-aos="fade-up">
@@ -298,36 +317,35 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div
-                    class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
                     data-aos="fade-up" data-aos-delay="100">
                     <div
                         class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
                         <i class="fas fa-seedling text-green-600 text-2xl group-hover:animate-bounce-slow"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Edukasi Pertanian</h3>
-                    <p class="text-gray-600 text-sm">Pelajari teknik bertani modern dan tradisional dengan pengalaman langsung
+                    <p class="text-gray-600 text-sm">Pelajari teknik bertani modern dan tradisional dengan pengalaman
+                        langsung
                         di lahan pertanian kami.</p>
                     <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     </div>
                 </div>
 
-                <div
-                    class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
                     data-aos="fade-up" data-aos-delay="200">
                     <div
                         class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
                         <i class="fas fa-horse text-orange-600 text-2xl group-hover:animate-bounce-slow"></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Peternakan Interaktif</h3>
-                    <p class="text-gray-600 text-sm">Berinteraksi dengan beragam hewan ternak dan pelajari cara merawat mereka
+                    <p class="text-gray-600 text-sm">Berinteraksi dengan beragam hewan ternak dan pelajari cara merawat
+                        mereka
                         dengan baik.</p>
                     <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     </div>
                 </div>
 
-                <div
-                    class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
+                <div class="bg-white p-5 rounded-xl shadow-md hover:shadow-xl transition-all text-center transform hover:-translate-y-2 hover:rotate-1 group"
                     data-aos="fade-up" data-aos-delay="300">
                     <div
                         class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-all">
@@ -348,7 +366,7 @@
     <section class="py-12 bg-white relative overflow-hidden">
         <!-- Background Elements - simplified -->
         <!-- <div class="absolute inset-0 bg-pattern opacity-5"></div> -->
-        
+
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8" data-aos="fade-up">
                 <div>
@@ -370,24 +388,23 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @forelse ($packets as $packet)
-                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative" 
-                         data-aos="fade-up" 
-                         data-aos-delay="{{ $loop->index * 100 }}">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group relative"
+                        data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                         <div class="relative h-40 md:h-48 overflow-hidden rounded-t-xl">
                             <div class="absolute inset-0 bg-gray-300 animate-pulse"></div>
-                            <img 
-                                data-src="{{ asset('storage/' . $packet->image) }}"
-                                loading="lazy"
+                            <img data-src="{{ asset('storage/' . $packet->image) }}" loading="lazy"
                                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 cursor-pointer opacity-0"
                                 alt="{{ $packet->title }}"
                                 onload="this.style.opacity='1'; this.parentElement.querySelector('.animate-pulse').classList.add('opacity-0');"
-                                onclick="openImageModal('{{ asset('storage/' . $packet->image) }}', '{{ $packet->title }}')"
-                            >
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            
+                                onclick="openImageModal('{{ asset('storage/' . $packet->image) }}', '{{ $packet->title }}')">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+
                             <!-- Tombol untuk melihat gambar paket wisata -->
                             <div class="absolute z-10 top-2 right-2 flex gap-2">
-                                <button onclick="openImageModal('{{ asset('storage/' . $packet->image) }}', '{{ $packet->title }}')"
+                                <button
+                                    onclick="openImageModal('{{ asset('storage/' . $packet->image) }}', '{{ $packet->title }}')"
                                     class="bg-white/80 hover:bg-white text-purple-900 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform hover:scale-105 tooltip-container">
                                     <i class="fas fa-expand"></i>
                                     <span class="tooltip-text">Perbesar</span>
@@ -397,50 +414,60 @@
 
                         <div class="p-4">
                             <div class="mb-2">
-                                <h3 class="text-lg font-bold text-gray-800 group-hover:text-purple-700 transition-colors">{{ $packet->title }}</h3>
-                                <div class="w-10 h-1 bg-purple-700 mt-1.5 mb-2 group-hover:w-16 transition-all duration-300"></div>
+                                <h3 class="text-lg font-bold text-gray-800 group-hover:text-purple-700 transition-colors">
+                                    {{ $packet->title }}</h3>
+                                <div
+                                    class="w-10 h-1 bg-purple-700 mt-1.5 mb-2 group-hover:w-16 transition-all duration-300">
+                                </div>
                                 <!-- <p class="text-gray-600 mb-4 line-clamp-2">{{ $packet->description }}</p> -->
                             </div>
-                            
+
                             <div class="space-y-2">
                                 <!-- Pricing Cards -->
                                 <div class="grid grid-cols-2 gap-2">
-                                    <div class="bg-purple-50 rounded-lg p-2 border-l-4 border-purple-600 transform transition-transform hover:scale-105">
+                                    <div
+                                        class="bg-purple-50 rounded-lg p-2 border-l-4 border-purple-600 transform transition-transform hover:scale-105">
                                         <p class="text-xs text-gray-600 mb-0.5">Weekday</p>
                                         <p class="text-base font-bold text-purple-700">
                                             {{ $packet->weekday_price ?: 'Hubungi kami' }}
                                         </p>
                                     </div>
-                                    <div class="bg-indigo-50 rounded-lg p-2 border-l-4 border-indigo-600 transform transition-transform hover:scale-105">
+                                    <div
+                                        class="bg-indigo-50 rounded-lg p-2 border-l-4 border-indigo-600 transform transition-transform hover:scale-105">
                                         <p class="text-xs text-gray-600 mb-0.5">Weekend</p>
                                         <p class="text-base font-bold text-indigo-700">
                                             {{ $packet->weekend_price ?: 'Hubungi kami' }}
                                         </p>
                                     </div>
                                 </div>
-                                
+
                                 <div class="flex gap-2 pt-1.5">
                                     <a href="{{ route('packets') }}#contact-packet"
                                         class="flex-1 bg-purple-600 hover:bg-purple-800 text-white font-medium py-1.5 px-3 rounded-lg transition-colors text-center inline-flex items-center justify-center text-sm">
                                         <i class="fas fa-ticket-alt mr-1"></i> Pesan
                                     </a>
-                                    <button onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
+                                    <button
+                                        onclick="document.getElementById('detailModal-{{ $packet->id }}').showModal()"
                                         class="flex-1 bg-purple-100 hover:bg-purple-200 text-purple-700 font-medium py-1.5 px-3 rounded-lg transition-colors text-sm">
                                         <i class="fas fa-info-circle mr-1"></i> Detail
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Decoration elements -->
-                        <div class="absolute -bottom-2 -right-2 w-16 h-16 bg-purple-200 rounded-full opacity-20 z-0 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
-                        <div class="absolute -top-2 -left-2 w-12 h-12 bg-indigo-200 rounded-full opacity-20 z-0 transform scale-0 group-hover:scale-100 transition-transform duration-500 delay-100"></div>
+                        <div
+                            class="absolute -bottom-2 -right-2 w-16 h-16 bg-purple-200 rounded-full opacity-20 z-0 transform scale-0 group-hover:scale-100 transition-transform duration-500">
+                        </div>
+                        <div
+                            class="absolute -top-2 -left-2 w-12 h-12 bg-indigo-200 rounded-full opacity-20 z-0 transform scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
+                        </div>
 
                         <dialog id="detailModal-{{ $packet->id }}"
-                            class="rounded-xl w-500 max-w-3xl sm:mx-auto mx-2 my-4 sm:my-8 p-0 overflow-hidden backdrop:bg-black/50"
+                            class="rounded-xl w-500 max-w-3xl sm:mx-auto mx-2 my-4 sm:my-8 p-0 overflow-hidden backdrop:bg-black/50 backdrop-blur-sm"
                             onclick="handleOutsideClick(event, this)">
-                            <div
-                                class="bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh] flex flex-col">
+
+                            <div class="bg-white rounded-xl shadow-lg overflow-hidden max-h-[90vh] flex flex-col">
                                 <!-- Header -->
                                 <div class="p-4 sm:p-6 border-b border-gray-200 bg-purple-50">
                                     <h4 class="text-xl sm:text-2xl font-bold text-purple-800 flex items-center mb-1">
@@ -486,8 +513,7 @@
                                 <!-- Footer -->
                                 <div
                                     class="px-4 sm:px-6 py-4 bg-gray-50 flex flex-col sm:flex-row justify-end gap-3 border-t">
-                                    <button
-                                        onclick="document.getElementById('detailModal-{{ $packet->id }}').close()"
+                                    <button onclick="document.getElementById('detailModal-{{ $packet->id }}').close()"
                                         class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-md transition w-full sm:w-auto">
                                         Tutup
                                     </button>
@@ -528,7 +554,7 @@
     <section class="py-12 bg-white relative overflow-hidden">
         <!-- Decorative Background Elements -->
         <div class="absolute inset-0 bg-pattern opacity-5"></div>
-        
+
         <div class="container mx-auto px-6 relative z-10">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8" data-aos="fade-up">
                 <div>
@@ -552,18 +578,15 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @forelse ($facilities as $facility)
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group"
-                        data-aos="fade-up" 
-                        data-aos-delay="{{ $loop->index * 100 }}">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all transform hover:-translate-y-2 group"
+                        data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                         <div class="relative overflow-hidden">
                             <div class="relative w-full h-48 overflow-hidden bg-gray-300 animate-pulse">
                                 <img src="{{ asset('storage/' . $facility->image) }}" loading="lazy"
                                     class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700 opacity-0 cursor-pointer"
                                     alt="{{ $facility->title }}"
                                     onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse');"
-                                    onclick="openImageModal('{{ asset('storage/' . $facility->image) }}', '{{ $facility->title }}')"
-                                >
+                                    onclick="openImageModal('{{ asset('storage/' . $facility->image) }}', '{{ $facility->title }}')">
                             </div>
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
@@ -575,9 +598,9 @@
                         <div class="p-4">
                             <div class="flex justify-between items-center mb-2">
                                 <!-- <span
-                                                class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                                <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
-                                            </span> -->
+                                                                            class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                                                            <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
+                                                                        </span> -->
                             </div>
                             <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
                             <p class="text-gray-600 mb-3 text-sm">{{ $facility->description }}</p>
@@ -607,8 +630,8 @@
     <!-- Modal Detail Fasilitas -->
     <div id="facility-detail-modal"
         class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 hidden transition-opacity duration-300">
-            <div id="facility-modal-box"
-        class="bg-white p-3 rounded-xl shadow-2xl w-full max-w-2xl mx-auto transform scale-95 opacity-0 transition-all duration-300 max-h-[80vh] overflow-y-auto">
+        <div id="facility-modal-box"
+            class="bg-white p-3 rounded-xl shadow-2xl w-full max-w-2xl mx-auto transform scale-95 opacity-0 transition-all duration-300 max-h-[80vh] overflow-y-auto">
 
             <div class="flex justify-between items-start mb-3">
                 <h2 id="facility-title" class="text-xl font-bold text-gray-800"></h2>
@@ -675,7 +698,7 @@
         }
     </script>
 
-   
+
     <!-- Gallery Section with Fun Interactive Elements -->
     <section class="py-12 relative overflow-hidden">
         <!-- Background dengan bentuk gelombang -->
@@ -697,8 +720,7 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-16">
                 @forelse ($galleries->take(8) as $gallery)
                     <div class="relative overflow-hidden rounded-lg group cursor-pointer"
-                        onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}', '{{ $gallery->title }}', '{{ addslashes($gallery->description ?? '') }}')"
-                        data-aos="zoom-in" 
+                        onclick="openGalleryModal('{{ asset('storage/' . $gallery->image) }}')" data-aos="zoom-in"
                         data-aos-delay="{{ $loop->index * 50 }}">
                         <div class="relative w-full h-40 overflow-hidden bg-gray-300 animate-pulse">
                             <img src="{{ asset('storage/' . $gallery->image) }}"
@@ -750,26 +772,18 @@
                         <img id="gallery-image" src="" alt=""
                             class="max-h-[55vh] max-w-full object-contain">
                     </div>
-
-                    <!-- Caption -->
-                    <div class="bg-white p-3 rounded-b-lg">
-                        <h3 id="gallery-title" class="text-lg font-bold text-gray-800 mb-1"></h3>
-                        <p id="gallery-description" class="text-gray-600 text-sm"></p>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        function openGalleryModal(imageUrl, title, description) {
+        function openGalleryModal(imageUrl) {
             const modal = document.getElementById('gallery-modal');
             const box = document.getElementById('gallery-modal-box');
 
             document.getElementById('gallery-image').src = imageUrl;
-            document.getElementById('gallery-image').alt = title;
-            document.getElementById('gallery-title').textContent = title;
-            document.getElementById('gallery-description').textContent = description || 'Tidak ada deskripsi';
+            document.getElementById('gallery-image').alt = 'Galeri';
 
             modal.classList.remove('hidden');
             setTimeout(() => {
@@ -777,7 +791,6 @@
                 box.classList.add('scale-100', 'opacity-100');
             }, 10);
 
-            // Mencegah scrolling pada body ketika modal terbuka
             document.body.style.overflow = 'hidden';
         }
 
@@ -790,19 +803,17 @@
 
             setTimeout(() => {
                 modal.classList.add('hidden');
-                // Mengaktifkan kembali scrolling pada body
                 document.body.style.overflow = 'auto';
             }, 300);
         }
 
-        // Menambahkan keyboard listener untuk menutup dengan tombol ESC
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeGalleryModal();
-                closeDetailModal();
             }
         });
     </script>
+
 
 
     <!-- Blog Section -->
@@ -821,26 +832,22 @@
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300"
                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14 5l7 7-7 7" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7-7 7" />
                     </svg>
                 </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ($blogs->take(3) as $blogItem)
-                    <div
-                        class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group"
-                        data-aos="fade-up" 
-                        data-aos-delay="{{ $loop->index * 100 }}">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 group"
+                        data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                         <div class="relative overflow-hidden">
                             <div class="relative w-full h-48 overflow-hidden bg-gray-300 animate-pulse">
                                 <img src="{{ asset('storage/' . $blogItem->picture) }}" loading="lazy"
                                     class="w-full h-48 object-cover object-center transform group-hover:scale-105 transition-transform duration-500 opacity-0 cursor-pointer"
                                     alt="{{ $blogItem->title }}"
                                     onload="this.style.opacity='1'; this.parentElement.classList.remove('animate-pulse', 'bg-gray-300');"
-                                    onclick="openImageModal('{{ asset('storage/' . $blogItem->picture) }}', '{{ $blogItem->title }}')"
-                                >
+                                    onclick="openImageModal('{{ asset('storage/' . $blogItem->picture) }}', '{{ $blogItem->title }}')">
                             </div>
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1012,7 +1019,8 @@
                                 img.src = src;
                                 img.onload = function() {
                                     img.style.opacity = '1';
-                                    const animateElement = img.parentElement.querySelector('.animate-pulse');
+                                    const animateElement = img.parentElement.querySelector(
+                                        '.animate-pulse');
                                     if (animateElement) {
                                         animateElement.classList.remove('animate-pulse');
                                     }
@@ -1061,10 +1069,10 @@
             // Load testimonials when they are about to be visible
             const testimonialsSection = document.getElementById('testimonials');
             let testimonialsLoaded = false;
-            
+
             function loadTestimonials() {
                 if (testimonialsLoaded) return;
-                
+
                 // Ambil testimonial dari API
                 fetch('{{ route('api.testimonials') }}')
                     .then(response => response.json())
@@ -1142,7 +1150,7 @@
 
                             container.appendChild(testimonialCard);
                         });
-                        
+
                         testimonialsLoaded = true;
                     })
                     .catch(error => {
@@ -1162,8 +1170,10 @@
                             observer.unobserve(entry.target);
                         }
                     });
-                }, {rootMargin: '100px'});
-                
+                }, {
+                    rootMargin: '100px'
+                });
+
                 observer.observe(testimonialsSection);
             } else {
                 // Fallback for browsers that don't support Intersection Observer
@@ -1219,14 +1229,16 @@
     </script> --}}
 
     <!-- Modal Global untuk Gambar -->
-    <dialog id="image-modal" class="rounded-xl max-w-3xl sm:mx-auto backdrop:bg-black/80" onclick="handleOutsideClick(event, this)">
+    <dialog id="image-modal" class="rounded-xl max-w-3xl sm:mx-auto backdrop:bg-black/80"
+        onclick="handleOutsideClick(event, this)">
         <div class="relative bg-transparent rounded-xl overflow-hidden max-h-[75vh]">
             <button onclick="document.getElementById('image-modal').close()"
-                    class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-1.5 hover:bg-black z-10">
+                class="absolute top-2 right-2 bg-black/60 text-white rounded-full p-1.5 hover:bg-black z-10">
                 <i class="fas fa-times"></i>
             </button>
             <img id="modal-image" src="" alt="Image" class="w-full h-auto max-h-[75vh] object-contain">
-            <div id="modal-caption" class="bg-black/70 text-white p-1.5 text-center absolute bottom-0 w-full text-sm"></div>
+            <div id="modal-caption" class="bg-black/70 text-white p-1.5 text-center absolute bottom-0 w-full text-sm">
+            </div>
         </div>
     </dialog>
 
@@ -1235,12 +1247,12 @@
             const modal = document.getElementById('image-modal');
             const img = document.getElementById('modal-image');
             const captionEl = document.getElementById('modal-caption');
-            
+
             img.src = imageUrl;
             img.alt = caption;
             captionEl.textContent = caption;
             modal.showModal();
-            
+
             // Mencegah scrolling pada body ketika modal terbuka
             document.body.style.overflow = 'hidden';
         }
