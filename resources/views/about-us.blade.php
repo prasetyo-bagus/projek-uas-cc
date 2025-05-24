@@ -1,39 +1,13 @@
 @extends('layouts.guest')
 
 @section('content')
-    <!-- Hero Section -->
-    {{-- <section class="relative bg-purple-900 text-white py-32">
-    <!-- Background Image dengan overlay -->
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('storage/images/about/hero-bg.jpg') }}');">
-        <div class="absolute inset-0 bg-purple-900 opacity-75"></div>
-    </div>
-
-    <!-- Icon-icon dekoratif -->
-    <div class="absolute inset-0 overflow-hidden opacity-10">
-        <i class="fas fa-leaf absolute text-6xl" style="top: 15%; left: 10%;"></i>
-        <i class="fas fa-tractor absolute text-7xl" style="top: 60%; left: 15%;"></i>
-        <i class="fas fa-cow absolute text-6xl" style="top: 30%; right: 12%;"></i>
-        <i class="fas fa-seedling absolute text-5xl" style="top: 70%; right: 20%;"></i>
-    </div>
-
-    <div class="container mx-auto px-6 relative z-10">
-        <div class="text-center max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6">Tentang Nusantara Edupark</h1>
-            <p class="text-xl md:text-2xl text-gray-200">Wisata Edukasi Pertanian, Peternakan, dan Perkebunan</p>
-            <div class="mt-10 flex justify-center space-x-4">
-
-            </div>
-        </div>
-    </div>
-</section> --}}
-
     <!-- Our History Section -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
                     <div class="relative">
-                        <img src="{{ asset('storage/Logo/LogoNusantara2.png') }}" alt="Sejarah Nusantara Edupark"
+                        <img src="{{ asset('favicon.svg') }}" alt="Sejarah Nusantara Edupark"
                             class="w-3/5 h-auto mx-auto">
                         <div class="absolute -bottom-6 -right-6 bg-purple-600 text-white py-2 px-4 rounded shadow-md">
                             <span class="text-xl font-bold">Sejak 2021</span>

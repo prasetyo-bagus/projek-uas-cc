@@ -10,7 +10,7 @@
     <!-- Vite & Livewire -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -132,7 +132,7 @@
 <body class="bg-gray-100 text-gray-900 font-poppins antialiased">
     @include('navbar.guestnavbar')
 
-    <main class="w-full content-wrapper {{ request()->routeIs('homepage') ? 'homepage-content' : '' }}">
+    <main class="w-full content-wrapper bg-white{{ request()->routeIs('homepage') ? 'homepage-content' : '' }}">
         @yield('content')
 
         @livewireScripts

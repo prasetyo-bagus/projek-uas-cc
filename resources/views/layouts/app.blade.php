@@ -55,6 +55,7 @@
         @include('navbar.guestfooter')
     @endif
 
+    @livewireScripts
 </body>
 
 </html>

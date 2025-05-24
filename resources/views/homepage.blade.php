@@ -231,12 +231,15 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const swiperScript = document.createElement('script');
             swiperScript.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-            swiperScript.onload = function() {
+            swiperScript.onload = function () {
+                const slideCount = document.querySelectorAll(".heroSwiper .swiper-slide").length;
+                const enableLoop = slideCount > 1;
+
                 const swiper = new Swiper(".heroSwiper", {
-                    loop: true,
+                    loop: enableLoop,
                     effect: "fade",
                     autoplay: {
                         delay: 5000,
@@ -247,10 +250,10 @@
                         clickable: true,
                     },
                     on: {
-                        init: function() {
+                        init: function () {
                             loadActiveSlideBg();
                         },
-                        slideChangeTransitionStart: function() {
+                        slideChangeTransitionStart: function () {
                             loadActiveSlideBg();
                         },
                     },
