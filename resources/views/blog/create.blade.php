@@ -2,17 +2,18 @@
 
 @section('content')
     <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-5xl mx-auto">
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-gray-800">Tambah Berita</h1>
                 <p class="text-gray-500 mt-1">Buat konten berita baru untuk Nusantara Edupark</p>
             </div>
-            <a href="{{ route('blogs.index') }}"
-                class="flex items-center text-primary-600 hover:text-primary-800 transition-colors">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Daftar
-            </a>
+            <div class="flex justify-end">
+                <a href="{{ route('blogs.index') }}"
+                    class="flex items-center text-primary-600 hover:text-primary-800 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Kembali
+                </a>
+            </div>
         </div>
-
         <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
@@ -131,8 +132,8 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Preview gambar 
+        document.addEventListener('DOMContentLoaded', function() {
+            // Preview gambar
             const imageInput = document.getElementById('imageInput');
             const preview = document.getElementById('preview');
             const placeholder = document.getElementById('placeholder');
@@ -144,7 +145,7 @@
             function showPreview(file) {
                 if (file) {
                     const reader = new FileReader();
-                    reader.onload = function (e) {
+                    reader.onload = function(e) {
                         previewImg.src = e.target.result;
                         placeholder.classList.add('hidden');
                         preview.classList.remove('hidden');
@@ -156,14 +157,14 @@
             }
 
             // Event untuk memilih file
-            imageInput.addEventListener('change', function () {
+            imageInput.addEventListener('change', function() {
                 if (this.files && this.files[0]) {
                     showPreview(this.files[0]);
                 }
             });
 
             // Event untuk menghapus gambar
-            removeButton.addEventListener('click', function () {
+            removeButton.addEventListener('click', function() {
                 imageInput.value = '';
                 placeholder.classList.remove('hidden');
                 preview.classList.add('hidden');
@@ -172,18 +173,18 @@
             });
 
             // Drag & drop functionality
-            dropzone.addEventListener('dragover', function (e) {
+            dropzone.addEventListener('dragover', function(e) {
                 e.preventDefault();
                 dropzone.classList.add('border-primary-400', 'bg-primary-50');
             });
 
-            dropzone.addEventListener('dragleave', function (e) {
+            dropzone.addEventListener('dragleave', function(e) {
                 e.preventDefault();
                 if (!preview.classList.contains('hidden')) return;
                 dropzone.classList.remove('border-primary-400', 'bg-primary-50');
             });
 
-            dropzone.addEventListener('drop', function (e) {
+            dropzone.addEventListener('drop', function(e) {
                 e.preventDefault();
                 if (e.dataTransfer.files && e.dataTransfer.files[0]) {
                     imageInput.files = e.dataTransfer.files;
@@ -194,13 +195,13 @@
     </script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#summernote').summernote({
                 placeholder: 'Isi konten blog di sini...',
                 tabsize: 2,
                 height: 500,
                 callbacks: {
-                    onImageUpload: function (files) {
+                    onImageUpload: function(files) {
                         uploadImage(files[0]);
                     }
                 },
@@ -215,7 +216,7 @@
                 ]
             });
 
-            $('form').on('submit', function () {
+            $('form').on('submit', function() {
                 var content = $('#summernote').summernote('code');
                 $('input[name="body"]').val(content);
             });
@@ -235,10 +236,10 @@
                 processData: false,
                 data: data,
                 type: "POST",
-                success: function (response) {
+                success: function(response) {
                     $('#summernote').summernote('insertImage', response.url);
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     alert('Upload gambar gagal: ' + error);
                 }
             });

@@ -2,15 +2,17 @@
 
 @section('content')
     <div class="bg-white shadow-lg rounded-xl p-8 w-full mx-auto">
-        <div class="flex items-center justify-between mb-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
             <div>
                 <h2 class="text-2xl font-bold text-gray-800">Tambah Aset Dinamis</h2>
                 <p class="text-gray-500 mt-1">Unggah dan kelola aset untuk digunakan di website Nusantara Edupark</p>
             </div>
-            <a href="{{ route('dynamic-assets.index') }}"
-                class="flex items-center text-primary-600 hover:text-primary-800 transition-colors">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Daftar
-            </a>
+            <div class="flex justify-end ">
+                <a href="{{ route('dynamic-assets.index') }}"
+                    class="inline-flex items-center text-primary-600 hover:text-primary-800 transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Kembali
+                </a>
+            </div>
         </div>
 
         <!-- Pilihan Tipe Aset -->
@@ -103,38 +105,52 @@
                 </div> --}}
 
                 <div class="flex items-center mb-6">
-                    <div class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
-                        <i class="fa-solid 
-                            {{ $type == 'BANNER'   ? 'fa-image' :
-                            ($type == 'GALERY'  ? 'fa-images' :
-                            ($type == 'FACILITY'? 'fa-building' :
-                            ($type == 'LAYANAN'? 'fa-hand-holding-heart' :
-                            ($type == 'SPONSOR' ? 'fa-handshake' :
-                            'fa-box')))) }} text-lg"></i>
+                    <div
+                        class="w-10 h-10 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 mr-3">
+                        <i
+                            class="fa-solid
+                            {{ $type == 'BANNER'
+                                ? 'fa-image'
+                                : ($type == 'GALERY'
+                                    ? 'fa-images'
+                                    : ($type == 'FACILITY'
+                                        ? 'fa-building'
+                                        : ($type == 'LAYANAN'
+                                            ? 'fa-hand-holding-heart'
+                                            : ($type == 'SPONSOR'
+                                                ? 'fa-handshake'
+                                                : 'fa-box')))) }} text-lg"></i>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800">Tambah
-                            {{
-                                $type == 'BANNER'   ? 'Banner'   :
-                                ($type == 'GALERY'  ? 'Galeri'   :
-                                ($type == 'FACILITY'? 'Fasilitas':
-                                ($type == 'LAYANAN'? 'Layanan':
-                                ($type == 'SPONSOR' ? 'Sponsor'  :
-                                'Paket Wisata Edukasi'))))
-                            }}
+                            {{ $type == 'BANNER'
+                                ? 'Banner'
+                                : ($type == 'GALERY'
+                                    ? 'Galeri'
+                                    : ($type == 'FACILITY'
+                                        ? 'Fasilitas'
+                                        : ($type == 'LAYANAN'
+                                            ? 'Layanan'
+                                            : ($type == 'SPONSOR'
+                                                ? 'Sponsor'
+                                                : 'Paket Wisata Edukasi')))) }}
                         </h3>
                         <p class="text-sm text-gray-500 mt-1 capitalize">Silakan isi detail informasi
-                            {{
-                                strtolower(
-                                    $type == 'BANNER'   ? 'Banner'   :
-                                    ($type == 'GALERY'  ? 'Galeri'   :
-                                    ($type == 'FACILITY'? 'Fasilitas':
-                                    ($type == 'PACKET'? 'PAKET':
-                                    ($type == 'LAYANAN'? 'Layanan':
-                                    ($type == 'SPONSOR' ? 'Sponsor'  :
-                                    'Paket Wisata')))))
-                                )
-                            }}
+                            {{ strtolower(
+                                $type == 'BANNER'
+                                    ? 'Banner'
+                                    : ($type == 'GALERY'
+                                        ? 'Galeri'
+                                        : ($type == 'FACILITY'
+                                            ? 'Fasilitas'
+                                            : ($type == 'PACKET'
+                                                ? 'PAKET'
+                                                : ($type == 'LAYANAN'
+                                                    ? 'Layanan'
+                                                    : ($type == 'SPONSOR'
+                                                        ? 'Sponsor'
+                                                        : 'Paket Wisata'))))),
+                            ) }}
                         </p>
                     </div>
                 </div>

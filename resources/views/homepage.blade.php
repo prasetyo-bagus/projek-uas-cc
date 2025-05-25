@@ -231,10 +231,10 @@
     </script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const swiperScript = document.createElement('script');
             swiperScript.src = 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js';
-            swiperScript.onload = function () {
+            swiperScript.onload = function() {
                 const slideCount = document.querySelectorAll(".heroSwiper .swiper-slide").length;
                 const enableLoop = slideCount > 1;
 
@@ -250,10 +250,10 @@
                         clickable: true,
                     },
                     on: {
-                        init: function () {
+                        init: function() {
                             loadActiveSlideBg();
                         },
-                        slideChangeTransitionStart: function () {
+                        slideChangeTransitionStart: function() {
                             loadActiveSlideBg();
                         },
                     },
@@ -415,7 +415,7 @@
                                 <div
                                     class="w-10 h-1 bg-purple-700 mt-1.5 mb-2 group-hover:w-16 transition-all duration-300">
                                 </div>
-                                <!-- <p class="text-gray-600 mb-4 line-clamp-2">{{ $packet->description }}</p> -->
+                                <p class="text-gray-600 mb-4 line-clamp-2">{{ $packet->description }}</p>
                             </div>
 
                             <div class="space-y-2">
@@ -595,9 +595,9 @@
                         <div class="p-4">
                             <div class="flex justify-between items-center mb-2">
                                 <!-- <span
-                                                                                                                                    class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
-                                                                                                                                    <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
-                                                                                                                                </span> -->
+                                                                                                                                        class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full flex items-center">
+                                                                                                                                        <i class="fas fa-check-circle text-green-600 mr-1"></i> Tersedia
+                                                                                                                                    </span> -->
                             </div>
                             <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $facility->title }}</h3>
                             <p class="text-gray-600 mb-3 text-sm">{{ $facility->description }}</p>
