@@ -10,9 +10,9 @@ class ImageUploadController extends Controller
 {
     public function upload(Request $request)
     {
-        // Validasi: pastikan file adalah gambar dan ukurannya < 2MB
+        // Validasi: pastikan file adalah gambar dan ukurannya < 10MB
         $request->validate([
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ]);
 
         // Ambil file dari request

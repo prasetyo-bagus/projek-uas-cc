@@ -49,7 +49,7 @@ class BlogController extends Controller
             'url'      => 'nullable|string|max:255|unique:blogs,url',
             'category' => 'required|in:BERITA,ACARA,DESTINASI,PANDUAN_WISATA,KULINER,PROMO,FASILITAS',
             'body'     => 'required',
-            'picture'  => 'required|image|mimes:jpeg,jpg,png|max:10048',
+            'picture'  => 'required|image|mimes:jpeg,jpg,png|max:10240',
             'status'   => 'required|in:PUBLISH,DRAF',
         ]);
 
@@ -98,7 +98,7 @@ class BlogController extends Controller
             'category' => 'required|in:BERITA,ACARA,DESTINASI,PANDUAN_WISATA,KULINER,PROMO,FASILITAS',
             'body'     => 'required',
             'status'   => 'required|in:PUBLISH,DRAF',
-            'picture'  => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'picture'  => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
         ]);
 
         $slug = $request->url ? Str::slug($request->url) : Str::slug($request->title);

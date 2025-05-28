@@ -21,7 +21,7 @@ class TestimonialController extends Controller
             'pesan' => 'required|string',
             'rating' => 'required|integer|min:1|max:5',
             'kota' => 'nullable|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
         ]);
 
         $data = [

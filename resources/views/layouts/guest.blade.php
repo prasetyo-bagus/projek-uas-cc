@@ -129,10 +129,10 @@
     </style>
 </head>
 
-<body class="bg-gray-100 text-gray-900 font-poppins antialiased">
+<body class="text-gray-900 font-poppins antialiased">
     @include('navbar.guestnavbar')
 
-    <main class="w-full content-wrapper bg-white{{ request()->routeIs('homepage') ? 'homepage-content' : '' }}">
+    <main class="w-full bg-white{{ request()->routeIs('homepage') ? 'homepage-content' : '' }}">
         @yield('content')
 
         @livewireScripts

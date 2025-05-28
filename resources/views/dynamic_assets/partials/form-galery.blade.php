@@ -21,6 +21,11 @@
             <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center relative" id="dropzone">
                 <input type="file" name="image" id="imageInput" {{ isset($data) ? '' : 'required' }}
                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                    @if ($errors->has('image'))
+                        <div class="text-red-600 text-sm mt-1">
+                            {{ $errors->first('image') }}
+                        </div>
+                    @endif
                 <div id="placeholder"
                     class="flex flex-col items-center justify-center py-4 {{ isset($data) && $data->image ? 'hidden' : '' }}">
                     <i class="fa-solid fa-cloud-arrow-up text-gray-400 text-3xl mb-2"></i>

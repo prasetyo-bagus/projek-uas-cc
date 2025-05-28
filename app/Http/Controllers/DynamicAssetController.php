@@ -66,11 +66,10 @@ class DynamicAssetController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi dasar untuk semua tipe
         $baseValidation = [
             'type' => 'required|in:BANNER,GALERY,FACILITY,PACKET,SPONSOR,LAYANAN',
             'title' => 'nullable|string|max:255',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'required|image|mimes:jpg,jpeg,png|max:10240',
             'description' => 'nullable|string|max:255',
             'detail' => 'nullable|string',
             'is_active' => 'required|boolean',
@@ -176,7 +175,7 @@ class DynamicAssetController extends Controller
         $baseValidation = [
             'type' => 'required|in:BANNER,GALERY,FACILITY,PACKET,SPONSOR,LAYANAN',
             'title' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:10240',
             'description' => 'nullable|string|max:255',
             'detail' => 'nullable|string',
             'is_active' => 'required|boolean',

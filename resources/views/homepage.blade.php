@@ -108,29 +108,25 @@
     </style>
 
     <div class="hero-section">
-        <div class="swiper heroSwiper w-full h-[65vh] md:h-[80vh] relative">
+        <div class="swiper heroSwiper w-full h-[30vh] md:h-[80vh] relative">
             <div class="swiper-wrapper w-full h-full">
                 @foreach ($banners as $banner)
-                    <div class="swiper-slide w-full aspect-video md:h-[70vh] bg-center bg-cover flex lazy-slide"
+                    <div class="swiper-slide w-full aspect-video md:aspect-auto md:h-[70vh] bg-center bg-cover flex items-end lazy-slide"
                         data-bg="{{ $banner->image ? asset('storage/' . $banner->image) : asset('default_images/defaultbanner.png') }}">
 
                         <div
-                            class="hero-overlay flex flex-col justify-end items-center text-center w-full min-h-full px-6 pb-16 md:pb-24 bg-gradient-to-b from-black/10 via-black/20 to-black/50">
+                            class="hero-overlay h-full w-full px-6 pb-6 md:pb-6 bg-gradient-to-b from-transparent via-black/20 to-black/50 flex flex-col justify-end items-center text-center">
                             <div class="container mx-auto hero-content">
-                                <h1 class="hero-title text-2xl md:text-5xl font-bold text-white mb-3">
-                                    {{ $banner->title ?? 'Nusantara Edupark' }}
-                                </h1>
-                                <p class="hero-description text-base md:text-xl text-white mb-6 drop-shadow-md">
-                                    {{ $banner->description ?? 'Wisata Edukasi Pertanian, Peternakan, dan Perkebunan' }}
-                                </p>
                                 <div
-                                    class="hero-buttons flex flex-col md:flex-row justify-center space-y-3 md:space-y-0 md:space-x-3">
+                                    class="hero-buttons flex flex-row justify-center space-x-3px-4 py-2">
                                     <a href="{{ route('packets') }}"
-                                        class="bg-purple-800 hover:bg-purple-700 text-white px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center">
+                                        class="bg-purple-800 hover:bg-purple-700 text-white rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center
+                                            text-xs px-3 py-1.5 md:text-base md:px-5 md:py-2.5">
                                         <i class="fas fa-ticket-alt mr-2"></i> Lihat Paket Wisata
                                     </a>
                                     <a href="{{ route('gallery') }}"
-                                        class="bg-white/30 backdrop-blur-sm hover:bg-white/40 text-white border border-white/50 px-5 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center">
+                                        class="bg-white/30 hover:bg-white/40 text-white border border-white/50 rounded-full font-medium transition-all transform hover:scale-105 inline-flex items-center justify-center
+                                            text-xs px-3 py-1.5 md:text-base md:px-5 md:py-2.5">
                                         <i class="fas fa-images mr-2"></i> Galeri
                                     </a>
                                 </div>
