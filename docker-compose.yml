@@ -35,7 +35,7 @@ services:
     container_name: laravel12-nginx
     restart: always
     ports:
-      - "8080:80"
+      - "8082:80"
     volumes:
       - ./:/var/www
       - ./docker/nginx:/etc/nginx/conf.d
