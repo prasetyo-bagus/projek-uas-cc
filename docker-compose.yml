@@ -15,9 +15,13 @@ services:
       - /var/www/vendor
       - /var/www/node_modules
     environment:
-      - APP_ENV=production
+      - APP_ENV=${APP_ENV}
+      - APP_KEY=${APP_KEY}
       - DB_HOST=mysql
       - DB_PORT=3306
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
     networks:
       - laravel12-net
     depends_on:
@@ -26,21 +30,21 @@ services:
 
   # Nginx
   nginx:
-    image: nginx:1.25-alpine
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
     container_name: laravel12-nginx
     restart: always
     ports:
       - "18082:80"
     volumes:
       - ./:/var/www
-      # Jalur standar Git: folder lokal ke folder kontainer
-      - ./docker/nginx:/etc/nginx/conf.d
     networks:
       - laravel12-net
     depends_on:
       - app
 
-  # MySQL 8 (Sudah DIKUNCI dengan data asli kamu)
+  # MySQL 8
   mysql:
     image: mysql:8.0
     container_name: laravel12-mysql
@@ -48,10 +52,10 @@ services:
     ports:
       - "13306:3306"
     environment:
-      MYSQL_DATABASE: laravel12_db
-      MYSQL_USER: xqyo
-      MYSQL_PASSWORD: secure123
-      MYSQL_ROOT_PASSWORD: secure123
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
       - mysql12_data:/var/lib/mysql
     networks:
@@ -74,7 +78,7 @@ services:
     networks:
       - laravel12-net
 
-  # phpMyAdmin (Sudah disesuaikan password root-nya)
+  # phpMyAdmin
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: laravel12-phpmyadmin
@@ -83,7 +87,7 @@ services:
       - "18081:80"
     environment:
       PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: secure123
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     networks:
       - laravel12-net
     depends_on:
