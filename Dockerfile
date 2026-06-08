@@ -1,6 +1,6 @@
 FROM php:8.3-fpm
 
-# Install system dependencies
+# Install system dependencies + nodejs npm
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
+    nodejs \
+    npm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -37,7 +39,7 @@ WORKDIR /var/www
 # Copy composer files
 COPY composer.json composer.lock ./
 
-# Install dependencies
+# Install PHP dependencies
 RUN composer install \
     --no-dev \
     --no-scripts \
@@ -49,6 +51,9 @@ COPY . .
 
 # Generate optimized autoload
 RUN composer dump-autoload --optimize
+
+# Install node modules dan build vite
+RUN npm install && npm run build
 
 # Set permission
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
