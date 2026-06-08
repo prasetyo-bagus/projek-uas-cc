@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+
+  # Laravel App
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel12-app
+    restart: always
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - /var/www/vendor
+      - /var/www/node_modules
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_KEY=${APP_KEY}
+      - APP_DEBUG=${APP_DEBUG}
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - laravel12-net
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # Nginx
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: laravel12-nginx
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - laravel12-net
+    depends_on:
+      - app
+
+  # MySQL 8
+  mysql:
+    image: mysql:8.0
+    container_name: laravel12-mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mysql12_data:/var/lib/mysql
+    networks:
+      - laravel12-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis (baru wajib di Laravel 12)
+  redis:
+    image: redis:7.2-alpine
+    container_name: laravel12-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis12_data:/data
+    networks:
+      - laravel12-net
+
+  # phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: laravel12-phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    networks:
+      - laravel12-net
+    depends_on:
+      - mysql
+
+networks:
+  laravel12-net:
+    driver: bridge
+
+volumes:
+  mysql12_data:
+    driver: local
+  redis12_data:
+    driver: local
